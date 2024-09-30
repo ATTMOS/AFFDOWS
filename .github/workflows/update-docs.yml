@@ -39,7 +39,7 @@ jobs:
         git rm -rf .
 
         # Copy the new files from the Sphinx build
-        cp -r ../docs/_build/html/* .
+        cp -r ../_build/html/* .
 
         # Configure Git for commit
         git config user.name "github-actions[bot]"
