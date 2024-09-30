@@ -38,7 +38,7 @@ jobs:
         # Clean up old files from the gh-pages branch
         git rm -rf .
 
-        ls -l
+        ls -l docs/
         ls -l ../
         # Copy the new files from the Sphinx build
         cp -r ../_build/html/* .
