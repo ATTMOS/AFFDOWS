@@ -42,7 +42,7 @@ jobs:
         ls -l docs/_build/html/
         ls -l ../
         # Copy the new files from the Sphinx build
-        cp -r ../_build/html/* .
+        cp -r docs/_build/html/* .
 
         # Configure Git for commit
         git config user.name "github-actions[bot]"
