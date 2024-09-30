@@ -31,7 +31,7 @@ jobs:
       run: |
         rm -rf ../gh-pages  # Clean existing gh-pages directory
         mkdir ../gh-pages
-        cp -r _build/html/* ../gh-pages/
+        cp -r docs/_build/html/* ../gh-pages/
         # Configure git for GitHub Actions
         cd ..
         git config --local user.name "github-actions[bot]"
