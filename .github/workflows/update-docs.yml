@@ -1,0 +1,38 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - doc-update
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install Sphinx
+      run: pip install sphinx sphinx-rtd-theme rst2pdf bs4
+
+    - name: Build Documentation
+      run: |
+        cd docs
+        make html
+
+    - name: Deploy to Documentation Repository
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        deploy_key: ${{ secrets.DEPLOY_KEY }}
+        publish_branch: docs-v24.01
+        publish_dir: ./docs/_build/html
+        allow_empty_commit: true
+
+
