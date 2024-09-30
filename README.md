@@ -1,9 +1,5 @@
 <p align="right">
-<img src="https://github.com/Madu86/AFFDO/actions/workflows/linux-cuda.yml/badge.svg">
-<img src="https://github.com/Madu86/AFFDO/actions/workflows/macos.yml/badge.svg">
-<img src="https://github.com/Madu86/AFFDO/actions/workflows/linux.yml/badge.svg">
-<img src="https://github.com/ATTMOS/AFFDO/actions/workflows/update-docs.yml/badge.svg">
-<img src="https://github.com/ATTMOS/AFFDO/actions/workflows/build.yml/badge.svg">
+<img src="https://github.com/ATTMOS/AFFDOWS/actions/workflows/update-docs.yml/badge.svg">
 </p>
 <p align="left">
 <img width="320" height="75" src="./resources/logo-no-background.png">
