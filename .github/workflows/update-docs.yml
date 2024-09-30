@@ -26,14 +26,11 @@ jobs:
       run: |
         cd docs
         make html
-    - name: Deploy to Documentation Repository
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        deploy_key: ${{ secrets.AFFDOWS_PAT }}
-        external_repository: ATTMOS/AFFDOWS-docs
-        publish_branch: main
-        publish_dir: ./docs/_build/html
-        allow_empty_commit: true
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git commit -m "Deploy documentation"
+        git push --force --set-upstream https://x-access-token:${{ secrets.AFFDOWS_PAT }}@github.com/${{ github.repository }} gh-pages
 
 
 
