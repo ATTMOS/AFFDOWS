@@ -32,6 +32,7 @@ jobs:
         # Use the PAT stored in GitHub Secrets
         GH_PAT: ${{ secrets.AFFDOWS_PAT }}
       run: |
+        rm -rf docs/_build/html/.buildinfo
         git fetch origin gh-pages
         git checkout gh-pages
         
