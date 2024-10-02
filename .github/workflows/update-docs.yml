@@ -41,8 +41,8 @@ jobs:
         # Use the PAT stored in GitHub Secrets
         GH_PAT: ${{ secrets.AFFDOWS_PAT }}
       run: |
-        #git fetch origin gh-pages
-        #git statsh
+        git fetch origin gh-pages
+        #git stash
         #git checkout gh-pages
         #git stash pop        
 
