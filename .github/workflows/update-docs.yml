@@ -46,11 +46,10 @@ jobs:
         git branch
         # Clean up old files from the gh-pages branch
 
-        ls -l 
         ls -l ./
 
         # Copy the new files from the Sphinx build
-        cp -r docs/_build/html/* .
+        cp -r ./docs/_build/html/* .
         ls -l .
 
         # Configure Git for commit
