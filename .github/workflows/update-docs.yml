@@ -1,9 +1,9 @@
-name: Documentation
+name: Deploy Documentation
 
 on:
   push:
     branches:
-      - main
+      - main  # Or any branch where your source files are located
   workflow_dispatch: {}
 
 jobs:
@@ -27,38 +27,11 @@ jobs:
         cd docs
         make html
 
-    - name: Check if HTML build directory exists
-      run: |
-        if [ -d "docs/_build/html" ]; then
-          echo "HTML build directory exists"
-        else
-          echo "HTML build directory does not exist"
-          exit 1
-        fi
-
     - name: Deploy to GitHub Pages
-      env:
-        # Use the PAT stored in GitHub Secrets
-        GH_PAT: ${{ secrets.AFFDOWS_PAT }}
-      run: |
-        git fetch origin gh-pages
-        git checkout -f gh-pages
-        git branch
-        # Clean up old files from the gh-pages branch
-
-        ls -l ./
-
-        # Copy the new files from the Sphinx build
-        cp -r ./docs/_build/html/* .
-        cp -r ./docs/_build/html/.* .
-        ls -l .
-
-        # Configure Git for commit
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-
-        # Commit and push the changes to gh-pages branch
-        git add .
-        git commit -m "Deploy documentation to gh-pages"
-        git push https://x-access-token:${{ secrets.AFFDOWS_PAT }}@github.com/${{ github.repository }} gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.AFFDOWS_PAT }}  # Uses GitHub's default token
+        publish_branch: gh-pages  # Deploy to the gh-pages branch
+        publish_dir: ./docs/_build/html  # The directory where HTML files are generated
+        allow_empty_commit: true
 
