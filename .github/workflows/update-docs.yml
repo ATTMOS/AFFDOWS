@@ -50,9 +50,14 @@ jobs:
         #git rm -rf .
         git branch
 
+        ls -l ../
+        ls -l ./
         ls -l docs/_build/
         ls -l docs/_build/html/
         ls -l ../
+
+        git checkout gh-pages
+
         # Copy the new files from the Sphinx build
         #cp -r ../_build/html/* .
 
@@ -64,5 +69,4 @@ jobs:
         git add .
         git commit -m "Deploy documentation to gh-pages"
         git push https://x-access-token:${{ secrets.AFFDOWS_PAT }}@github.com/${{ github.repository }} gh-pages
-
 
