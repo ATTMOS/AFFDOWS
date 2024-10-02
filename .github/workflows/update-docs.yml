@@ -41,6 +41,7 @@ jobs:
         # Use the PAT stored in GitHub Secrets
         GH_PAT: ${{ secrets.AFFDOWS_PAT }}
       run: |
+        git fetch origin gh-pages
         git checkout -f gh-pages
         git branch
         # Clean up old files from the gh-pages branch
