@@ -56,7 +56,9 @@ jobs:
         ls -l docs/_build/html/
         ls -l ../
 
+        git stash
         git checkout gh-pages
+        git stash pop
 
         # Copy the new files from the Sphinx build
         #cp -r ../_build/html/* .
