@@ -41,29 +41,16 @@ jobs:
         # Use the PAT stored in GitHub Secrets
         GH_PAT: ${{ secrets.AFFDOWS_PAT }}
       run: |
-        git fetch origin gh-pages
-        #git stash
-        #git checkout gh-pages
-        #git stash pop        
-
-        # Clean up old files from the gh-pages branch
-        #git rm -rf .
+        git checkout -f gh-pages
         git branch
+        # Clean up old files from the gh-pages branch
 
-        ls -l ../
+        ls -l 
         ls -l ./
-        ls -l docs/_build/
-        ls -l docs/_build/html/
-        ls -l ../
-
-        git stash
-        mv docs/_build ../
-        git checkout gh-pages
-        git stash pop
-        mv ../_build/html/* .
 
         # Copy the new files from the Sphinx build
-        #cp -r ../_build/html/* .
+        cp -r docs/_build/html/* .
+        ls -l .
 
         # Configure Git for commit
         git config user.name "github-actions[bot]"
