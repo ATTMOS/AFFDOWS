@@ -14,6 +14,7 @@ ensure ease of use and rapid adoption, making it a valuable asset for pharmaceut
 The present version |AFFDO_VERSION| is available as a web service at https://dust.sdsc.edu, free of charge.
 
 **Contact & Feedback**:
+-----------------------
 
 For any comments, queries, or issues, you can reach out to us via:
 

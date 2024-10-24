@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Release Notes — AFFDO 24.1.0 documentation</title>
+<link href="../_static/pygments.css?v=80d5e7a1" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/theme.css?v=19f00094" rel="stylesheet" type="text/css"/>
+<link href="../_static/custom.css?v=6e71f13b" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script src="../_static/jquery.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=033d3bbc"></script>
+<script src="../_static/doctools.js?v=888ff710"></script>
+<script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="performance.html" rel="next" title="Accuracy and Performance"/>
+<link href="about.html" rel="prev" title="About AFFDO Platform"/>
+<link href="../_static/version-selector.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/version-selector.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html">
+            AFFDO
+          </a>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About AFFDO Platform</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#affdo-24-09">AFFDO 24.09</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#features"><strong>Features</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Accuracy and Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started-guide.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Software License Agreement</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">AFFDO</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index.html"></a></li>
+<li class="breadcrumb-item active">Release Notes</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/user/release-notes.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="release-notes">
+<h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this heading"></a></h1>
+<p>The new features released with each AFFDO version are as follows.</p>
+<section id="affdo-24-09">
+<h2>AFFDO 24.09<a class="headerlink" href="#affdo-24-09" title="Permalink to this heading"></a></h2>
+<p>The current release version <a href="#id1"><span class="problematic" id="id2">|AFFDO_VERSION|</span></a> centers around a fully web-based service (<a class="reference external" href="https://dust.sdsc.edu">https://dust.sdsc.edu</a>). It has the following features:</p>
+<section id="features">
+<h3><strong>Features</strong><a class="headerlink" href="#features" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Automated Force Field Development</strong>: Fully automates the generation of ligand-specific Generalized Amber Force Field (GAFF) torsion parameters, requiring no user intervention.</p></li>
+<li><p><strong>Web-based Interface</strong>: The AFFDO platform is available as a web service, providing an intuitive and user-friendly experience.</p></li>
+<li><p><strong>Ligands Fragmentation Tool Integration</strong>: Utilizes the specialized tool <em>FragMentor</em> to fragment large ligands, optimizing torsion parameters efficiently while preserving the chemical environment.</p></li>
+<li><p><strong>Cloud Integration</strong>: Handles computationally expensive tasks through cloud instances, enabling GPU-accelerated and parallelized quantum chemistry calculations, reducing turnaround time.</p></li>
+<li><p><strong>JAX-based Parameter Optimization</strong>: Leverages JAX for fast, gradient-based optimization with automatic differentiation, optimizing force field parameters with high precision and speed.</p></li>
+<li><p><strong>AMBER Compatibility</strong>: AFFDO generates input files, compatible with AMBER-based free energy simulation workflows like ProFESSA, for an easy integration.</p></li>
+</ul>
+<p><em>Last updated 10/24/2024.</em></p>
+</section>
+</section>
+</section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="about.html" rel="prev" title="About AFFDO Platform"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="performance.html" rel="next" title="Accuracy and Performance">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2024, ATTMOS Inc.</p>
+</div></footer>
+</div>
+</div>
+</section>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+<div id="version-selector">Version: <select onchange="document.location = this.value;">
+</select></div>
+</body>
+</html>
