@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Getting Started Guide — AFFDO 24.1.0 documentation</title>
+<link href="../_static/pygments.css?v=80d5e7a1" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/theme.css?v=19f00094" rel="stylesheet" type="text/css"/>
+<link href="../_static/custom.css?v=6e71f13b" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script src="../_static/jquery.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=033d3bbc"></script>
+<script src="../_static/doctools.js?v=888ff710"></script>
+<script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="citation.html" rel="next" title="Citation"/>
+<link href="performance.html" rel="prev" title="Accuracy and Performance"/>
+<link href="../_static/version-selector.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/version-selector.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html">
+            AFFDO
+          </a>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About AFFDO Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Accuracy and Performance</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#output-structure">Output Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-parmed-input-file">Using the ParmEd Input File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Software License Agreement</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">AFFDO</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index.html"></a></li>
+<li class="breadcrumb-item active">Getting Started Guide</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/user/getting-started-guide.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="getting-started-guide">
+<h1>Getting Started Guide<a class="headerlink" href="#getting-started-guide" title="Permalink to this heading"></a></h1>
+<p>AFFDO (Automated Force Field Developer and Optimizer) is designed to provide customized torsion parameters for small drug-like molecules, significantly enhancing the accuracy of binding free energy predictions. After completing a run with AFFDO, users receive a comprehensive package containing all the necessary input files, log files, and final outputs required for further computational analysis.</p>
+<p>This tutorial outlines the structure of the output package and how to use the provided files to update your Generalized Amber Force Field (GAFF) topology for molecular dynamics simulations.</p>
+<section id="output-structure">
+<h2>Output Structure<a class="headerlink" href="#output-structure" title="Permalink to this heading"></a></h2>
+<p>The output directory contains several important files and subdirectories. Below is an explanation of the key components:</p>
+<ul class="simple">
+<li><p><strong>ParmEd input file (.in)</strong>:
+This file contains the newly optimized torsion parameters and is the primary output of the AFFDO workflow. Use this file with the AMBER molecular dynamics package to update your simulation topology files, ensuring that the improved torsion parameters are incorporated into subsequent simulations.</p></li>
+<li><p><strong>AFFDO log file (.log)</strong>:
+The log file captures the entire AFFDO workflow, including the details of how torsion parameters were optimized. It can be used to verify that the workflow completed as expected.</p></li>
+<li><dl class="simple">
+<dt><strong>Supporting files and folders</strong>:</dt><dd><ul>
+<li><p><strong>Mol files (.mol and .mol2)</strong>: These files contain the original ligand coordinates and atom labels used during the AFFDO run.</p></li>
+<li><p><strong>Data JSON (.json)</strong>: Contains metadata and settings used during the AFFDO run. This file includes information such as the selected methods, parameters, and computational environment.</p></li>
+<li><p><strong>Results folder</strong>: Contains intermediate files generated throughout the AFFDO workflow. This includes conformer generation, centroid optimization, torsional scans, and parameter optimization steps. These files may be useful if you want to investigate the detailed steps taken by AFFDO.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>If the fragmentation algorithm was executed:</p>
+<ul class="simple">
+<li><p><strong>Fragments image (.png)</strong>:
+A visual representation of the fragments analyzed and parametrized.</p></li>
+<li><p><strong>Fragment results folder (e.g., project_f1, project_f2)</strong>:
+Contains output files for each fragment that was analyzed separately.</p></li>
+</ul>
+</section>
+<section id="using-the-parmed-input-file">
+<h2>Using the ParmEd Input File<a class="headerlink" href="#using-the-parmed-input-file" title="Permalink to this heading"></a></h2>
+<p>Before integrating the <cite>.in</cite> file into your GAFF topology, you need to update the file by adding a residue ID to the atom labels. This step is critical for accurate Alchemical Free Energy Simulations, particularly when using dual topology methods like the Alchemical Enhanced Sampling (ACES) method.</p>
+<p><strong>Adding a Residue ID to the ParmEd File</strong></p>
+<p>A Python script named <cite>add_resid_number.py</cite> is provided to automate this step. This script modifies the <cite>.in</cite> file to include the specified residue ID in the atom labels, which will be inserted into the topology file.</p>
+<p><strong>Usage:</strong></p>
+<p>To run the script, use the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python add_resid_number.py &lt;input_file_name&gt; &lt;resid&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><cite>&lt;input_file_name&gt;</cite>: The name of the ParmEd input file you want to modify.</p></li>
+<li><p><cite>&lt;resid&gt;</cite>: The residue ID to add to the atom labels.</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<p>If your file is named <cite>params_filename.in</cite> and you want to add residue ID 1, run the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python add_resid_number.py params_filename.in 1
+</pre></div>
+</div>
+<p>The script will create a new file named <cite>output-params_filename.in</cite> with the residue ID added to the atom labels.</p>
+<p>To update the topology with the parameters fitted by AFFDO, use the <cite>parmed</cite> tool from Amber as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>parmed -p topology_file -i output-params_filename.in
+</pre></div>
+</div>
+<p>This will generate a new topology file named ‘new.prmtop’ incorporating the optimized torsion parameters.</p>
+<p><strong>Note</strong>: Ensure that Python is installed and accessible from your command line before running the script.</p>
+</section>
+<section id="disclaimer">
+<h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this heading"></a></h2>
+<p>Please be advised that AFFDO is part of an active development project. While we strive to provide accurate and reliable results, the underlying technology is continuously evolving, and there may be occasional updates or changes.</p>
+<p><em>Last updated on 10/24/2024.</em></p>
+</section>
+</section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="performance.html" rel="prev" title="Accuracy and Performance"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="citation.html" rel="next" title="Citation">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2024, ATTMOS Inc.</p>
+</div></footer>
+</div>
+</div>
+</section>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+<div id="version-selector">Version: <select onchange="document.location = this.value;">
+</select></div>
+</body>
+</html>

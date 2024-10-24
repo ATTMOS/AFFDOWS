@@ -5,7 +5,7 @@ Accuracy and Performance
 
 The data presented in this section were initially obtained using a previous version of AFFDO and have been further extended using the latest version, |BOLD_AFFDO_VERSION|. See the details below.
 
-**Note**: The code is continuously being improved. Please make sure to use the latest AFFDO version. 
+**Note** The code is continuously being improved. Please make sure to use the latest AFFDO version. 
 
 We have validated the accuracy of AFFDO using a protein-ligand dataset reported by Wang et al. [1]. In this dataset, the authors 
 report the experimental relative binding free energies (RBFE) values for a series of protein-ligand systems. For the validation

@@ -1,0 +1,12 @@
+#version-selector {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#version-selector select {
+    padding: 5px;
+    font-size: 16px;
+}
+
