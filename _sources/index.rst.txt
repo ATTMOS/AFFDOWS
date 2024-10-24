@@ -1,4 +1,4 @@
-.. QUICK documentation master file, created by
+.. AFFDO documentation master file, created by
    sphinx-quickstart on Wed Feb 19 19:49:49 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -13,17 +13,15 @@ Welcome to |AFFDO_VERSION| Documentation!
    :caption: Contents:
 
    user/about
-   user/features-limitations
-   user/performance
-   user/installation-guide
-   user/hands-on-tutorials
-   user/known-issues
    user/release-notes
+   user/performance
+   user/getting-started-guide
    user/citation
    user/license
 
 **Note to Users:** If you experience any compile or runtime issues, please report to us 
 through: `affdo@attmosdiscovery.com <affdo@attmosdiscovery.com>`_. 
 
-*Last updated on 01/31/2024.*
+
+*Last updated on 10/24/2024.*
 

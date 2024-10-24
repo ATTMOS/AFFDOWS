@@ -1,1 +1,2 @@
-.. |AFFDO_VERSION| replace:: AFFDO-24.01
+.. |AFFDO_VERSION| replace:: AFFDO-24.09
+.. |BOLD_AFFDO_VERSION| replace:: **AFFDO-24.09**

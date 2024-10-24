@@ -11,10 +11,17 @@ AFFDO stands out for its novel, automated approach to force field development an
 traditionally known for its complexity and labor-intensity. Its user-friendly design and integration into cloud-based platforms 
 ensure ease of use and rapid adoption, making it a valuable asset for pharmaceutical and biotechnology companies engaged in SBDD. 
 
+The present version |AFFDO_VERSION| is available as a web service at https://dust.sdsc.edu, free of charge.
 
-Manathunga, M.; Aktulga H. M.; Blanco-Gonzalez, A.; Götz, A. W.; Merz, K. M.; York, D. M. |AFFDO_VERSION| ATTMOS Inc. East Lansing, MI, 2024.
+**Contact & Feedback**:
 
-Contact: `info@attmosdiscovery.com <info@attmosdiscovery.com>`_
+For any comments, queries, or issues, you can reach out to us via:
+
+	•	Email: `affdo@attmosdiscovery.com <affdo@attmosdiscovery.com>`_
+	•	GitHub: `AFFDOWS Issues or Discussions <https://github.com/ATTMOS/AFFDOWS>`_
+
+We appreciate your feedback as it helps improve the tool and the service we offer.
+
 
 .. image:: images/funding.png
     :width: 446px
@@ -23,4 +30,4 @@ Contact: `info@attmosdiscovery.com <info@attmosdiscovery.com>`_
 
 
 
-*Last updated 02/01/2024.*
+*Last updated 24/10/2024.*

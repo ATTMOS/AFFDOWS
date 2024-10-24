@@ -1,15 +1,27 @@
+.. include:: ../affdo_docs_common.rst
+
 Release Notes
 ^^^^^^^^^^^^^
+The new features released with each AFFDO version are as follows.
 
-The new features released with each AFFDO version are as follows. 
-
-AFFDO 24.01
+AFFDO 24.09
 ***********
 
-* Automated Force Field Development: Generates ligand-specific Generalized Amber Force Field torsion parameters.
-* User-Friendly Interface: Jupyter-notebook based, widget powered, easy to use graphical user interface .
-* Computer Hardware Flexibility: Cloud instances or local computer hardware can be conveniently integrated for computationally expensive tasks. 
-* Supports Linux and MacOS operating systems.
+The current release version |AFFDO_VERSION| centers around a fully web-based service (`https://dust.sdsc.edu <https://dust.sdsc.edu>`_). It has the following features:
+
+**Features**
+
+* **Automated Force Field Development**: Fully automates the generation of ligand-specific Generalized Amber Force Field (GAFF) torsion parameters, requiring no user intervention.
+
+* **Web-based Interface**: The AFFDO platform is available as a web service, providing an intuitive and user-friendly experience.
+  
+* **Ligands Fragmentation Tool Integration**: Utilizes the specialized tool *FragMentor* to fragment large ligands, optimizing torsion parameters efficiently while preserving the chemical environment.
+
+* **Cloud Integration**: Handles computationally expensive tasks through cloud instances, enabling GPU-accelerated and parallelized quantum chemistry calculations, reducing turnaround time.
+
+* **JAX-based Parameter Optimization**: Leverages JAX for fast, gradient-based optimization with automatic differentiation, optimizing force field parameters with high precision and speed.
+  
+* **AMBER Compatibility**: AFFDO generates input files, compatible with AMBER-based free energy simulation workflows like ProFESSA, for an easy integration.   
 
 
-*Last updated 01/31/2024.*
+*Last updated 10/24/2024.*
