@@ -77,18 +77,6 @@
 <div itemprop="articleBody">
 <section id="getting-started-guide">
 <h1>Getting Started Guide<a class="headerlink" href="#getting-started-guide" title="Permalink to this heading"></a></h1>
-<p>This section assumes that you have already installed AFFDO on your system. If not follow the <a class="reference external" href="installation-guide.html">Installation Guide</a> and install it first. Examples of AFFDO input files can be found at AFFDO_HOME/test and at this <a class="reference external" href="https://github.com/ATTMOS/AFFDO">location</a>. For this tutorial we will use a fragment of a small drug molecule. You can find its <a class="reference external" href="https://github.com/ATTMOS/AFFDO/tests/jmc28_f1.mol">structure</a> in AFFDO_HOME/test folder.</p>
-<p>Go to AFFDO_HOME, launch the jupyter-notebook and open up main.ipynb as follows.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>jupyter-notebook main.ipynb
-</pre></div>
-</div>
-<p>Then, follow the steps below.</p>
-<p><strong>Step 1:</strong> To start a new project, run Cell 1.1. Enter the project name, charge of the ligand, and select the molecular structure. The structure must be in .mol format. Hit the OK button when you are ready. If you want to load an existing project, run Cell 1.2, select the project name from the dropdown menu and hit the OK button.</p>
-<p>Let’s start Step 1 by running Cell 1.1.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To execute each step in the AFFDO workflow, select the desired cell in the Jupyter Notebook by clicking on it, and then press the “Run” button located in the notebook’s toolbar.</p>
-</div>
 <p>AFFDO (Automated Force Field Developer and Optimizer) is designed to provide customized torsion parameters for small drug-like molecules, significantly enhancing the accuracy of binding free energy predictions. After completing a run with AFFDO, users receive a comprehensive package containing all the necessary input files, log files, and final outputs required for further computational analysis.</p>
 <p>This tutorial outlines the structure of the output package and how to use the provided files to update your Generalized Amber Force Field (GAFF) topology for molecular dynamics simulations.</p>
 <section id="output-structure">
@@ -100,9 +88,11 @@ This file contains the newly optimized torsion parameters and is the primary out
 <li><p><strong>AFFDO log file (.log)</strong>:
 The log file captures the entire AFFDO workflow, including the details of how torsion parameters were optimized. It can be used to verify that the workflow completed as expected.</p></li>
 <li><dl class="simple">
-<dt><strong>Supporting files and folders</strong>:</dt><dd><p><strong>Mol files (.mol and .mol2)</strong>: These files contain the original ligand coordinates and atom labels used during the AFFDO run.
-<strong>Data JSON (.json)</strong>: Contains metadata and settings used during the AFFDO run. This file includes information such as the selected methods, parameters, and computational environment.
-<strong>Results folder</strong>: Contains intermediate files generated throughout the AFFDO workflow. This includes conformer generation, centroid optimization, torsional scans, and parameter optimization steps. These files may be useful if you want to investigate the detailed steps taken by AFFDO.</p>
+<dt><strong>Supporting files and folders</strong>:</dt><dd><ul>
+<li><p><strong>Mol files (.mol and .mol2)</strong>: These files contain the original ligand coordinates and atom labels used during the AFFDO run.</p></li>
+<li><p><strong>Data JSON (.json)</strong>: Contains metadata and settings used during the AFFDO run. This file includes information such as the selected methods, parameters, and computational environment.</p></li>
+<li><p><strong>Results folder</strong>: Contains intermediate files generated throughout the AFFDO workflow. This includes conformer generation, centroid optimization, torsional scans, and parameter optimization steps. These files may be useful if you want to investigate the detailed steps taken by AFFDO.</p></li>
+</ul>
 </dd>
 </dl>
 </li>
@@ -122,7 +112,7 @@ Contains output files for each fragment that was analyzed separately.</p></li>
 <p>A Python script named <cite>add_resid_number.py</cite> is provided to automate this step. This script modifies the <cite>.in</cite> file to include the specified residue ID in the atom labels, which will be inserted into the topology file.</p>
 <p><strong>Usage:</strong></p>
 <p>To run the script, use the following command:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python add_resid_number.py &lt;input_file_name&gt;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python add_resid_number.py &lt;input_file_name&gt; &lt;resid&gt;
 </pre></div>
 </div>
 <p>Where:</p>
@@ -146,7 +136,7 @@ Contains output files for each fragment that was analyzed separately.</p></li>
 <section id="disclaimer">
 <h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this heading"></a></h2>
 <p>Please be advised that AFFDO is part of an active development project. While we strive to provide accurate and reliable results, the underlying technology is continuously evolving, and there may be occasional updates or changes.</p>
-<p><em>Last updated on 01/31/2024.</em></p>
+<p><em>Last updated on 10/24/2024.</em></p>
 </section>
 </section>
 </div>

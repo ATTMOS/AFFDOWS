@@ -1,24 +1,6 @@
 Getting Started Guide
 =====================
 
-This section assumes that you have already installed AFFDO on your system. If not follow the `Installation Guide <installation-guide.html>`_ and install it first. Examples of AFFDO input files can be found at AFFDO_HOME/test and at this `location <https://github.com/ATTMOS/AFFDO>`_. For this tutorial we will use a fragment of a small drug molecule. You can find its `structure <https://github.com/ATTMOS/AFFDO/tests/jmc28_f1.mol>`_ in AFFDO_HOME/test folder.
-
-Go to AFFDO_HOME, launch the jupyter-notebook and open up main.ipynb as follows. 
-
-.. code-block:: none
-
-	jupyter-notebook main.ipynb
-
-Then, follow the steps below. 
-
-**Step 1:** To start a new project, run Cell 1.1. Enter the project name, charge of the ligand, and select the molecular structure. The structure must be in .mol format. Hit the OK button when you are ready. If you want to load an existing project, run Cell 1.2, select the project name from the dropdown menu and hit the OK button.
-
-Let’s start Step 1 by running Cell 1.1. 
-
-.. note:: To execute each step in the AFFDO workflow, select the desired cell in the Jupyter Notebook by clicking on it, and then press the “Run” button located in the notebook's toolbar.
-
-
-
 AFFDO (Automated Force Field Developer and Optimizer) is designed to provide customized torsion parameters for small drug-like molecules, significantly enhancing the accuracy of binding free energy predictions. After completing a run with AFFDO, users receive a comprehensive package containing all the necessary input files, log files, and final outputs required for further computational analysis.
 
 This tutorial outlines the structure of the output package and how to use the provided files to update your Generalized Amber Force Field (GAFF) topology for molecular dynamics simulations.
@@ -35,9 +17,9 @@ The output directory contains several important files and subdirectories. Below 
   The log file captures the entire AFFDO workflow, including the details of how torsion parameters were optimized. It can be used to verify that the workflow completed as expected.
 
 * **Supporting files and folders**:
-        **Mol files (.mol and .mol2)**: These files contain the original ligand coordinates and atom labels used during the AFFDO run.
-        **Data JSON (.json)**: Contains metadata and settings used during the AFFDO run. This file includes information such as the selected methods, parameters, and computational environment.
-        **Results folder**: Contains intermediate files generated throughout the AFFDO workflow. This includes conformer generation, centroid optimization, torsional scans, and parameter optimization steps. These files may be useful if you want to investigate the detailed steps taken by AFFDO.
+        - **Mol files (.mol and .mol2)**: These files contain the original ligand coordinates and atom labels used during the AFFDO run.
+        - **Data JSON (.json)**: Contains metadata and settings used during the AFFDO run. This file includes information such as the selected methods, parameters, and computational environment.
+        - **Results folder**: Contains intermediate files generated throughout the AFFDO workflow. This includes conformer generation, centroid optimization, torsional scans, and parameter optimization steps. These files may be useful if you want to investigate the detailed steps taken by AFFDO.
 
 If the fragmentation algorithm was executed:
 
@@ -62,7 +44,7 @@ To run the script, use the following command:
 
 .. code-block:: none
 
-    python add_resid_number.py <input_file_name> 
+    python add_resid_number.py <input_file_name> <resid>
 
 Where:
 
@@ -98,4 +80,4 @@ Please be advised that AFFDO is part of an active development project. While we 
 
 
 
-*Last updated on 01/31/2024.*
+*Last updated on 10/24/2024.*

@@ -3,8 +3,9 @@
 Accuracy and Performance
 ========================
 
-The data reported in this section were obtained using |AFFDO_VERSION|. The code is continuously being improved. 
-Please make sure to use the latest AFFDO version. 
+The data presented in this section were initially obtained using a previous version of AFFDO and have been further extended using the latest version, |BOLD_AFFDO_VERSION|. See the details below.
+
+**Note** The code is continuously being improved. Please make sure to use the latest AFFDO version. 
 
 We have validated the accuracy of AFFDO using a protein-ligand dataset reported by Wang et al. [1]. In this dataset, the authors 
 report the experimental relative binding free energies (RBFE) values for a series of protein-ligand systems. For the validation
@@ -22,7 +23,7 @@ resulting in much tighter fits to the reference profiles (Fitted GAFF). After re
 values for protein-ligand pairs. As depicted in **Figure 2**, the reparameterized GAFF force field improves the computed RBFE for all systems. For certain systems 
 (e.g., TYK2 jmc28-jmc30, jmc27-jmc30), this improvement is more prominent than in others.
 
-We have extended these validations in our manuscript [3], where we benchmark AFFDO against a wider range of systems, including drug-like molecules with complex torsions. 
+We have extended these validations using our latest version |BOLD_AFFDO_VERSION| in our manuscript [3], where we benchmark AFFDO against a wider range of drug-like molecules with complex torsions. 
 The results further demonstrate that AFFDO can significantly improve GAFF torsion parameters, leading to more accurate free energy predictions across different chemical environments.
 
 .. image:: images/validation_figure.png

@@ -1,3 +1,4 @@
+.. include:: ../affdo_docs_common.rst
 
 Release Notes
 ^^^^^^^^^^^^^
@@ -9,7 +10,6 @@ AFFDO 24.09
 The current release version |AFFDO_VERSION| centers around a fully web-based service (`https://dust.sdsc.edu <https://dust.sdsc.edu>`_). It has the following features:
 
 **Features**
-------------
 
 * **Automated Force Field Development**: Fully automates the generation of ligand-specific Generalized Amber Force Field (GAFF) torsion parameters, requiring no user intervention.
 
