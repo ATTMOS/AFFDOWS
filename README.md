@@ -7,15 +7,18 @@
 
 An Automated Force Field Developer and Optimizer developed by ATTMOS Inc. 
 
-AFFDO, developed by ATTMOS Inc., is a cutting-edge platform that automates the development and optimization of force field parameters for molecular simulations, tailored specifically to ligand-specific Generalized Amber Force Field (GAFF) torsions. 
-The AFFDO platform integrates multiple computational chemistry engines and optimization tools, providing a streamlined solution for computational chemists and researchers.
+Automated Force Field Developer and Optimizer (AFFDO) is a cutting-edge platform that automates the development and optimization of molecular mechanics force field parameters, tailored specifically to ligand-specific Generalized Amber Force Field (GAFF) torsions. 
 
 The present version AFFDO-24.09 is available as a web service at [AFFDOWS](https://dust.sdsc.edu), free of charge.
 
 Features
 --------
 
-AFFDO offers full automation of force field development through a cloud-based web service, leveraging high-performance computing for efficient and accurate molecular simulations. Advanced features include smart ligand fragmentation and seamless integration into established workflows like AMBER.
+- Automatic ligand fragmentation
+- DFT and XTB reference data generation for torsion fitting
+- Efficient reference data generation by massively parallelizing computations on CPU and GPU cloud instances
+- Parameter fitting based on Google's JAX library and gradient based methods
+- User friendly interface
 
 For more details, see [Features](https://attmos.github.io/AFFDOWS/user/release-notes.html).
 
