@@ -15,12 +15,7 @@ The present version |AFFDO_VERSION| is available as a web service at https://dus
 
 **Contact & Feedback**:
 
-For any comments, queries, or issues, you can reach out to us via:
-
-	•	Email: `affdo@attmosdiscovery.com <affdo@attmosdiscovery.com>`_
-	•	GitHub: `AFFDOWS Issues or Discussions <https://github.com/ATTMOS/AFFDOWS>`_
-
-We appreciate your feedback as it helps improve the tool and the service we offer.
+For issues and comments please visit the `AFFDOWS Issues or Discussions <https://github.com/ATTMOS/AFFDOWS>`_ page of the GitHub repository. For other questions, contact ATTMOS via `info@attmosdiscovery.com <info@attmosdiscovery.com>`_.
 
 
 .. image:: images/funding.png
@@ -30,4 +25,4 @@ We appreciate your feedback as it helps improve the tool and the service we offe
 
 
 
-*Last updated 24/10/2024.*
+*Last updated 08/11/2024.*
