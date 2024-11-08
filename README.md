@@ -26,7 +26,7 @@ For more details, see [Features](https://attmos.github.io/AFFDOWS/user/release-n
 How It Works
 ------------
 
-After completing an AFFDO run, users receive optimized torsion parameters packaged alongside input and log files, all necessary for updating GAFF topology files. 
+The user should upload a ligand structure in .pdb/.mol/.mol2 format, and provide the molecular charge and email address. Upon the submission of the project, the job enters a queue system and an email with a job ID is sent to the user. The status of the job can be checked with this job ID through the web interface. When the job is finished, the user receives a second email that contains a link to download the results of the AFFDO project. The project folder contains optimized torsion parameters packaged alongside input and log files, all necessary for updating GAFF topology files. 
 
 To learn more about using AFFDO and handling the output files, please refer to our [Getting Started Guide](https://attmos.github.io/AFFDOWS/user/getting-started-guide.html).
 
