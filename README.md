@@ -41,7 +41,7 @@ If you use AFFDO in your research, please cite the latest version:
 License
 -------
 
-This software is subject to a non-commercial license. A copy of the license can be found [here](https://attmos.github.io/AFFDOWS/user/license.html). For commercial use, please contact ATTMOS Inc. for a separate agreement.
+AFFDO web service is available for non-commercial purposes, free of charge. For commercial use, please contact ATTMOS at [info@attmosdiscovery.com](info@attmosdiscovery.com).
 
 Bug Reports and Feedback
 -------------------------
