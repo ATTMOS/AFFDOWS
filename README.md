@@ -48,8 +48,4 @@ Bug Reports and Feedback
 
 Your feedback helps improve AFFDO platform. Please submit any issues or feature requests via the [GitHub Issues section](https://github.com/ATTMOS/AFFDOWS/issues). We value your input!
 
-About ATTMOS Inc.
------------------
-
-ATTMOS Inc. is dedicated to advancing computational chemistry solutions through innovation. AFFDO is just one of our many tools designed to empower researchers in the field of drug discovery, molecular dynamics, and beyond. Learn more about us [here](https://www.attmosdiscovery.com/).
 
