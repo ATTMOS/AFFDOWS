@@ -26,16 +26,10 @@ For more details, see [Features](https://attmos.github.io/AFFDOWS/user/release-n
 How It Works
 ------------
 
-The user should upload a ligand structure in .pdb/.mol/.mol2 format, and provide the molecular charge and email address. Upon the submission of the project, the job enters a queue system and an email with a job ID is sent to the user. The status of the job can be checked with this job ID through the web interface. When the job is finished, the user receives a second email that contains a link to download the results of the AFFDO project. The project folder contains optimized torsion parameters packaged alongside input and log files, all necessary for updating GAFF topology files. 
+AFFDO is accessible via the web service at [AFFDOWS](https://dust.sdsc.edu). The user should upload a ligand structure in .pdb/.mol/.mol2 format, and provide the molecular charge and email address. Upon the submission of the project, the job enters a queue system and an email with a job ID is sent to the user. The status of the job can be checked with this job ID through the web interface. When the job is finished, the user receives a second email that contains a link to download the results of the AFFDO project. The project folder contains optimized torsion parameters packaged alongside input and log files, all necessary for updating GAFF topology files. 
 
 To learn more about using AFFDO and handling the output files, please refer to our [Getting Started Guide](https://attmos.github.io/AFFDOWS/user/getting-started-guide.html).
 
-For more information, check out our [Documentation](https://attmos.github.io/AFFDOWS/index.html).
-
-Usage
------
-
-AFFDO is accessible via the web service at [AFFDOWS](https://dust.sdsc.edu). You can follow the intuitive steps to upload ligands, run torsional parameterization, and retrieve the output files. 
 
 Citation
 --------
