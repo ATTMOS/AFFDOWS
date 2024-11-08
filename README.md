@@ -22,7 +22,6 @@ Features
 
 For more details, see [Features](https://attmos.github.io/AFFDOWS/user/release-notes.html).
 
-
 How It Works
 ------------
 
@@ -30,6 +29,10 @@ AFFDO is accessible as a web service [here](https://dust.sdsc.edu). The user sho
 
 To learn more about using AFFDO and handling the output files, please refer to our [Getting Started Guide](https://attmos.github.io/AFFDOWS/user/getting-started-guide.html).
 
+Bug Reports and Feedback
+-------------------------
+
+Your feedback helps improve AFFDO platform. Please submit any issues or feature requests via the [GitHub Issues section](https://github.com/ATTMOS/AFFDOWS/issues). We value your input!
 
 Citation
 --------
@@ -43,9 +46,5 @@ License
 
 AFFDO web service is available for non-commercial purposes, free of charge. For commercial use, please contact ATTMOS at [info@attmosdiscovery.com](info@attmosdiscovery.com).
 
-Bug Reports and Feedback
--------------------------
-
-Your feedback helps improve AFFDO platform. Please submit any issues or feature requests via the [GitHub Issues section](https://github.com/ATTMOS/AFFDOWS/issues). We value your input!
 
 
