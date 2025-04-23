@@ -1,3 +1,4 @@
+
 .. include:: ../affdo_docs_common.rst
 
 About AFFDO Platform
