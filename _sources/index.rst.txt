@@ -23,5 +23,6 @@ Welcome to |AFFDO_VERSION| Documentation!
 through: `AFFDOWS Issues or Discussions <https://github.com/ATTMOS/AFFDOWS>`_. 
 
 
-*Last updated on 04/21/2025.*
+
+*Last updated on* |UPDATE_DATE|.
 

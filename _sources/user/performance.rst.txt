@@ -40,4 +40,4 @@ Journal of Chemical Information and Modeling, 62(23), 6069-6083.
 [3] Blanco-Gonzalez, A., Betancourt, W., Snyder, R., Zhang, S., Giese, T. J., Goetz, A. W., Merz, K. M. Jr., York, D. M., Aktulga, H. M., Manathunga, M. (2024). 
 Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. ChemRxiv. doi:10.26434/chemrxiv-2024-lcnx1.
 
-*Last updated on 10/24/2024.*
+*Last updated on* |UPDATE_DATE|.

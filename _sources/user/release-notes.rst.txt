@@ -24,4 +24,4 @@ The current release version |AFFDO_VERSION| centers around a fully web-based ser
 * **AMBER Compatibility**: AFFDO generates input files, compatible with AMBER-based free energy simulation workflows like ProFESSA, for an easy integration.   
 
 
-*Last updated 10/24/2024.*
+*Last updated on* |UPDATE_DATE|.

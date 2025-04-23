@@ -26,4 +26,4 @@ For issues and comments please visit the `AFFDOWS Issues or Discussions <https:/
 
 
 
-*Last updated 11/08/2024.*
+*Last updated on* |UPDATE_DATE|.
