@@ -1,3 +1,5 @@
+.. include:: ../affdo_docs_common.rst
+
 Getting Started Guide
 =====================
 

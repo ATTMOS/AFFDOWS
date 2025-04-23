@@ -1,3 +1,5 @@
+.. include:: ../affdo_docs_common.rst
+
 Software License Agreement
 ==========================
 
