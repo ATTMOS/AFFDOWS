@@ -76,7 +76,7 @@
 <div itemprop="articleBody">
 <section id="getting-started-guide">
 <h1>Getting Started Guide<a class="headerlink" href="#getting-started-guide" title="Permalink to this heading"></a></h1>
-<p>The user should visit the AFFDO web server at <a class="reference external" href="https://dust.sdsc.edu">https://dust.sdsc.edu</a>, upload a ligand structure in <strong>.pdb / .mol / .mol2</strong> format, and provide the molecular charge and an email address. After submission, the job enters a queue and an email with a <strong>Job ID</strong> is sent to the user. The job’s status can be checked with this ID through the web interface. When the run finishes, a second email provides a download link to the project results. The project folder contains the optimised torsion parameters plus all input, output, and helper files needed to update AMBER topology files.</p>
+<p>The user should visit the AFFDO web server at <a class="reference external" href="https://dust.sdsc.edu">https://dust.sdsc.edu</a>, upload a ligand structure in <strong>.pdb / .mol / .mol2</strong> format, and provide the molecular charge and an email address. After submission, the job enters a queue and an email with a <strong>Job ID</strong> is sent to the user. The job’s status can be checked with this ID through the web interface. When the run finishes, a second email provides a download link to the project results. The project folder contains the optimized torsion parameters plus all input, output, and helper files needed to update AMBER topology files.</p>
 <section id="output-structure">
 <h2>Output Structure<a class="headerlink" href="#output-structure" title="Permalink to this heading"></a></h2>
 <p>The project directory contains several important files and subdirectories. Below is an explanation of the key components:</p>
@@ -85,7 +85,7 @@
 This file contains the newly optimized torsion parameters and is the primary output of the AFFDO workflow. Use this file with parmed tool of the AmberTools molecular dynamics package to update your topology files.</p></li>
 <li><p><strong>AFFDO log file (.log)</strong>:
 The log file captures the output of the entire AFFDO workflow run, including the details of how reference data was collected and torsion parameters were optimized. It can be used to verify that the workflow completed as expected.</p></li>
-<li><p><strong>update_topology.py</strong>
+<li><p><strong>update_topology.py</strong>:
 Helper script that uses ParmEd to apply updated torsion parameters to the standard GAFF2 topology, with an optional <em>dual-topology</em> mode for RBFE work.</p></li>
 <li><dl class="simple">
 <dt><strong>Supporting files and folders</strong>:</dt><dd><ul>
@@ -98,22 +98,23 @@ Helper script that uses ParmEd to apply updated torsion parameters to the standa
 </dd>
 </dl>
 </li>
-</ul>
-<p>If the fragmentation algorithm was executed:</p>
-<ul class="simple">
+<li><p>If the fragmentation algorithm was executed:</p>
+<ul>
 <li><p><strong>Fragments image (.png)</strong>:
 A visual representation of the fragments generated during the run.</p></li>
 <li><p><strong>Fragment results folder (e.g., project_f1, project_f2)</strong>:
 Contains output files for each fragment that was analyzed separately.</p></li>
+</ul>
+</li>
 <li><p><strong>Topology‑Only Mode (optional)</strong>
-If you invoked AFFDO with the “Topology‑Only” mode, AFFDO will stop as soon as it builds the standard GAFF2 topology. No reparameterization related files will be included.</p></li>
+If you invoke AFFDO with the “Topology‑Only” mode, AFFDO will stop as soon as it builds the standard GAFF2 topology. No reparameterization-related files will be included.</p></li>
 </ul>
 </section>
 <section id="using-the-parmed-input-file">
 <h2>Using the ParmEd Input File<a class="headerlink" href="#using-the-parmed-input-file" title="Permalink to this heading"></a></h2>
-<p>Once AFFDO has generated your ParmEd update file (e.g. params_update.in), you can inject those torsion parameters into your GAFF2 topology using our helper script: <strong>update_topology.py</strong>.
+<p>Once AFFDO has generated your ParmEd update file (e.g. <em>params_update.in</em>), you can inject those torsion parameters into your GAFF2 topology using our helper script: <strong>update_topology.py</strong>.
 This tool automates all the ParmEd calls. Under dual‑topology mode, it keeps only those torsion modifications that appear in both ligand states. This ensures consistent torsion updates across end‑states, ideal for alchemical free‑energy simulations.</p>
-<p><strong>Usage:</strong></p>
+<p><strong>Usage</strong></p>
 <p>To run the script, use the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>update_topology.py<span class="w"> </span>-p<span class="w"> </span>my_system.parm7<span class="w"> </span>-i<span class="w"> </span>output-params_update.in<span class="w"> </span><span class="o">[</span>--dual-topology<span class="o">]</span>
 </pre></div>
@@ -129,16 +130,20 @@ This tool automates all the ParmEd calls. Under dual‑topology mode, it keeps o
 </ul>
 </dd>
 </dl>
-<p><strong>Example</strong>:</p>
-<p><a href="#id1"><span class="problematic" id="id2">*</span></a>Single topology (standard usage):</p>
+<p><strong>Example</strong></p>
+<ul class="simple">
+<li><p>Single topology (standard usage):</p></li>
+</ul>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python update_topology.py -p my_system.parm7 -i params_update.in
 </pre></div>
 </div>
-<p><a href="#id3"><span class="problematic" id="id4">*</span></a>Dual topology (common torsions only):</p>
+<ul class="simple">
+<li><p>Dual topology (common torsions only):</p></li>
+</ul>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python update_topology.py -p my_system.parm7 -i params_update.in --dual-topology
 </pre></div>
 </div>
-<p>Running the script creates <strong>new.prmtop</strong> containing the optimised torsion parameters.
+<p>Running the script creates <strong>new.prmtop</strong> containing the optimized torsion parameters.
 Check <em>parmed_update.log</em> (or the console) for warnings before production MD.</p>
 <p><strong>Note</strong>: Ensure that Python is installed and accessible from your command line before running the script.</p>
 </section>
@@ -146,7 +151,7 @@ Check <em>parmed_update.log</em> (or the console) for warnings before production
 <h2>Tips for Safe Topology Updates<a class="headerlink" href="#tips-for-safe-topology-updates" title="Permalink to this heading"></a></h2>
 <p>When you move from AFFDO’s torsion re‑parameterisation into your MD or RBFE workflows, keep these points in mind:</p>
 <ol class="arabic simple">
-<li><p><strong>Use identical ligand coordinates</strong> – The exact same <cite>.mol</cite>, <cite>.pdb</cite> or <cite>.mol2</cite> file provided to AFFDO must also be read by your MD engine. Any atom‑order or numbering mismatch will cause ParmEd to silently skip torsion updates, so double‑check file consistency.</p></li>
+<li><p><strong>Use identical ligand coordinates</strong> – The exact same <cite>.mol</cite>, <cite>.pdb</cite>, or <cite>.mol2</cite> file provided to AFFDO must also be read by your MD engine. Any atom order or numbering mismatch will cause ParmEd to silently skip torsion updates, so double‑check file consistency.</p></li>
 <li><p><strong>Inspect ParmEd logs for errors</strong> – After running <cite>update_topology.py</cite> (or your own ParmEd command), always glance at <cite>parmed_update.log</cite> or the console output for warnings. This prevents inadvertently launching production runs with default GAFF torsions.</p></li>
 <li><p><strong>(Optional) Dual topology for RBFE</strong> – For two‑end‑state free‑energy calculations, we recommend updating only torsions common to both ligands. The <cite>–dual-topology</cite> flag in <cite>update_topology.py</cite> handles this automatically, though you may adopt a different ParmEd strategy if preferred.</p></li>
 </ol>
