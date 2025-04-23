@@ -19,9 +19,9 @@ Welcome to |AFFDO_VERSION| Documentation!
    user/citation
    user/license
 
-**Note to Users:** If you experience any compile or runtime issues, please report to us 
-through: `affdo@attmosdiscovery.com <affdo@attmosdiscovery.com>`_. 
+**Note to Users:** If you experience any runtime issues, please report to us 
+through: `AFFDOWS Issues or Discussions <https://github.com/ATTMOS/AFFDOWS>`_. 
 
 
-*Last updated on 10/24/2024.*
+*Last updated on 04/21/2025.*
 
