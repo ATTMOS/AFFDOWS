@@ -7,32 +7,32 @@
 
 An Automated Force Field Developer and Optimizer developed by ATTMOS Inc. 
 
-AFFDO, developed by ATTMOS Inc., is a cutting-edge platform that automates the development and optimization of force field parameters for molecular simulations, tailored specifically to ligand-specific Generalized Amber Force Field (GAFF) torsions. 
-The AFFDO platform integrates multiple computational chemistry engines and optimization tools, providing a streamlined solution for computational chemists and researchers.
+Automated Force Field Developer and Optimizer (AFFDO) is a cutting-edge platform that automates the development and optimization of molecular mechanics force field parameters, tailored specifically to ligand-specific Generalized Amber Force Field (GAFF) torsions. 
 
-The present version AFFDO-24.09 is available as a web service at [AFFDOWS](https://dust.sdsc.edu), free of charge.
+The present version AFFDO-24.09 is available as a web service at [https://dust.sdsc.edu](https://dust.sdsc.edu), free of charge.
 
 Features
 --------
 
-AFFDO offers full automation of force field development through a cloud-based web service, leveraging high-performance computing for efficient and accurate molecular simulations. Advanced features include smart ligand fragmentation and seamless integration into established workflows like AMBER.
+- Automatic ligand fragmentation
+- DFT and XTB reference data generation for torsion fitting
+- Efficient reference data generation by massively parallelizing computations on CPU and GPU cloud instances
+- Parameter fitting based on Google's JAX library and gradient based methods
+- User friendly interface
 
 For more details, see [Features](https://attmos.github.io/AFFDOWS/user/release-notes.html).
-
 
 How It Works
 ------------
 
-After completing an AFFDO run, users receive optimized torsion parameters packaged alongside input and log files, all necessary for updating GAFF topology files. 
+AFFDO is accessible as a web service [here](https://dust.sdsc.edu). The user should upload a ligand structure in .pdb/.mol/.mol2 format, and provide the molecular charge and email address. Upon the submission of the project, the job enters a queue system and an email with a job ID is sent to the user. The status of the job can be checked with this job ID through the web interface. When the job is finished, the user receives a second email that contains a link to download the results of the AFFDO project. The project folder contains optimized torsion parameters packaged alongside input and log files, all necessary for updating GAFF topology files. 
 
 To learn more about using AFFDO and handling the output files, please refer to our [Getting Started Guide](https://attmos.github.io/AFFDOWS/user/getting-started-guide.html).
 
-For more information, check out our [Documentation](https://attmos.github.io/AFFDOWS/index.html).
+Bug Reports and Feedback
+-------------------------
 
-Usage
------
-
-AFFDO is accessible via the web service at [AFFDOWS](https://dust.sdsc.edu). You can follow the intuitive steps to upload ligands, run torsional parameterization, and retrieve the output files. 
+Your feedback helps improve AFFDO platform. Please submit any issues or feature requests via the [GitHub Issues section](https://github.com/ATTMOS/AFFDOWS/issues). We value your input!
 
 Citation
 --------
@@ -44,15 +44,7 @@ If you use AFFDO in your research, please cite the latest version:
 License
 -------
 
-This software is subject to a non-commercial license. A copy of the license can be found [here](https://attmos.github.io/AFFDOWS/user/license.html). For commercial use, please contact ATTMOS Inc. for a separate agreement.
+AFFDO web service is available for non-commercial purposes, free of charge. For commercial use, please contact ATTMOS at [info@attmosdiscovery.com](info@attmosdiscovery.com).
 
-Bug Reports and Feedback
--------------------------
 
-Your feedback helps improve AFFDO platform. Please submit any issues or feature requests via the [GitHub Issues section](https://github.com/ATTMOS/AFFDOWS/issues). We value your input!
-
-About ATTMOS Inc.
------------------
-
-ATTMOS Inc. is dedicated to advancing computational chemistry solutions through innovation. AFFDO is just one of our many tools designed to empower researchers in the field of drug discovery, molecular dynamics, and beyond. Learn more about us [here](https://www.attmosdiscovery.com/).
 
