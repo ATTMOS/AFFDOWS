@@ -1,3 +1,5 @@
+.. include:: ../affdo_docs_common.rst
+
 Software License Agreement
 ==========================
 
@@ -36,4 +38,4 @@ Software License Agreement
 | Email: info@attmosdiscovery.com
 
 
-*Last updated on 10/24/2024.*
+*Last updated on* |UPDATE_DATE|.

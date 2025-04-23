@@ -1,3 +1,5 @@
+.. include:: ../affdo_docs_common.rst
+
 Getting Started Guide
 =====================
 
@@ -99,5 +101,6 @@ Please be advised that AFFDO is part of an active development project. While we 
 
 
 
-*Last updated on 04/21/2025.*
+*Last updated on* |UPDATE_DATE|.
+
 
