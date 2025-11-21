@@ -42,6 +42,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About AFFDO Platform</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#affdo-25-11">AFFDO 25.11</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#affdo-24-09">AFFDO 24.09</a></li>
 </ul>
 </li>
@@ -74,10 +75,34 @@
 <section id="release-notes">
 <h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this heading"></a></h1>
 <p>The new features released with each AFFDO version are as follows.</p>
+<section id="affdo-25-11">
+<h2>AFFDO 25.11<a class="headerlink" href="#affdo-25-11" title="Permalink to this heading"></a></h2>
+<p>AFFDO 25.11 introduces major upgrades to the torsion fitting workflow, reporting system, fragmentation pipeline, and computational performance. The platform now delivers more accurate results, faster execution,
+and a smoother user experience, while remaining fully automated and optimized for ligand-specific force field development in drug discovery.</p>
+<p><strong>Major Features</strong></p>
+<ul class="simple">
+<li><p><strong>Enhanced torsion fitting algorithms</strong> resulting in improved accuracy, stability, and robustness across diverse chemical environments.</p></li>
+<li><p><strong>Improved initial guess methods</strong> providing better optimization starting points and more reliable convergence.</p></li>
+<li><p><strong>Configurable torsion coupling and fragmentation controls</strong> for greater flexibility in how molecules are grouped and parametrized, improving parameter transferability.</p></li>
+<li><p><strong>New interactive HTML reports</strong> featuring clearer visualization, better statistics, and improved 3D viewing capabilities.</p></li>
+<li><p><strong>Streamlined Output Structure</strong>: Reorganized project output with dedicated folders:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">workflow_files/</span></code> for main deliverables (update_params.in, run_configuration.txt)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stats_summary/</span></code> for plots and statistics</p></li>
+<li><p>Fragment-specific folders with mapped parameters</p></li>
+</ul>
+</li>
+<li><p><strong>Improved job management and tracking</strong> including fragment-level progress bars, better status reporting, jobs cancellation, and enhanced email notifications.</p></li>
+<li><p><strong>Enhanced torsion selection and scoring</strong> using improved metrics for selecting representative torsional profiles.</p></li>
+<li><p><strong>Performance improvements via project-level and fragment-level parallelization</strong>, significantly reducing walltime for complex ligands (no available for free-trial AFFDOWS).</p></li>
+<li><p><strong>Infrastructure upgrades</strong> including smarter resource allocation, improved remote execution handling, and optimized queueing.</p></li>
+<li><p><strong>General bug fixes and stability improvements</strong> across fitting routines, reporting, torsional scanning, and logging.</p></li>
+</ul>
+</section>
 <section id="affdo-24-09">
 <h2>AFFDO 24.09<a class="headerlink" href="#affdo-24-09" title="Permalink to this heading"></a></h2>
-<p>The current release version AFFDO-24.09 centers around a fully web-based service (<a class="reference external" href="https://dust.sdsc.edu">https://dust.sdsc.edu</a>). It has the following features:</p>
-<p><strong>Features</strong></p>
+<p>AFFDO 24.09 centers around a fully web-based service (<a class="reference external" href="https://www.attmosdiscovery.com/tools">https://www.attmosdiscovery.com/tools</a>). It has the following features:</p>
+<p><strong>Major Features</strong></p>
 <ul class="simple">
 <li><p><strong>Automated Force Field Development</strong>: Fully automates the generation of ligand-specific Generalized Amber Force Field (GAFF) torsion parameters, requiring no user intervention.</p></li>
 <li><p><strong>Web-based Interface</strong>: The AFFDO platform is available as a web service, providing an intuitive and user-friendly experience.</p></li>
@@ -86,7 +111,7 @@
 <li><p><strong>JAX-based Parameter Optimization</strong>: Leverages JAX for fast, gradient-based optimization with automatic differentiation, optimizing force field parameters with high precision and speed.</p></li>
 <li><p><strong>AMBER Compatibility</strong>: AFFDO generates input files, compatible with AMBER-based free energy simulation workflows like ProFESSA, for an easy integration.</p></li>
 </ul>
-<p><em>Last updated on</em> <em>04/21/2025</em>.</p>
+<p><em>Last updated on</em> <em>11/21/2025</em>.</p>
 </section>
 </section>
 </div>

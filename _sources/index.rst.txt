@@ -20,7 +20,7 @@ Welcome to |AFFDO_VERSION| Documentation!
    user/license
 
 **Note to Users:** If you experience any runtime issues, please report to us 
-through: `AFFDOWS Issues or Discussions <https://github.com/ATTMOS/AFFDOWS>`_. 
+through: `AFFDOWS Issues <https://github.com/ATTMOS/AFFDOWS>`_. 
 
 
 
