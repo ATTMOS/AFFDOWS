@@ -14,35 +14,14 @@ The present version AFFDO-24.09 is available as a web service at [https://www.at
 Features
 --------
 
-- **Enhanced torsion fitting algorithms**  
-  Improved accuracy and robustness through upgraded optimization routines, better initialization strategies, and smarter convergence handling.
-
-- **Automatic ligand fragmentation**  
-  Intelligently splits molecules into chemically meaningful fragments, configurable by fragment size, to improve parameter quality and reduce computational cost.
-
-- **Flexible reference data generation**  
-  Supports DFT and XTB for torsional scan reference data
-
-- **Advanced optimization modes**  
-  Offers both coupled and uncoupled torsion fitting strategies, allowing adaptable parameterization across diverse chemical environments.
-
-- **Efficient parallel computing**  
-  Project-level and fragment-level parallelization dramatically reduce walltime. Smart resource selection automatically assigns optimal compute resources.
-
-- **Comprehensive interactive HTML reports**  
-  Dynamic reports with energy profile plots, 3D molecule viewer, optimization statistics, and full run metadata. Fully viewable offline.
-
-- **Real-time job management**  
-  Fragment-level progress bars, smarter job tracking, cancellation support, and detailed email notifications with key run parameters.
-
-- **User-friendly web interface**  
-  Clean submission workflow, automatic validation, integrated visualization tools, and responsive UI improvements.
-
-- **Cloud-optimized infrastructure**  
-  Deployed on scalable compute backends with improved queueing, retry handling, and optimized parallel resource management.
-
-- **AMBER ecosystem compatibility**  
-  Generates ParmEd update files and topology updates fully compatible with GAFF/GAFF2-based MD and RBFE workflows.
+- **Automatic ligand fragmentation**: Intelligently splits molecules into manageable fragments based on consecutive torsions (configurable fragment size)
+- **Flexible reference data generation**: Supports DFT and XTB for torsional scan reference data
+- **Advanced optimization algorithms**: Scipy-based gradient-free optimization with support for coupled and uncoupled torsion fitting modes
+- **Efficient parallel computing**: Massively parallelizes computations on CPU and GPU cloud instances for faster results
+- **Interactive HTML reports**: Comprehensive visualization with energy profile plots, 3D molecule viewer, and optimization statistics
+- **User-friendly web interface**: Simple submission process with email notifications and progress tracking
+- **Cloud-optimized infrastructure**: Deployed on scalable compute backends with improved queueing, retry handling, and optimized parallel resource management.
+- **AMBER ecosystem compatibility**: Generates ParmEd update files and topology updates fully compatible with GAFF/GAFF2-based MD and RBFE workflows.
 
 For more details, see [Features](https://attmos.github.io/AFFDOWS/user/release-notes.html).
 
