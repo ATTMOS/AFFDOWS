@@ -1,7 +1,9 @@
+.. include:: ../affdo_docs_common.rst
+
 Software License Agreement
 ==========================
 
-| Copyright (C) 2024-2025 ATTMOS Inc.
+| Copyright (C) 2024-2026 ATTMOS Inc.
 | All Rights Reserved.
 
 | 1. **Scope of Use**
@@ -36,4 +38,4 @@ Software License Agreement
 | Email: info@attmosdiscovery.com
 
 
-*Last updated on 10/24/2024.*
+*Last updated on* |UPDATE_DATE|.
