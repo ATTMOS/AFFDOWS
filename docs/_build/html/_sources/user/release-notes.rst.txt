@@ -7,27 +7,18 @@ The new features released with each AFFDO version are as follows.
 
 AFFDO 25.11
 ***********
-
-This release introduces significant improvements to parameter optimization algorithms, enhanced reporting capabilities, and better user experience features:
+AFFDO 25.11 introduces major upgrades to the torsion fitting workflow, reporting system, fragmentation pipeline, and computational performance. The platform now delivers more accurate results, faster execution,
+and a smoother user experience, while remaining fully automated and optimized for ligand-specific force field development in drug discovery.
 
 **Major Features**
 
-* **Multi-Primitive Fourier Series Parameterization**: Torsion parameters now use multiple Fourier terms (n=1, 2, 3) instead of single-term representations, providing significantly improved accuracy in fitting quantum mechanical energy profiles.
+* **Enhanced torsion fitting algorithms** resulting in improved accuracy, stability, and robustness across diverse chemical environments.
 
-* **Torsion Coupling Modes**: Added configurable torsion coupling strategies (atom-type, uncoupled) to control how similar torsions are grouped during optimization, improving parameter transferability.
+* **Improved initial guess methods** providing better optimization starting points and more reliable convergence.
 
-* **Interactive HTML Reports**: New comprehensive HTML reports (fitting_report.html) featuring:
+* **Configurable torsion coupling and fragmentation controls** for greater flexibility in how molecules are grouped and parametrized, improving parameter transferability.
 
-  - Interactive Plotly energy profile charts for all optimized torsions
-  - 3D molecule viewer with torsion highlighting
-  - Detailed optimization statistics and RMSE improvements
-  - Downloadable results and topology files
-
-* **ML Potential Support**: Added support for machine learning potentials (MACE, QDPI2) as reference data sources alongside DFT and XTB.
-
-* **Enhanced Fragmentation Visualization**: Improved fragment visualization showing which torsions belong to each fragment with clearer color coding and atom numbering.
-
-**Workflow Improvements & Usability**
+* **New interactive HTML reports** featuring clearer visualization, better statistics, and improved 3D viewing capabilities.
 
 * **Streamlined Output Structure**: Reorganized project output with dedicated folders:
 
@@ -35,23 +26,23 @@ This release introduces significant improvements to parameter optimization algor
   - ``stats_summary/`` for plots and statistics
   - Fragment-specific folders with mapped parameters
 
-* **Improved Progress Tracking**: Web interface now shows individual progress bars for each fragment during multi-fragment optimization.
+* **Improved job management and tracking** including fragment-level progress bars, better status reporting, jobs cancellation, and enhanced email notifications.
 
-* **Job Cancellation**: Added ability to cancel running jobs through the web interface with proper cleanup and status tracking.
+* **Enhanced torsion selection and scoring** using improved metrics for selecting representative torsional profiles.
 
-* **Better Error Handling**: Enhanced error messages and validation throughout the workflow with clearer user feedback.
+* **Performance improvements via project-level and fragment-level parallelization**, significantly reducing walltime for complex ligands (no available for free-trial AFFDOWS).
 
-* **Multi-Primitive Update Script**: Updated ``update_topology.py`` helper script to fully support multi-primitive torsion format with automatic handling of multiple periodicity terms.
+* **Infrastructure upgrades** including smarter resource allocation, improved remote execution handling, and optimized queueing.
 
-* **Email Notifications**: Enhanced email notifications with torsion coupling mode and fragment size information for better job tracking.
+* **General bug fixes and stability improvements** across fitting routines, reporting, torsional scanning, and logging.
 
 
 AFFDO 24.09
 ***********
 
-The current release version |AFFDO_VERSION| centers around a fully web-based service (`https://www.attmosdiscovery.com/tools <https://www.attmosdiscovery.com/tools>`_). It has the following features:
+AFFDO 24.09 centers around a fully web-based service (`https://www.attmosdiscovery.com/tools <https://www.attmosdiscovery.com/tools>`_). It has the following features:
 
-**Features**
+**Major Features**
 
 * **Automated Force Field Development**: Fully automates the generation of ligand-specific Generalized Amber Force Field (GAFF) torsion parameters, requiring no user intervention.
 
