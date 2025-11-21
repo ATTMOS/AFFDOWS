@@ -12,7 +12,7 @@ AFFDO stands out for its novel, automated approach to force field development an
 traditionally known for its complexity and labor-intensity. Its user-friendly design and integration into cloud-based platforms 
 ensure ease of use and rapid adoption, making it a valuable asset for pharmaceutical and biotechnology companies engaged in SBDD. 
 
-The present version |AFFDO_VERSION| is available as a web service at https://dust.sdsc.edu, free of charge.
+The present version |AFFDO_VERSION| is available as a web service at https://www.attmosdiscovery.com/tools, free of charge.
 
 **Contact & Feedback**:
 
