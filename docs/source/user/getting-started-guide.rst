@@ -82,6 +82,7 @@ workflow_files/ folder
 Contains the primary deliverables for updating your MD topology:
 
 - **update_params_<project>.in**: ParmEd input file with optimized multi-primitive torsion parameters. Each torsion is represented by multiple Fourier terms (typically n=1, 2, 3) for improved accuracy. This is the main file users need to update their GAFF/GAFF2 topology.
+- **update_params_<project>.frcmod**: GAFF-style .frcmod file version of the optimized torsions (optional alternate format).
 - **run_configuration.txt**: Human-readable summary of all AFFDO settings used for this run.
 - **<project>.log**: Copy of the main log file for reference.
 

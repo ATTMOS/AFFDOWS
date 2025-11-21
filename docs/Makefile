@@ -7,7 +7,7 @@ SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = _build
-PYTHON := $(shell command -v python3 || command -v python)
+PYTHON := $(shell command -v python || command -v python3)
 
 # Put it first so that "make" without argument is like "make help".
 help:
