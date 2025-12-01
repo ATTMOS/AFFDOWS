@@ -7,8 +7,9 @@ The new features released with each AFFDO version are as follows.
 
 AFFDO 25.11
 ***********
+
 AFFDO 25.11 introduces major upgrades to the torsion fitting workflow, reporting system, fragmentation pipeline, and computational performance. The platform now delivers more accurate results, faster execution,
-and a smoother user experience, while remaining fully automated and optimized for ligand-specific force field development in drug discovery.
+and a smoother user experience, while remaining fully automated and optimized for ligand-specific force field development in drug discovery (`https://www.attmosdiscovery.com/tools <https://www.attmosdiscovery.com/tools>`_).
 
 **Major Features**
 
@@ -34,7 +35,7 @@ and a smoother user experience, while remaining fully automated and optimized fo
 
 * **Versatile workflow modes** adding a Topology-only option for quick GAFF2 topology generation with RESP charges, plus a Fragmentation-only mode that exposes FragMentor so users can isolate and parametrize just the ligand fragments they care about.
 
-* **Performance improvements via project-level and fragment-level parallelization**, significantly reducing walltime for complex ligands (no available for free-trial AFFDOWS).
+* **Performance improvements via project-level and fragment-level parallelization**, significantly reducing walltime for complex ligands (not available in the free-trial AFFDOWS).
 
 * **Infrastructure upgrades** including smarter resource allocation, improved remote execution handling, and optimized queueing.
 
@@ -44,7 +45,7 @@ and a smoother user experience, while remaining fully automated and optimized fo
 AFFDO 24.09
 ***********
 
-AFFDO 24.09 centers around a fully web-based service (`https://www.attmosdiscovery.com/tools <https://www.attmosdiscovery.com/tools>`_). It has the following features:
+AFFDO 24.09 centers around a fully web-based service. It has the following features:
 
 **Major Features**
 
@@ -60,23 +61,25 @@ AFFDO 24.09 centers around a fully web-based service (`https://www.attmosdiscove
   
 * **AMBER Compatibility**: AFFDO generates input files, compatible with AMBER-based free energy simulation workflows like ProFESSA, for an easy integration.   
 
+* **Improved Reliability and Diagnostics**: Enhanced logging, clearer error reporting, and structured diagnostic messages provide more transparent feedback and easier troubleshooting within the web service.
 
-AFFDO 23.08 (Jupyter-Notebook Release)
-**************************************
+* **Infrastructure for Parameter Caching**: Introduces backend support for database-driven reuse of previously computed torsion parameters, improving performance and enabling rapid iteration of AFFDO runs (not available in the free-trial AFFDOWS).
+
+
+AFFDO 23.08 
+***********
+
+AFFDO 23.08 introduced the first fully notebook-driven version of the workflow, delivering a complete ligand-specific GAFF2 torsion reparameterization pipeline inside an interactive Jupyter environment. Key features include:
 
 **Major Features**
 
-* **First stable notebook workflow** delivering the complete ligand-specific GAFF torsion pipeline inside Jupyter with interactive widgets.
+* **End-to-end torsion reparameterization** using QUICK, geomeTRIC, and AMBER helpers, orchestrated through structured notebook cells with minimal manual configuration.
 
-* **Automated Force Field Development** harnessing QUICK, geomeTRIC, and AMBER helpers to generate GAFF2 torsion parameters with minimal manual intervention.
+* **Interactive controls and guided panels** for uploading ligands, configuring paths, selecting compute hosts, and monitoring workflow progress directly within Jupyter.
 
-* **User-friendly interface** built entirely around Jupyter notebooks, providing guided panels for uploading ligands, editing paths, and tracking progress.
+* **Flexible compute integration**, enabling notebook sessions to offload QM tasks to local clusters, HPC systems, or cloud GPUs.
 
-* **Hardware flexibility** by allowing users to point notebook cells to either on-prem clusters or cloud hosts for the heavy QM stages.
-
-* **Charge experimentation toolkit** including RESP/Boltzmann averaging recipes and AMBER-ready export scripts to validate multiple electrostatic models.
-
-* **Diagnostic visualization suite** rendering QM vs. MM energy comparisons, torsion fingerprint deviation, and 3D conformer previews inline for rapid validation.
+* **Built-in diagnostics and visualization**, including MM vs. QM torsion overlays, torsion fingerprint deviation metrics, and inline 3D conformer previews for rapid quality assessment.
 
 
 *Last updated on* |UPDATE_DATE|.
