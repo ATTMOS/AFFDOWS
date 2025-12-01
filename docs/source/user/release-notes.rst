@@ -64,7 +64,7 @@ AFFDO 24.09 centers around a fully web-based service (`https://www.attmosdiscove
 AFFDO 23.08 (Jupyter-Notebook Release)
 **************************************
 
-**Highlights**
+**Major Features**
 
 * **First stable notebook workflow** delivering the complete ligand-specific GAFF torsion pipeline inside Jupyter with interactive widgets.
 
