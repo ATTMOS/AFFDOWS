@@ -44,7 +44,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#affdo-25-11">AFFDO 25.11</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#affdo-24-09">AFFDO 24.09</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#affdo-23-08-jupyter-notebook-release">AFFDO 23.08 (Jupyter-Notebook Release)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#affdo-23-08">AFFDO 23.08</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Accuracy and Performance</a></li>
@@ -79,7 +79,7 @@
 <section id="affdo-25-11">
 <h2>AFFDO 25.11<a class="headerlink" href="#affdo-25-11" title="Permalink to this heading"></a></h2>
 <p>AFFDO 25.11 introduces major upgrades to the torsion fitting workflow, reporting system, fragmentation pipeline, and computational performance. The platform now delivers more accurate results, faster execution,
-and a smoother user experience, while remaining fully automated and optimized for ligand-specific force field development in drug discovery.</p>
+and a smoother user experience, while remaining fully automated and optimized for ligand-specific force field development in drug discovery (<a class="reference external" href="https://www.attmosdiscovery.com/tools">https://www.attmosdiscovery.com/tools</a>).</p>
 <p><strong>Major Features</strong></p>
 <ul class="simple">
 <li><p><strong>Enhanced torsion fitting algorithms</strong> resulting in improved accuracy, stability, and robustness across diverse chemical environments.</p></li>
@@ -97,14 +97,14 @@ and a smoother user experience, while remaining fully automated and optimized fo
 <li><p><strong>Enhanced torsion selection and scoring</strong> using improved metrics for selecting representative torsional profiles.</p></li>
 <li><p><strong>Extended charge models</strong> making RESP electrostatics and ABCG2 charge capabilities selectable directly from the workflow widgets.</p></li>
 <li><p><strong>Versatile workflow modes</strong> adding a Topology-only option for quick GAFF2 topology generation with RESP charges, plus a Fragmentation-only mode that exposes FragMentor so users can isolate and parametrize just the ligand fragments they care about.</p></li>
-<li><p><strong>Performance improvements via project-level and fragment-level parallelization</strong>, significantly reducing walltime for complex ligands (no available for free-trial AFFDOWS).</p></li>
+<li><p><strong>Performance improvements via project-level and fragment-level parallelization</strong>, significantly reducing walltime for complex ligands (not available in the free-trial AFFDOWS).</p></li>
 <li><p><strong>Infrastructure upgrades</strong> including smarter resource allocation, improved remote execution handling, and optimized queueing.</p></li>
 <li><p><strong>General bug fixes and stability improvements</strong> across fitting routines, reporting, torsional scanning, and logging.</p></li>
 </ul>
 </section>
 <section id="affdo-24-09">
 <h2>AFFDO 24.09<a class="headerlink" href="#affdo-24-09" title="Permalink to this heading"></a></h2>
-<p>AFFDO 24.09 centers around a fully web-based service (<a class="reference external" href="https://www.attmosdiscovery.com/tools">https://www.attmosdiscovery.com/tools</a>). It has the following features:</p>
+<p>AFFDO 24.09 centers around a fully web-based service. It has the following features:</p>
 <p><strong>Major Features</strong></p>
 <ul class="simple">
 <li><p><strong>Automated Force Field Development</strong>: Fully automates the generation of ligand-specific Generalized Amber Force Field (GAFF) torsion parameters, requiring no user intervention.</p></li>
@@ -113,18 +113,19 @@ and a smoother user experience, while remaining fully automated and optimized fo
 <li><p><strong>Cloud Integration</strong>: Handles computationally expensive tasks through cloud instances, enabling GPU-accelerated and parallelized quantum chemistry calculations, reducing turnaround time.</p></li>
 <li><p><strong>JAX-based Parameter Optimization</strong>: Leverages JAX for fast, gradient-based optimization with automatic differentiation, optimizing force field parameters with high precision and speed.</p></li>
 <li><p><strong>AMBER Compatibility</strong>: AFFDO generates input files, compatible with AMBER-based free energy simulation workflows like ProFESSA, for an easy integration.</p></li>
+<li><p><strong>Improved Reliability and Diagnostics</strong>: Enhanced logging, clearer error reporting, and structured diagnostic messages provide more transparent feedback and easier troubleshooting within the web service.</p></li>
+<li><p><strong>Infrastructure for Parameter Caching</strong>: Introduces backend support for database-driven reuse of previously computed torsion parameters, improving performance and enabling rapid iteration of AFFDO runs (not available in the free-trial AFFDOWS).</p></li>
 </ul>
 </section>
-<section id="affdo-23-08-jupyter-notebook-release">
-<h2>AFFDO 23.08 (Jupyter-Notebook Release)<a class="headerlink" href="#affdo-23-08-jupyter-notebook-release" title="Permalink to this heading"></a></h2>
+<section id="affdo-23-08">
+<h2>AFFDO 23.08<a class="headerlink" href="#affdo-23-08" title="Permalink to this heading"></a></h2>
+<p>AFFDO 23.08 introduced the first fully notebook-driven version of the workflow, delivering a complete ligand-specific GAFF2 torsion reparameterization pipeline inside an interactive Jupyter environment. Key features include:</p>
 <p><strong>Major Features</strong></p>
 <ul class="simple">
-<li><p><strong>First stable notebook workflow</strong> delivering the complete ligand-specific GAFF torsion pipeline inside Jupyter with interactive widgets.</p></li>
-<li><p><strong>Automated Force Field Development</strong> harnessing QUICK, geomeTRIC, and AMBER helpers to generate GAFF2 torsion parameters with minimal manual intervention.</p></li>
-<li><p><strong>User-friendly interface</strong> built entirely around Jupyter notebooks, providing guided panels for uploading ligands, editing paths, and tracking progress.</p></li>
-<li><p><strong>Hardware flexibility</strong> by allowing users to point notebook cells to either on-prem clusters or cloud hosts for the heavy QM stages.</p></li>
-<li><p><strong>Charge experimentation toolkit</strong> including RESP/Boltzmann averaging recipes and AMBER-ready export scripts to validate multiple electrostatic models.</p></li>
-<li><p><strong>Diagnostic visualization suite</strong> rendering QM vs. MM energy comparisons, torsion fingerprint deviation, and 3D conformer previews inline for rapid validation.</p></li>
+<li><p><strong>End-to-end torsion reparameterization</strong> using QUICK, geomeTRIC, and AMBER helpers, orchestrated through structured notebook cells with minimal manual configuration.</p></li>
+<li><p><strong>Interactive controls and guided panels</strong> for uploading ligands, configuring paths, selecting compute hosts, and monitoring workflow progress directly within Jupyter.</p></li>
+<li><p><strong>Flexible compute integration</strong>, enabling notebook sessions to offload QM tasks to local clusters, HPC systems, or cloud GPUs.</p></li>
+<li><p><strong>Built-in diagnostics and visualization</strong>, including MM vs. QM torsion overlays, torsion fingerprint deviation metrics, and inline 3D conformer previews for rapid quality assessment.</p></li>
 </ul>
 <p><em>Last updated on</em> <em>11/21/2025</em>.</p>
 </section>
