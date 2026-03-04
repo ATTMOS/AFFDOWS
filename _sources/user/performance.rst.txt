@@ -38,6 +38,54 @@ Highlights from this new study include:
 
 These findings, along with full torsional profiles, benchmarking workflows, and extended RBFE analyses, are presented comprehensively in our manuscript and its accompanying supporting information [3].
 
+Extended Benchmark: Default AFFDO Settings
+-------------------------------------------
+
+In addition to the manuscript results above, we have benchmarked the current default AFFDO configuration on an extended subset of the Wang et al. [1] dataset. In this benchmark, only dihedral barrier heights are optimized (without scaling factor adjustments), using DFT constrained-optimization as the reference level. This represents the out-of-the-box AFFDO experience for users running with default settings.
+
+The table below summarizes the torsion-scan accuracy across all benchmarked systems. All energies are in kcal/mol; uncertainties represent 95% confidence intervals.
+
+.. list-table:: Torsion-Scan Benchmark: Standard GAFF2 vs. AFFDO GAFF2
+   :header-rows: 1
+   :widths: 12 10 10 14 14 14 14 12
+
+   * - Family
+     - Systems
+     - Torsions
+     - GAFF2 RMSE
+     - AFFDO RMSE
+     - GAFF2 MAE
+     - AFFDO MAE
+     - Pearson
+   * - MCL1
+     - 42
+     - 215
+     - 1.12 ± 0.11
+     - 0.52 ± 0.05
+     - 0.90 ± 0.09
+     - 0.39 ± 0.04
+     - 0.90 → 0.96
+   * - TYK2
+     - 16
+     - 90
+     - 2.04 ± 0.27
+     - 0.63 ± 0.13
+     - 1.66 ± 0.24
+     - 0.46 ± 0.09
+     - 0.81 → 0.98
+   * - **Overall**
+     - **58**
+     - **305**
+     - **1.39 ± 0.12**
+     - **0.55 ± 0.05**
+     - **1.12 ± 0.10**
+     - **0.41 ± 0.04**
+     - **0.87 → 0.96**
+
+Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. These improvements are consistent across both the MCL1 and TYK2 protein families.
+
+This benchmark is being extended to additional Wang et al. [1] systems and will be updated as new results become available.
+
 **References**
 
 [1] Wang, L., Wu, Y., Deng, Y., et al. (2015). Accurate and reliable prediction of relative ligand binding
