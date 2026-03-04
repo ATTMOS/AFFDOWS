@@ -27,7 +27,7 @@ values for protein-ligand pairs. As depicted in **Figure 2**, the reparameterize
 .. image:: images/validation_figure.png
     :alt: This project was supported by NIH SBIR Seed fund. 
 
-We have extended these validations using our latest version |BOLD_AFFDO_VERSION| in our manuscript [3], where we benchmark AFFDO against a wider range of drug-like molecules with complex torsions. The results further demonstrate that AFFDO can significantly improve GAFF torsion parameters, leading to more accurate free energy predictions across different chemical environments. 
+We have extended these validations using our latest version |BOLD_AFFDO_VERSION| in our manuscript [3], where we benchmark AFFDO against a wider range of drug-like molecules with complex torsions. In this study, both dihedral barrier heights and 1-4 scaling factors were optimized simultaneously. The results further demonstrate that AFFDO can significantly improve GAFF torsion parameters, leading to more accurate free energy predictions across different chemical environments.
 
 Highlights from this new study include:
 
