@@ -44,7 +44,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About AFFDO Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-notes.html">Release Notes</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Accuracy and Performance</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Accuracy and Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#extended-benchmark-default-affdo-settings">Extended Benchmark: Default AFFDO Settings</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="getting-started-guide.html">Getting Started Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citation.html">Citation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">Software License Agreement</a></li>
@@ -98,6 +101,65 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 <li><p><strong>Workflow throughput:</strong> Representative fragments (e.g., TYK2 jmc28_F1, MCL1 L35_F1) complete in roughly 1–7 hours on a 36-core/4×GPU cloud node, with QC centroid optimizations and torsional scans dominating wall time.</p></li>
 </ul>
 <p>These findings, along with full torsional profiles, benchmarking workflows, and extended RBFE analyses, are presented comprehensively in our manuscript and its accompanying supporting information [3].</p>
+<section id="extended-benchmark-default-affdo-settings">
+<h2>Extended Benchmark: Default AFFDO Settings<a class="headerlink" href="#extended-benchmark-default-affdo-settings" title="Permalink to this heading"></a></h2>
+<p>In addition to the manuscript results above, we have benchmarked the current default AFFDO configuration on an extended subset of the Wang et al. [1] dataset. In this benchmark, only dihedral barrier heights are optimized (without scaling factor adjustments), using DFT constrained-optimization as the reference level. This represents the out-of-the-box AFFDO experience for users running with default settings.</p>
+<p>The table below summarizes the torsion-scan accuracy across all benchmarked systems. All energies are in kcal/mol; uncertainties represent 95% confidence intervals.</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Torsion-Scan Benchmark: Standard GAFF2 vs. AFFDO GAFF2</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 12.0%"/>
+<col style="width: 10.0%"/>
+<col style="width: 10.0%"/>
+<col style="width: 14.0%"/>
+<col style="width: 14.0%"/>
+<col style="width: 14.0%"/>
+<col style="width: 14.0%"/>
+<col style="width: 12.0%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Family</p></th>
+<th class="head"><p>Systems</p></th>
+<th class="head"><p>Torsions</p></th>
+<th class="head"><p>GAFF2 RMSE</p></th>
+<th class="head"><p>AFFDO RMSE</p></th>
+<th class="head"><p>GAFF2 MAE</p></th>
+<th class="head"><p>AFFDO MAE</p></th>
+<th class="head"><p>Pearson</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MCL1</p></td>
+<td><p>42</p></td>
+<td><p>215</p></td>
+<td><p>1.12 ± 0.11</p></td>
+<td><p>0.52 ± 0.05</p></td>
+<td><p>0.90 ± 0.09</p></td>
+<td><p>0.39 ± 0.04</p></td>
+<td><p>0.90 → 0.96</p></td>
+</tr>
+<tr class="row-odd"><td><p>TYK2</p></td>
+<td><p>16</p></td>
+<td><p>90</p></td>
+<td><p>2.04 ± 0.27</p></td>
+<td><p>0.63 ± 0.13</p></td>
+<td><p>1.66 ± 0.24</p></td>
+<td><p>0.46 ± 0.09</p></td>
+<td><p>0.81 → 0.98</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Overall</strong></p></td>
+<td><p><strong>58</strong></p></td>
+<td><p><strong>305</strong></p></td>
+<td><p><strong>1.39 ± 0.12</strong></p></td>
+<td><p><strong>0.55 ± 0.05</strong></p></td>
+<td><p><strong>1.12 ± 0.10</strong></p></td>
+<td><p><strong>0.41 ± 0.04</strong></p></td>
+<td><p><strong>0.87 → 0.96</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. These improvements are consistent across both the MCL1 and TYK2 protein families.</p>
+<p>This benchmark is being extended to additional Wang et al. [1] systems and will be updated as new results become available.</p>
 <p><strong>References</strong></p>
 <p>[1] Wang, L., Wu, Y., Deng, Y., et al. (2015). Accurate and reliable prediction of relative ligand binding
 potency in prospective drug discovery by way of a modern free-energy calculation protocol and force
@@ -107,7 +169,8 @@ Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simula
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.</p>
 <p>[3] Blanco-Gonzalez, A., Betancourt, W., Snyder, R., Zhang, S., Giese, T. J., Piskulich, Z. A., Goetz, A. W., Merz, K. M. Jr., York, D. M., Aktulga, H. M., Manathunga, M. (2024).
 Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. ChemRxiv. doi:10.26434/chemrxiv-2024-lcnx1.</p>
-<p><em>Last updated on</em> <em>11/21/2025</em>.</p>
+<p><em>Last updated on</em> <em>03/04/2026</em>.</p>
+</section>
 </section>
 </div>
 </div>
