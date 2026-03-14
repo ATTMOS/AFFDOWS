@@ -118,18 +118,21 @@ All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When A
    <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.00 ± 0.31</td><td>0.21 ± 0.07</td><td>1.76 ± 0.13</td><td>0.40 ± 0.04</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.79</td><td>0.99</td><td>0.86</td><td>0.96</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.98</td><td>0.86</td><td>0.95</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.92</td><td>1.01</td><td>0.81</td><td>0.79</td></tr>
 
    <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT-SP reference</b> — torsions improved: TYK2 75/90 (83%), MCL1 211/216 (98%)</td></tr>
    <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.68 ± 0.22</td><td>0.28 ± 0.06</td><td>1.05 ± 0.08</td><td>0.34 ± 0.03</td></tr>
    <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.09 ± 0.26</td><td>0.39 ± 0.09</td><td>1.32 ± 0.09</td><td>0.47 ± 0.05</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.82</td><td>0.99</td><td>0.88</td><td>0.97</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.77</td><td>0.98</td><td>0.88</td><td>0.95</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.76</td><td>0.89</td><td>0.79</td><td>0.84</td></tr>
 
    <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT reference</b> — torsions improved: TYK2 73/90 (81%), MCL1 169/215 (79%)</td></tr>
    <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.66 ± 0.24</td><td>0.45 ± 0.09</td><td>0.89 ± 0.09</td><td>0.39 ± 0.04</td></tr>
    <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.04 ± 0.27</td><td>0.62 ± 0.12</td><td>1.12 ± 0.11</td><td>0.52 ± 0.06</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.81</td><td>0.98</td><td>0.90</td><td>0.96</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.95</td><td>0.89</td><td>0.94</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.83</td><td>0.85</td><td>0.66</td><td>0.59</td></tr>
    </tbody>
    </table>
 
