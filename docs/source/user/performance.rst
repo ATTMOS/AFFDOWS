@@ -93,8 +93,8 @@ Multi-Reference Comparison (58 systems × 3 reference levels)
 AFFDO supports multiple reference levels for torsion energy profiles. To guide users in selecting the appropriate reference level, we benchmarked the same 58 systems (16 TYK2, 42 MCL1) at three theory levels:
 
 * **XTB**: GFN2-XTB torsional scan (fast, semi-empirical)
-* **DFT-SP**: DFT single-point on XTB geometries (B3LYP/6-31G*)
-* **DFT**: Full DFT constrained optimization (B3LYP/6-31G*)
+* **DFT-SP**: DFT single-point on XTB geometries (PBE0-D3BJ/6-31G*)
+* **DFT**: Full DFT constrained optimization (PBE0-D3BJ/6-31G*)
 
 All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When AFFDO does not improve a torsion, GAFF2 parameters are retained.
 
