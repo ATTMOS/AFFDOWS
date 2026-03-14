@@ -45,12 +45,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Accuracy and Performance</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#validation-study">Validation Study</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extended-benchmark-default-affdo-settings">Extended Benchmark: Default AFFDO Settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#multi-reference-comparison">Multi-Reference Comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#xtb-reference">XTB Reference</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dft-sp-reference">DFT-SP Reference</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dft-reference">DFT Reference</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-reference-comparison">Multi-Reference Comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#aggregate-metrics">Aggregate Metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a></li>
 </ul>
@@ -119,158 +114,13 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 <p>The benchmark covers 58 systems from two protein families: <strong>TYK2</strong> (16 systems, neutral ligands) and <strong>MCL1</strong> (42 systems, charged ligands q = −1). Each system was evaluated at three reference levels to assess the impact of reference quality on fitting accuracy.</p>
 <section id="multi-reference-comparison">
 <h3>Multi-Reference Comparison<a class="headerlink" href="#multi-reference-comparison" title="Link to this heading"></a></h3>
-<p>AFFDO supports multiple reference levels for torsion energy profiles. To guide users in selecting the appropriate reference level, we benchmarked the same 58 systems at three theory levels. All energies are in kcal/mol; uncertainties represent 95% confidence intervals. When AFFDO does not improve a torsion, GAFF2 parameters are retained.</p>
-<section id="xtb-reference">
-<h4>XTB Reference<a class="headerlink" href="#xtb-reference" title="Link to this heading"></a></h4>
-<p>GFN2-XTB torsional scan — the fastest reference level. XTB performs a relaxed torsional scan at the semi-empirical GFN2-XTB level of theory.</p>
-<table class="docutils align-default" id="id1">
-<caption><span class="caption-text">XTB Reference: Standard GAFF2 vs. AFFDO GAFF2</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
-<colgroup>
-<col style="width: 12.0%"/>
-<col style="width: 10.0%"/>
-<col style="width: 10.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 12.0%"/>
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Family</p></th>
-<th class="head"><p>Systems</p></th>
-<th class="head"><p>Improved</p></th>
-<th class="head"><p>GAFF2 RMSE</p></th>
-<th class="head"><p>AFFDO RMSE</p></th>
-<th class="head"><p>GAFF2 MAE</p></th>
-<th class="head"><p>AFFDO MAE</p></th>
-<th class="head"><p>Pearson</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>TYK2</p></td>
-<td><p>16</p></td>
-<td><p>74/90 (82%)</p></td>
-<td><p>2.00 ± 0.31</p></td>
-<td><p>0.21 ± 0.07</p></td>
-<td><p>1.61 ± 0.27</p></td>
-<td><p>0.15 ± 0.04</p></td>
-<td><p>0.79 → 0.99</p></td>
-</tr>
-<tr class="row-odd"><td><p>MCL1</p></td>
-<td><p>42</p></td>
-<td><p>206/216 (95%)</p></td>
-<td><p>1.76 ± 0.13</p></td>
-<td><p>0.40 ± 0.04</p></td>
-<td><p>1.37 ± 0.10</p></td>
-<td><p>0.30 ± 0.03</p></td>
-<td><p>0.86 → 0.96</p></td>
-</tr>
-</tbody>
-</table>
-<p>XTB achieves the highest improvement rates (82–95%) and the lowest absolute AFFDO RMSE values. The smooth, well-behaved XTB torsional scan profiles are particularly well-suited for single-barrier fitting. Despite being semi-empirical, XTB is competitive with higher-level methods for both neutral (TYK2) and charged (MCL1) molecules.</p>
-</section>
-<section id="dft-sp-reference">
-<h4>DFT-SP Reference<a class="headerlink" href="#dft-sp-reference" title="Link to this heading"></a></h4>
-<p>DFT single-point on XTB geometries — PBE0-D3BJ/6-31G* single-point energies computed on XTB-optimized geometries. This combines DFT-quality energies with XTB-level computational cost for geometry generation.</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">DFT-SP Reference: Standard GAFF2 vs. AFFDO GAFF2</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
-<colgroup>
-<col style="width: 12.0%"/>
-<col style="width: 10.0%"/>
-<col style="width: 10.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 12.0%"/>
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Family</p></th>
-<th class="head"><p>Systems</p></th>
-<th class="head"><p>Improved</p></th>
-<th class="head"><p>GAFF2 RMSE</p></th>
-<th class="head"><p>AFFDO RMSE</p></th>
-<th class="head"><p>GAFF2 MAE</p></th>
-<th class="head"><p>AFFDO MAE</p></th>
-<th class="head"><p>Pearson</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>TYK2</p></td>
-<td><p>16</p></td>
-<td><p>75/90 (83%)</p></td>
-<td><p>2.09 ± 0.26</p></td>
-<td><p>0.39 ± 0.09</p></td>
-<td><p>1.68 ± 0.22</p></td>
-<td><p>0.28 ± 0.06</p></td>
-<td><p>0.82 → 0.99</p></td>
-</tr>
-<tr class="row-odd"><td><p>MCL1</p></td>
-<td><p>42</p></td>
-<td><p>211/216 (98%)</p></td>
-<td><p>1.32 ± 0.09</p></td>
-<td><p>0.47 ± 0.05</p></td>
-<td><p>1.05 ± 0.08</p></td>
-<td><p>0.34 ± 0.03</p></td>
-<td><p>0.88 → 0.97</p></td>
-</tr>
-</tbody>
-</table>
-<p>DFT-SP achieves the highest success rate overall (83% for TYK2, 98% for MCL1). The DFT single-point correction is especially valuable for charged molecules (MCL1), where electrostatic interactions play a larger role. This is the recommended default reference level for production use.</p>
-</section>
-<section id="dft-reference">
-<h4>DFT Reference<a class="headerlink" href="#dft-reference" title="Link to this heading"></a></h4>
-<p>Full DFT constrained optimization — PBE0-D3BJ/6-31G* with full geometry relaxation at each scan point. This is the most computationally expensive reference level.</p>
-<table class="docutils align-default" id="id3">
-<caption><span class="caption-text">DFT Reference: Standard GAFF2 vs. AFFDO GAFF2</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
-<colgroup>
-<col style="width: 12.0%"/>
-<col style="width: 10.0%"/>
-<col style="width: 10.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 14.0%"/>
-<col style="width: 12.0%"/>
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Family</p></th>
-<th class="head"><p>Systems</p></th>
-<th class="head"><p>Improved</p></th>
-<th class="head"><p>GAFF2 RMSE</p></th>
-<th class="head"><p>AFFDO RMSE</p></th>
-<th class="head"><p>GAFF2 MAE</p></th>
-<th class="head"><p>AFFDO MAE</p></th>
-<th class="head"><p>Pearson</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>TYK2</p></td>
-<td><p>16</p></td>
-<td><p>73/90 (81%)</p></td>
-<td><p>2.04 ± 0.27</p></td>
-<td><p>0.62 ± 0.12</p></td>
-<td><p>1.66 ± 0.24</p></td>
-<td><p>0.45 ± 0.09</p></td>
-<td><p>0.81 → 0.98</p></td>
-</tr>
-<tr class="row-odd"><td><p>MCL1</p></td>
-<td><p>42</p></td>
-<td><p>169/215 (79%)</p></td>
-<td><p>1.12 ± 0.11</p></td>
-<td><p>0.52 ± 0.06</p></td>
-<td><p>0.89 ± 0.09</p></td>
-<td><p>0.39 ± 0.04</p></td>
-<td><p>0.90 → 0.96</p></td>
-</tr>
-</tbody>
-</table>
-<p>DFT constrained-optimization produces the most physically accurate torsion profiles, but is the hardest to fit: only 79% of MCL1 torsions improve (vs 95–98% for XTB/DFT-SP). Full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture. However, DFT achieves the best Pearson correlations and the lowest GAFF2 baseline errors (indicating higher-quality reference data).</p>
-</section>
-</section>
-<section id="aggregate-metrics">
-<h3>Aggregate Metrics<a class="headerlink" href="#aggregate-metrics" title="Link to this heading"></a></h3>
-<p>The table below consolidates results across all three reference levels for direct comparison.</p>
+<p>AFFDO supports multiple reference levels for torsion energy profiles. To guide users in selecting the appropriate reference level, we benchmarked the same 58 systems (16 TYK2, 42 MCL1) at three theory levels:</p>
+<ul class="simple">
+<li><p><strong>XTB</strong>: GFN2-XTB torsional scan (fast, semi-empirical)</p></li>
+<li><p><strong>DFT-SP</strong>: DFT single-point on XTB geometries (PBE0-D3BJ/6-31G*)</p></li>
+<li><p><strong>DFT</strong>: Full DFT constrained optimization (PBE0-D3BJ/6-31G*)</p></li>
+</ul>
+<p>All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When AFFDO does not improve a torsion, GAFF2 parameters are retained.</p>
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
 <thead>
 <tr style="border-bottom: 2px solid #333;">
@@ -284,34 +134,26 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 </tr>
 </thead>
 <tbody>
-<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>XTB reference</b> — torsions improved: TYK2 74/90 (82%), MCL1 206/216 (95%)</td></tr>
+<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>XTB reference</b></td></tr>
 <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.61 ± 0.27</td><td>0.15 ± 0.04</td><td>1.37 ± 0.10</td><td>0.30 ± 0.03</td></tr>
 <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.00 ± 0.31</td><td>0.21 ± 0.07</td><td>1.76 ± 0.13</td><td>0.40 ± 0.04</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.79</td><td>0.99</td><td>0.86</td><td>0.96</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.98</td><td>0.86</td><td>0.95</td></tr>
-<tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.92</td><td>1.01</td><td>0.81</td><td>0.79</td></tr>
-<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT-SP reference</b> — torsions improved: TYK2 75/90 (83%), MCL1 211/216 (98%)</td></tr>
+<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT-SP reference</b></td></tr>
 <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.68 ± 0.22</td><td>0.28 ± 0.06</td><td>1.05 ± 0.08</td><td>0.34 ± 0.03</td></tr>
 <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.09 ± 0.26</td><td>0.39 ± 0.09</td><td>1.32 ± 0.09</td><td>0.47 ± 0.05</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.82</td><td>0.99</td><td>0.88</td><td>0.97</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.77</td><td>0.98</td><td>0.88</td><td>0.95</td></tr>
-<tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.76</td><td>0.89</td><td>0.79</td><td>0.84</td></tr>
-<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT reference</b> — torsions improved: TYK2 73/90 (81%), MCL1 169/215 (79%)</td></tr>
+<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT reference</b></td></tr>
 <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.66 ± 0.24</td><td>0.45 ± 0.09</td><td>0.89 ± 0.09</td><td>0.39 ± 0.04</td></tr>
 <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.04 ± 0.27</td><td>0.62 ± 0.12</td><td>1.12 ± 0.11</td><td>0.52 ± 0.06</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.81</td><td>0.98</td><td>0.90</td><td>0.96</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.95</td><td>0.89</td><td>0.94</td></tr>
-<tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.83</td><td>0.85</td><td>0.66</td><td>0.59</td></tr>
 </tbody>
-</table><p>Key findings from the multi-reference comparison:</p>
-<ul class="simple">
-<li><p><strong>All three reference levels produce significant improvements</strong> over standard GAFF2, with RMSE reductions of 60–90% and Pearson correlations reaching 0.95–0.99.</p></li>
-<li><p><strong>DFT-SP achieves the highest success rate</strong> (83% for TYK2, 98% for MCL1), combining DFT-quality energies with XTB geometries at single-point cost. This is the recommended default reference level for most applications.</p></li>
-<li><p><strong>XTB is competitive for both neutral and charged molecules</strong>, achieving the lowest absolute RMSE for TYK2 (0.21 kcal/mol) and MCL1 (0.40 kcal/mol). XTB torsional scan profiles are smooth and well-suited for dihedral fitting.</p></li>
-<li><p><strong>DFT constrained-optimization produces the most physically accurate profiles</strong>, but is the hardest to fit: only 79% of MCL1 torsions improve (vs 95–98% for XTB/DFT-SP). Full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.</p></li>
-</ul>
-<table class="docutils align-default" id="id4">
-<caption><span class="caption-text">Reference Level Recommendations</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
+</table><p>All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 60–90% and Pearson correlations reaching 0.95–0.99. In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 81% of TYK2 and 79% of MCL1 torsions.</p>
+<p>DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Reference Level Recommendations</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 20.0%"/>
 <col style="width: 20.0%"/>
@@ -343,6 +185,28 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 </tr>
 </tbody>
 </table>
+</section>
+<section id="aggregate-metrics">
+<h3>Aggregate Metrics<a class="headerlink" href="#aggregate-metrics" title="Link to this heading"></a></h3>
+<p>The table below summarizes the overall GAFF2 vs AFFDO performance across 58 systems (305 torsions) from the Wang et al. [1] dataset, using DFT constrained-optimization (PBE0-D3BJ/6-31G*) as the reference level. Metrics quantify agreement with QC torsional potential energy surfaces obtained from constrained dihedral scans evaluated on a 20° angular grid (i.e., scan-point energies) and should not be interpreted as RBFE predictive accuracy.</p>
+<table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
+<thead>
+<tr style="border-bottom: 2px solid #333;">
+<th style="text-align: left; padding: 8px;"><b>Metric</b></th>
+<th style="padding: 8px;"><b>GAFF2</b></th>
+<th style="padding: 8px;"><b>AFFDO</b></th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left; padding: 6px;">MAE<sup>a</sup> (kcal/mol)</td><td>1.12 ± 0.10</td><td>0.41 ± 0.04</td></tr>
+<tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.12</td><td>0.55 ± 0.05</td></tr>
+<tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.96</td></tr>
+<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="3" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.</td></tr>
+</tfoot>
+</table><p>Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.</p>
 </section>
 <section id="charge-model-comparison">
 <h3>Charge Model Comparison<a class="headerlink" href="#charge-model-comparison" title="Link to this heading"></a></h3>
