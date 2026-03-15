@@ -130,27 +130,6 @@ All three reference levels produce significant improvements over standard GAFF2,
 
 DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.
 
-.. list-table:: Reference Level Recommendations
-   :header-rows: 1
-   :widths: 20 20 15 45
-
-   * - Use Case
-     - Reference Level
-     - Speed
-     - Notes
-   * - Production (default)
-     - **DFT-SP**
-     - Medium
-     - Best success rate, close to DFT quality
-   * - Fast screening
-     - **XTB**
-     - Fast
-     - Competitive RMSE, 82–95% success
-   * - Highest fidelity
-     - **DFT**
-     - Slow
-     - Most accurate profiles, but harder to fit (79–81%)
-
 .. _Cross-Reference Analysis:
 
 Cross-Reference Analysis
@@ -200,7 +179,28 @@ The table below combines fitting quality, reference quality, and net accuracy to
    </tfoot>
    </table>
 
-DFT-SP offers the best cost-accuracy trade-off: it achieves 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT constrained-optimization (0.41 kcal/mol). This confirms DFT-SP as the recommended default reference level.
+DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol) and should be used when computational cost permits. DFT-SP is a cost-effective alternative, achieving 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB provides rapid turnaround but its reference surface is further from DFT ground truth, which limits the final parameter quality regardless of fitting accuracy.
+
+.. list-table:: Reference Level Summary
+   :header-rows: 1
+   :widths: 20 15 15 50
+
+   * - Reference Level
+     - Speed
+     - Net RMSE
+     - Notes
+   * - **DFT**
+     - Slow
+     - 0.41
+     - Highest accuracy; use when computational resources allow
+   * - **DFT-SP**
+     - Medium
+     - 1.07
+     - Good alternative; best improvement rate (83–98%)
+   * - **XTB**
+     - Fast
+     - 1.40
+     - Rapid screening; limited by reference quality
 
 Charge Model Comparison
 ^^^^^^^^^^^^^^^^^^^^^^^^

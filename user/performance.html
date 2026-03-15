@@ -179,39 +179,6 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 </tbody>
 </table><p>All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 60–90% and Pearson correlations reaching 0.95–0.99. In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 81% of TYK2 and 79% of MCL1 torsions.</p>
 <p>DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Reference Level Recommendations</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
-<colgroup>
-<col style="width: 20.0%"/>
-<col style="width: 20.0%"/>
-<col style="width: 15.0%"/>
-<col style="width: 45.0%"/>
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Use Case</p></th>
-<th class="head"><p>Reference Level</p></th>
-<th class="head"><p>Speed</p></th>
-<th class="head"><p>Notes</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Production (default)</p></td>
-<td><p><strong>DFT-SP</strong></p></td>
-<td><p>Medium</p></td>
-<td><p>Best success rate, close to DFT quality</p></td>
-</tr>
-<tr class="row-odd"><td><p>Fast screening</p></td>
-<td><p><strong>XTB</strong></p></td>
-<td><p>Fast</p></td>
-<td><p>Competitive RMSE, 82–95% success</p></td>
-</tr>
-<tr class="row-even"><td><p>Highest fidelity</p></td>
-<td><p><strong>DFT</strong></p></td>
-<td><p>Slow</p></td>
-<td><p>Most accurate profiles, but harder to fit (79–81%)</p></td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="cross-reference-analysis">
 <span id="id1"></span><h3>Cross-Reference Analysis<a class="headerlink" href="#cross-reference-analysis" title="Link to this heading"></a></h3>
@@ -248,7 +215,40 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 <tfoot>
 <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">All RMSE values in kcal/mol. 305 torsions from 58 Wang et al. systems.</td></tr>
 </tfoot>
-</table><p>DFT-SP offers the best cost-accuracy trade-off: it achieves 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT constrained-optimization (0.41 kcal/mol). This confirms DFT-SP as the recommended default reference level.</p>
+</table><p>DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol) and should be used when computational cost permits. DFT-SP is a cost-effective alternative, achieving 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB provides rapid turnaround but its reference surface is further from DFT ground truth, which limits the final parameter quality regardless of fitting accuracy.</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Reference Level Summary</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%"/>
+<col style="width: 15.0%"/>
+<col style="width: 15.0%"/>
+<col style="width: 50.0%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Reference Level</p></th>
+<th class="head"><p>Speed</p></th>
+<th class="head"><p>Net RMSE</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>DFT</strong></p></td>
+<td><p>Slow</p></td>
+<td><p>0.41</p></td>
+<td><p>Highest accuracy; use when computational resources allow</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>DFT-SP</strong></p></td>
+<td><p>Medium</p></td>
+<td><p>1.07</p></td>
+<td><p>Good alternative; best improvement rate (83–98%)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>XTB</strong></p></td>
+<td><p>Fast</p></td>
+<td><p>1.40</p></td>
+<td><p>Rapid screening; limited by reference quality</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="charge-model-comparison">
 <h3>Charge Model Comparison<a class="headerlink" href="#charge-model-comparison" title="Link to this heading"></a></h3>
