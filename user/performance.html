@@ -215,7 +215,7 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 <tfoot>
 <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">All RMSE values in kcal/mol. 305 torsions from 58 Wang et al. systems.</td></tr>
 </tfoot>
-</table><p>DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol) and should be used when computational cost permits. DFT-SP is a cost-effective alternative, achieving 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB provides rapid turnaround but its reference surface is further from DFT ground truth, which limits the final parameter quality regardless of fitting accuracy.</p>
+</table><p>DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol) but requires the longest computation time. DFT-SP is a cost-effective alternative, achieving 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB provides rapid turnaround but its reference surface is further from DFT ground truth, which limits the final parameter quality regardless of fitting accuracy.</p>
 <table class="docutils align-default" id="id2">
 <caption><span class="caption-text">Reference Level Summary</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
 <colgroup>
@@ -235,7 +235,7 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 <tr class="row-even"><td><p><strong>DFT</strong></p></td>
 <td><p>Slow</p></td>
 <td><p>0.41</p></td>
-<td><p>Highest accuracy; use when computational resources allow</p></td>
+<td><p>Highest accuracy; longest computation time</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>DFT-SP</strong></p></td>
 <td><p>Medium</p></td>

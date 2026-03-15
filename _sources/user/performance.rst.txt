@@ -179,7 +179,7 @@ The table below combines fitting quality, reference quality, and net accuracy to
    </tfoot>
    </table>
 
-DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol) and should be used when computational cost permits. DFT-SP is a cost-effective alternative, achieving 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB provides rapid turnaround but its reference surface is further from DFT ground truth, which limits the final parameter quality regardless of fitting accuracy.
+DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol) but requires the longest computation time. DFT-SP is a cost-effective alternative, achieving 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB provides rapid turnaround but its reference surface is further from DFT ground truth, which limits the final parameter quality regardless of fitting accuracy.
 
 .. list-table:: Reference Level Summary
    :header-rows: 1
@@ -192,7 +192,7 @@ DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol
    * - **DFT**
      - Slow
      - 0.41
-     - Highest accuracy; use when computational resources allow
+     - Highest accuracy; longest computation time
    * - **DFT-SP**
      - Medium
      - 1.07
