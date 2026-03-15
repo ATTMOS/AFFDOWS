@@ -48,14 +48,46 @@ In addition to the manuscript results above, we have benchmarked the current def
 
 The benchmark covers 58 systems from two protein families: **TYK2** (16 systems, neutral ligands) and **MCL1** (42 systems, charged ligands q = −1). Each system was evaluated at three reference levels to assess the impact of reference quality on fitting accuracy.
 
-Multi-Reference Comparison
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Aggregate Metrics
+^^^^^^^^^^^^^^^^^^
+
+The table below summarizes the overall GAFF2 vs AFFDO performance across 58 systems (305 torsions) from the Wang et al. [1] dataset, using DFT constrained-optimization (PBE0-D3BJ/6-31G*) as the reference level. Metrics quantify agreement with QC torsional potential energy surfaces obtained from constrained dihedral scans evaluated on a 20° angular grid (i.e., scan-point energies) and should not be interpreted as RBFE predictive accuracy.
+
+.. raw:: html
+
+   <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
+   <thead>
+   <tr style="border-bottom: 2px solid #333;">
+     <th style="text-align: left; padding: 8px;"><b>Metric</b></th>
+     <th style="padding: 8px;"><b>GAFF2</b></th>
+     <th style="padding: 8px;"><b>AFFDO</b></th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr><td style="text-align: left; padding: 6px;">MAE<sup>a</sup> (kcal/mol)</td><td>1.12 ± 0.10</td><td>0.41 ± 0.04</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.12</td><td>0.55 ± 0.05</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.96</td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td></tr>
+   </tbody>
+   <tfoot>
+   <tr><td colspan="3" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.</td></tr>
+   </tfoot>
+   </table>
+
+Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.
+
+Fitting Accuracy by Reference Level
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 AFFDO supports multiple reference levels for torsion energy profiles. To guide users in selecting the appropriate reference level, we benchmarked the same 58 systems (16 TYK2, 42 MCL1) at three theory levels:
 
 * **XTB**: GFN2-XTB torsional scan (fast, semi-empirical)
 * **DFT-SP**: DFT single-point on XTB geometries (PBE0-D3BJ/6-31G*)
 * **DFT**: Full DFT constrained optimization (PBE0-D3BJ/6-31G*)
+
+.. note::
+
+   Each reference level uses a different energy surface. The metrics below assess how well AFFDO fits each level's own profile. Because the reference profiles differ, RMSE/MAE values **cannot be directly compared across levels** — a lower RMSE at XTB reflects the smoothness of XTB profiles, not necessarily better parameter quality. For a direct comparison of reference levels against DFT ground truth, see the `Cross-Reference Analysis`_ below.
 
 All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When AFFDO does not improve a torsion, GAFF2 parameters are retained.
 
@@ -119,10 +151,12 @@ DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, p
      - Slow
      - Most accurate profiles, but harder to fit (79–81%)
 
-Aggregate Metrics
-^^^^^^^^^^^^^^^^^^
+.. _Cross-Reference Analysis:
 
-The table below summarizes the overall GAFF2 vs AFFDO performance across 58 systems (305 torsions) from the Wang et al. [1] dataset, using DFT constrained-optimization (PBE0-D3BJ/6-31G*) as the reference level. Metrics quantify agreement with QC torsional potential energy surfaces obtained from constrained dihedral scans evaluated on a 20° angular grid (i.e., scan-point energies) and should not be interpreted as RBFE predictive accuracy.
+Cross-Reference Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The fitting accuracy table above shows how well AFFDO reproduces each reference level's own energy surface — but it does not tell us how close the resulting parameters are to DFT ground truth. To answer that question, we evaluated XTB and DFT-SP torsion profiles directly against DFT constrained-optimization profiles for the same 305 torsions.
 
 .. raw:: html
 
@@ -130,22 +164,43 @@ The table below summarizes the overall GAFF2 vs AFFDO performance across 58 syst
    <thead>
    <tr style="border-bottom: 2px solid #333;">
      <th style="text-align: left; padding: 8px;"><b>Metric</b></th>
-     <th style="padding: 8px;"><b>GAFF2</b></th>
-     <th style="padding: 8px;"><b>AFFDO</b></th>
+     <th style="padding: 8px;"><b>XTB vs DFT</b></th>
+     <th style="padding: 8px;"><b>DFT-SP vs DFT</b></th>
    </tr>
    </thead>
    <tbody>
-   <tr><td style="text-align: left; padding: 6px;">MAE<sup>a</sup> (kcal/mol)</td><td>1.12 ± 0.10</td><td>0.41 ± 0.04</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.12</td><td>0.55 ± 0.05</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.96</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>1.39 ± 0.09</td><td>0.97 ± 0.13</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.14 ± 0.08</td><td>0.74 ± 0.10</td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.84</td><td>0.85</td></tr>
+   </tbody>
+   </table>
+
+DFT-SP profiles are 30% closer to DFT ground truth than XTB profiles (RMSE 0.97 vs 1.39 kcal/mol). This gap propagates through fitting: even though XTB fitting achieves a lower self-referential RMSE (0.21 vs 0.39), the XTB reference surface itself is further from DFT, so the final fitted parameters end up less accurate.
+
+The table below combines fitting quality, reference quality, and net accuracy to show the full picture:
+
+.. raw:: html
+
+   <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
+   <thead>
+   <tr style="border-bottom: 2px solid #333;">
+     <th style="text-align: left; padding: 8px;"><b>Reference</b></th>
+     <th style="padding: 8px;"><b>Fitting quality</b><br><span style="font-size: 0.85em;">(self-ref RMSE)</span></th>
+     <th style="padding: 8px;"><b>Reference quality</b><br><span style="font-size: 0.85em;">(vs DFT RMSE)</span></th>
+     <th style="padding: 8px;"><b>Net accuracy</b><br><span style="font-size: 0.85em;">(fitted vs DFT RMSE)</span></th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr><td style="text-align: left; padding: 6px;">XTB</td><td>0.21</td><td>1.39</td><td>1.40</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">DFT-SP</td><td>0.39</td><td>0.97</td><td>1.07</td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">DFT</td><td>0.55</td><td>0.00</td><td>0.41</td></tr>
    </tbody>
    <tfoot>
-   <tr><td colspan="3" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.</td></tr>
+   <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">All RMSE values in kcal/mol. 305 torsions from 58 Wang et al. systems.</td></tr>
    </tfoot>
    </table>
 
-Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.
+DFT-SP offers the best cost-accuracy trade-off: it achieves 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT constrained-optimization (0.41 kcal/mol). This confirms DFT-SP as the recommended default reference level.
 
 Charge Model Comparison
 ^^^^^^^^^^^^^^^^^^^^^^^^
