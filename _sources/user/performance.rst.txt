@@ -130,6 +130,21 @@ All three reference levels produce significant improvements over standard GAFF2,
 
 DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.
 
+Geometry Fidelity
+^^^^^^^^^^^^^^^^^^
+
+AFFDO uses a two-level optimization strategy to balance energy accuracy with geometric fidelity. In the inner loop, torsion parameters are refined using single-point (SP) energy evaluations on fixed geometries — this is fast and allows efficient gradient-based exploration of parameter space. Periodically, outer geometry-refresh cycles re-minimize MM geometries with the updated parameters and recompute energy profiles, ensuring that the torsion parameters remain consistent with relaxed molecular structures.
+
+This approach yields substantial energy improvements (60–90% RMSE reduction) with only a modest increase in structural deviation from the reference geometries. Across the 58 benchmarked systems, the mean Max RMSD between reference and MM-optimized geometries increases by approximately 0.09 A after fitting — roughly 6–7% of a typical C–C bond length and well within general force field accuracy expectations.
+
+To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:
+
+.. math::
+
+   S = \text{RMSD}_{\text{energy}} + \lambda \cdot \overline{\text{RMSD}}_{\text{geom}}
+
+where :math:`\lambda` (default 0.5) weights geometric fidelity against energy accuracy. This provides a light geometry bias when selecting among candidate parameter sets from different optimization cycles, without significantly affecting energy quality. The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.
+
 .. _Cross-Reference Analysis:
 
 Cross-Reference Analysis

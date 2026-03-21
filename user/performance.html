@@ -14,6 +14,7 @@
 <script src="../_static/documentation_options.js?v=7b1888c8"></script>
 <script src="../_static/doctools.js?v=fd6eb6e6"></script>
 <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
 <script src="../_static/js/theme.js"></script>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="../search.html" rel="search" title="Search"/>
@@ -47,6 +48,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#extended-benchmark-default-affdo-settings">Extended Benchmark: Default AFFDO Settings</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#aggregate-metrics">Aggregate Metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fitting-accuracy-by-reference-level">Fitting Accuracy by Reference Level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geometry-fidelity">Geometry Fidelity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a></li>
 </ul>
@@ -179,6 +181,15 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 </tbody>
 </table><p>All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 60–90% and Pearson correlations reaching 0.95–0.99. In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 81% of TYK2 and 79% of MCL1 torsions.</p>
 <p>DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.</p>
+</section>
+<section id="geometry-fidelity">
+<h3>Geometry Fidelity<a class="headerlink" href="#geometry-fidelity" title="Link to this heading"></a></h3>
+<p>AFFDO uses a two-level optimization strategy to balance energy accuracy with geometric fidelity. In the inner loop, torsion parameters are refined using single-point (SP) energy evaluations on fixed geometries — this is fast and allows efficient gradient-based exploration of parameter space. Periodically, outer geometry-refresh cycles re-minimize MM geometries with the updated parameters and recompute energy profiles, ensuring that the torsion parameters remain consistent with relaxed molecular structures.</p>
+<p>This approach yields substantial energy improvements (60–90% RMSE reduction) with only a modest increase in structural deviation from the reference geometries. Across the 58 benchmarked systems, the mean Max RMSD between reference and MM-optimized geometries increases by approximately 0.09 A after fitting — roughly 6–7% of a typical C–C bond length and well within general force field accuracy expectations.</p>
+<p>To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:</p>
+<div class="math notranslate nohighlight">
+\[S = \text{RMSD}_{\text{energy}} + \lambda \cdot \overline{\text{RMSD}}_{\text{geom}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> (default 0.5) weights geometric fidelity against energy accuracy. This provides a light geometry bias when selecting among candidate parameter sets from different optimization cycles, without significantly affecting energy quality. The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.</p>
 </section>
 <section id="cross-reference-analysis">
 <span id="id1"></span><h3>Cross-Reference Analysis<a class="headerlink" href="#cross-reference-analysis" title="Link to this heading"></a></h3>
