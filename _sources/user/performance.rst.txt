@@ -138,7 +138,7 @@ Geometry Fidelity
 
 AFFDO uses a two-level optimization strategy to balance energy accuracy with geometric fidelity. In the inner loop, torsion parameters are refined using single-point (SP) energy evaluations on fixed geometries — this is fast and allows efficient gradient-based exploration of parameter space. Periodically, outer geometry-refresh cycles re-minimize MM geometries with the updated parameters and recompute energy profiles, ensuring that the torsion parameters remain consistent with relaxed molecular structures.
 
-This approach yields substantial energy improvements (60–90% RMSE reduction) with only a modest increase in structural deviation from the reference geometries. Across the 58 benchmarked systems, the mean Max RMSD between reference and MM-optimized geometries increases by approximately 0.09 A after fitting — roughly 6–7% of a typical C–C bond length and well within general force field accuracy expectations.
+This approach yields substantial energy improvements (60–90% RMSE reduction) with only a modest increase in structural deviation from the reference geometries. The Max RMSD between reference and MM-optimized geometries (see per-reference-level tables above) typically increases by 0.05–0.17 A after fitting — well within general force field accuracy expectations.
 
 To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:
 
