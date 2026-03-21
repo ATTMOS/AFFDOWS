@@ -167,7 +167,7 @@ Benchmarking on the 16 TYK2 ligands (73 torsions) at the XTB reference level ill
    </tbody>
    </table>
 
-With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD but the mean geometry RMSD rises to 0.418 &#8491;. Enabling the default regularization (:math:`\lambda = 0.5`) brings geometry RMSD down to 0.375 &#8491; — a 10% improvement — at a negligible energy cost. The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.
+With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD but the mean geometry RMSD rises to 0.418 A. Enabling the default regularization (:math:`\lambda = 0.5`) brings geometry RMSD down to 0.375 A — a 10% improvement — at a negligible energy cost. The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.
 
 .. _Cross-Reference Analysis:
 
