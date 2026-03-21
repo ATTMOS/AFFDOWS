@@ -130,10 +130,11 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 <tr><td style="text-align: left; padding: 6px;">MAE<sup>a</sup> (kcal/mol)</td><td>1.12 ± 0.10</td><td>0.41 ± 0.04</td></tr>
 <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.12</td><td>0.55 ± 0.05</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.96</td></tr>
-<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td></tr>
+<tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td></tr>
+<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Max RMSD<sup>b</sup> (Å)</td><td>0.68 ± 0.06</td><td>0.81 ± 0.07</td></tr>
 </tbody>
 <tfoot>
-<tr><td colspan="3" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.</td></tr>
+<tr><td colspan="3" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.<br/><sup>b</sup> Maximum RMSD between reference (DFT) and MM-optimized geometries across scan points per torsion; see <a href="#geometry-fidelity">Geometry Fidelity</a>.</td></tr>
 </tfoot>
 </table><p>Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.</p>
 </section>
@@ -168,16 +169,19 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.00 ± 0.31</td><td>0.21 ± 0.07</td><td>1.76 ± 0.13</td><td>0.40 ± 0.04</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.79</td><td>0.99</td><td>0.86</td><td>0.96</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.98</td><td>0.86</td><td>0.95</td></tr>
+<tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.85 ± 0.11</td><td>1.01 ± 0.13</td><td>0.79 ± 0.08</td><td>0.79 ± 0.08</td></tr>
 <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT-SP reference</b></td></tr>
 <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.68 ± 0.22</td><td>0.28 ± 0.06</td><td>1.05 ± 0.08</td><td>0.34 ± 0.03</td></tr>
 <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.09 ± 0.26</td><td>0.39 ± 0.09</td><td>1.32 ± 0.09</td><td>0.47 ± 0.05</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.82</td><td>0.99</td><td>0.88</td><td>0.97</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.77</td><td>0.98</td><td>0.88</td><td>0.95</td></tr>
+<tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.82 ± 0.11</td><td>0.89 ± 0.14</td><td>0.79 ± 0.08</td><td>0.84 ± 0.08</td></tr>
 <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT reference</b></td></tr>
 <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.66 ± 0.24</td><td>0.45 ± 0.09</td><td>0.89 ± 0.09</td><td>0.39 ± 0.04</td></tr>
 <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.04 ± 0.27</td><td>0.62 ± 0.12</td><td>1.12 ± 0.11</td><td>0.52 ± 0.06</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.81</td><td>0.98</td><td>0.90</td><td>0.96</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.95</td><td>0.89</td><td>0.94</td></tr>
+<tr><td style="text-align: left; padding: 6px;">Max RMSD (Å)</td><td>0.89 ± 0.11</td><td>0.95 ± 0.13</td><td>0.58 ± 0.07</td><td>0.75 ± 0.08</td></tr>
 </tbody>
 </table><p>All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 60–90% and Pearson correlations reaching 0.95–0.99. In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 81% of TYK2 and 79% of MCL1 torsions.</p>
 <p>DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.</p>
@@ -189,7 +193,8 @@ values for protein-ligand pairs. As depicted in <strong>Figure 2</strong>, the r
 <p>To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:</p>
 <div class="math notranslate nohighlight">
 \[S = \text{RMSD}_{\text{energy}} + \lambda \cdot \overline{\text{RMSD}}_{\text{geom}}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> (default 0.5) weights geometric fidelity against energy accuracy. This provides a light geometry bias when selecting among candidate parameter sets from different optimization cycles, without significantly affecting energy quality. The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.</p>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> (default 0.5) weights geometric fidelity against energy accuracy. This provides a light geometry bias when selecting among candidate parameter sets from different optimization cycles, without significantly affecting energy quality.</p>
+<p>Benchmarking on the 16 TYK2 ligands at the XTB reference level illustrates the effect of geometry regularization. With no regularization (<span class="math notranslate nohighlight">\(\lambda = 0\)</span>), the optimizer achieves the lowest energy RMSD (0.129 kcal/mol) but the mean geometry RMSD between reference and MM-reoptimized structures rises to 0.418 A. Enabling the default regularization (<span class="math notranslate nohighlight">\(\lambda = 0.5\)</span>) brings the geometry RMSD down to 0.375 A — a 10% improvement — at a negligible energy cost (0.132 kcal/mol). The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.</p>
 </section>
 <section id="cross-reference-analysis">
 <span id="id1"></span><h3>Cross-Reference Analysis<a class="headerlink" href="#cross-reference-analysis" title="Link to this heading"></a></h3>
