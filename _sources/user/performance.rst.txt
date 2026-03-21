@@ -61,16 +61,18 @@ The table below summarizes the overall GAFF2 vs AFFDO performance across 58 syst
      <th style="text-align: left; padding: 8px;"><b>Metric</b></th>
      <th style="padding: 8px;"><b>GAFF2</b></th>
      <th style="padding: 8px;"><b>AFFDO</b></th>
+     <th style="padding: 8px;"><b>Change</b></th>
    </tr>
    </thead>
    <tbody>
-   <tr><td style="text-align: left; padding: 6px;">MAE<sup>a</sup> (kcal/mol)</td><td>1.12 ± 0.10</td><td>0.41 ± 0.04</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.12</td><td>0.55 ± 0.05</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.96</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">MAE<sup>a</sup> (kcal/mol)</td><td>1.12 ± 0.10</td><td>0.41 ± 0.04</td><td style="color: green;">−63%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.12</td><td>0.55 ± 0.05</td><td style="color: green;">−60%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.96</td><td style="color: green;">+10%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td><td style="color: green;">+11%</td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Max RMSD<sup>b</sup> (&#8491;)</td><td>0.68 ± 0.06</td><td>0.81 ± 0.07</td><td style="color: #c00;">+19%</td></tr>
    </tbody>
    <tfoot>
-   <tr><td colspan="3" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.</td></tr>
+   <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.<br><sup>b</sup> Maximum RMSD between reference (DFT) and MM-optimized geometries across scan points per torsion; see <a href="#geometry-fidelity">Geometry Fidelity</a>.</td></tr>
    </tfoot>
    </table>
 
@@ -97,35 +99,35 @@ All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When A
    <thead>
    <tr style="border-bottom: 2px solid #333;">
      <th rowspan="2" style="text-align: left; padding: 8px; border-bottom: 2px solid #333;"><b>Metric</b></th>
-     <th colspan="2" style="padding: 8px; border-bottom: 1px solid #999;"><b>TYK2</b> (16 sys, neutral)</th>
-     <th colspan="2" style="padding: 8px; border-bottom: 1px solid #999;"><b>MCL1</b> (42 sys, q = −1)</th>
+     <th colspan="3" style="padding: 8px; border-bottom: 1px solid #999;"><b>TYK2</b> (16 sys, neutral)</th>
+     <th colspan="3" style="padding: 8px; border-bottom: 1px solid #999;"><b>MCL1</b> (42 sys, q = −1)</th>
    </tr>
    <tr style="border-bottom: 2px solid #333;">
-     <th style="padding: 6px;">GAFF2</th><th style="padding: 6px;">AFFDO</th>
-     <th style="padding: 6px;">GAFF2</th><th style="padding: 6px;">AFFDO</th>
+     <th style="padding: 6px;">GAFF2</th><th style="padding: 6px;">AFFDO</th><th style="padding: 6px;">Δ</th>
+     <th style="padding: 6px;">GAFF2</th><th style="padding: 6px;">AFFDO</th><th style="padding: 6px;">Δ</th>
    </tr>
    </thead>
    <tbody>
-   <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>XTB reference</b></td></tr>
-   <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.61 ± 0.27</td><td>0.15 ± 0.04</td><td>1.37 ± 0.10</td><td>0.30 ± 0.03</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.00 ± 0.31</td><td>0.21 ± 0.07</td><td>1.76 ± 0.13</td><td>0.40 ± 0.04</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.79</td><td>0.99</td><td>0.86</td><td>0.96</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.98</td><td>0.86</td><td>0.95</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Max RMSD (&#8491;)</td><td>0.85 ± 0.11</td><td>1.01 ± 0.13</td><td>0.79 ± 0.08</td><td>0.79 ± 0.08</td></tr>
+   <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 6px;"><b>XTB reference</b></td></tr>
+   <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.61 ± 0.27</td><td>0.15 ± 0.04</td><td style="color: green;">−91%</td><td>1.37 ± 0.10</td><td>0.30 ± 0.03</td><td style="color: green;">−78%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.00 ± 0.31</td><td>0.21 ± 0.07</td><td style="color: green;">−90%</td><td>1.76 ± 0.13</td><td>0.40 ± 0.04</td><td style="color: green;">−77%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.79</td><td>0.99</td><td style="color: green;">+25%</td><td>0.86</td><td>0.96</td><td style="color: green;">+12%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.98</td><td style="color: green;">+31%</td><td>0.86</td><td>0.95</td><td style="color: green;">+10%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Max RMSD (&#8491;)</td><td>0.85 ± 0.11</td><td>1.01 ± 0.13</td><td style="color: #c00;">+19%</td><td>0.79 ± 0.08</td><td>0.79 ± 0.08</td><td>0%</td></tr>
 
-   <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT-SP reference</b></td></tr>
-   <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.68 ± 0.22</td><td>0.28 ± 0.06</td><td>1.05 ± 0.08</td><td>0.34 ± 0.03</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.09 ± 0.26</td><td>0.39 ± 0.09</td><td>1.32 ± 0.09</td><td>0.47 ± 0.05</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.82</td><td>0.99</td><td>0.88</td><td>0.97</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.77</td><td>0.98</td><td>0.88</td><td>0.95</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Max RMSD (&#8491;)</td><td>0.82 ± 0.11</td><td>0.89 ± 0.14</td><td>0.79 ± 0.08</td><td>0.84 ± 0.08</td></tr>
+   <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 6px;"><b>DFT-SP reference</b></td></tr>
+   <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.68 ± 0.22</td><td>0.28 ± 0.06</td><td style="color: green;">−83%</td><td>1.05 ± 0.08</td><td>0.34 ± 0.03</td><td style="color: green;">−68%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.09 ± 0.26</td><td>0.39 ± 0.09</td><td style="color: green;">−81%</td><td>1.32 ± 0.09</td><td>0.47 ± 0.05</td><td style="color: green;">−64%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.82</td><td>0.99</td><td style="color: green;">+21%</td><td>0.88</td><td>0.97</td><td style="color: green;">+10%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.77</td><td>0.98</td><td style="color: green;">+27%</td><td>0.88</td><td>0.95</td><td style="color: green;">+8%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Max RMSD (&#8491;)</td><td>0.82 ± 0.11</td><td>0.89 ± 0.14</td><td style="color: #c00;">+9%</td><td>0.79 ± 0.08</td><td>0.84 ± 0.08</td><td style="color: #c00;">+6%</td></tr>
 
-   <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 6px;"><b>DFT reference</b></td></tr>
-   <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.66 ± 0.24</td><td>0.45 ± 0.09</td><td>0.89 ± 0.09</td><td>0.39 ± 0.04</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.04 ± 0.27</td><td>0.62 ± 0.12</td><td>1.12 ± 0.11</td><td>0.52 ± 0.06</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.81</td><td>0.98</td><td>0.90</td><td>0.96</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.95</td><td>0.89</td><td>0.94</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Max RMSD (&#8491;)</td><td>0.89 ± 0.11</td><td>0.95 ± 0.13</td><td>0.58 ± 0.07</td><td>0.75 ± 0.08</td></tr>
+   <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 6px;"><b>DFT reference</b></td></tr>
+   <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.66 ± 0.24</td><td>0.45 ± 0.09</td><td style="color: green;">−73%</td><td>0.89 ± 0.09</td><td>0.39 ± 0.04</td><td style="color: green;">−56%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>2.04 ± 0.27</td><td>0.62 ± 0.12</td><td style="color: green;">−70%</td><td>1.12 ± 0.11</td><td>0.52 ± 0.06</td><td style="color: green;">−54%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.81</td><td>0.98</td><td style="color: green;">+21%</td><td>0.90</td><td>0.96</td><td style="color: green;">+7%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.75</td><td>0.95</td><td style="color: green;">+27%</td><td>0.89</td><td>0.94</td><td style="color: green;">+6%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Max RMSD (&#8491;)</td><td>0.89 ± 0.11</td><td>0.95 ± 0.13</td><td style="color: #c00;">+7%</td><td>0.58 ± 0.07</td><td>0.75 ± 0.08</td><td style="color: #c00;">+29%</td></tr>
    </tbody>
    </table>
 
