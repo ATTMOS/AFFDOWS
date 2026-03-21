@@ -123,8 +123,8 @@ All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When A
    <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82 ± 0.11</td><td style="padding: 8px 12px;">0.89 ± 0.14</td><td style="padding: 8px 10px;">+9%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.84 ± 0.08</td><td style="padding: 8px 10px;">+6%</td></tr>
 
    <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>DFT reference</b></td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.45 ± 0.09</td><td style="padding: 8px 10px;">−73%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.09</td><td style="padding: 8px 12px;">0.39 ± 0.04</td><td style="padding: 8px 10px;">−56%</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.62 ± 0.12</td><td style="padding: 8px 10px;">−70%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.52 ± 0.06</td><td style="padding: 8px 10px;">−54%</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.46 ± 0.09</td><td style="padding: 8px 10px;">−72%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90 ± 0.09</td><td style="padding: 8px 12px;">0.39 ± 0.04</td><td style="padding: 8px 10px;">−57%</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.63 ± 0.13</td><td style="padding: 8px 10px;">−69%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.52 ± 0.05</td><td style="padding: 8px 10px;">−54%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+21%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.96</td><td style="padding: 8px 10px;">+7%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+27%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.94</td><td style="padding: 8px 10px;">+6%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.11</td><td style="padding: 8px 12px;">0.95 ± 0.13</td><td style="padding: 8px 10px;">+7%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58 ± 0.07</td><td style="padding: 8px 12px;">0.75 ± 0.08</td><td style="padding: 8px 10px;">+29%</td></tr>
@@ -170,6 +170,13 @@ Benchmarking on the 16 TYK2 ligands (73 torsions) at the XTB reference level ill
    </table>
 
 With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD but the mean geometry RMSD rises to 0.418 A. Enabling the default regularization (:math:`\lambda = 0.5`) brings geometry RMSD down to 0.375 A — a 10% improvement — at a negligible energy cost. The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.
+
+.. note::
+
+   Two geometry RMSD metrics appear in the AFFDO results:
+
+   - **Max RMSD** (per-reference-level tables above): the maximum RMSD between reference and MM-optimized geometries across all scan points for a given torsion, evaluated once with the final fitted parameters. This is a post-hoc quality metric.
+   - **Mean geom RMSD** (lambda comparison table): the mean RMSD across all scan points, computed *during* fitting at each outer geometry-refresh cycle. This is the metric used by the composite score to select among candidate parameter sets from different optimization cycles.
 
 .. _Cross-Reference Analysis:
 
