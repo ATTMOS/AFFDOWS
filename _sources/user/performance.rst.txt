@@ -148,7 +148,26 @@ To further control this trade-off, AFFDO employs a composite scoring function du
 
 where :math:`\lambda` (default 0.5) weights geometric fidelity against energy accuracy. This provides a light geometry bias when selecting among candidate parameter sets from different optimization cycles, without significantly affecting energy quality.
 
-Benchmarking on the 16 TYK2 ligands at the XTB reference level illustrates the effect of geometry regularization. With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD (0.129 kcal/mol) but the mean geometry RMSD between reference and MM-reoptimized structures rises to 0.418 A. Enabling the default regularization (:math:`\lambda = 0.5`) brings the geometry RMSD down to 0.375 A — a 10% improvement — at a negligible energy cost (0.132 kcal/mol). The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.
+Benchmarking on the 16 TYK2 ligands (73 torsions) at the XTB reference level illustrates the effect of geometry regularization:
+
+.. raw:: html
+
+   <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
+   <thead>
+   <tr style="border-bottom: 2px solid #333;">
+     <th style="text-align: left; padding: 8px;"><b>Metric</b></th>
+     <th style="padding: 8px;"><b>&lambda; = 0</b></th>
+     <th style="padding: 8px;"><b>&lambda; = 0.5</b> (default)</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr><td style="text-align: left; padding: 6px;">Mean energy RMSD (kcal/mol)</td><td><b>0.129</b></td><td>0.132</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Mean geom RMSD (&#8491;)</td><td>0.418</td><td><b>0.375</b></td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Mean norm_RMSE</td><td><b>0.045</b></td><td>0.046</td></tr>
+   </tbody>
+   </table>
+
+With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD but the mean geometry RMSD rises to 0.418 &#8491;. Enabling the default regularization (:math:`\lambda = 0.5`) brings geometry RMSD down to 0.375 &#8491; — a 10% improvement — at a negligible energy cost. The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.
 
 .. _Cross-Reference Analysis:
 
