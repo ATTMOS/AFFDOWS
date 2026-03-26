@@ -253,9 +253,50 @@ DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol
 Charge Model Comparison
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-*This section will be updated with charge model benchmarks (AM1-BCC vs ABCG2 vs RESP) as results become available.*
+AFFDO supports multiple charge models for generating molecular topologies. The default is AM1-BCC (Austin Model 1 with Bond Charge Correction), a fast semi-empirical method. An alternative is ABCG2, which computes Boltzmann-averaged AM1-BCC charges across multiple conformers, producing charges that better represent the ensemble electrostatics of flexible molecules.
 
-This benchmark is being extended to additional Wang et al. [1] systems and will be updated as new results become available.
+To evaluate the impact of charge quality on torsion fitting, all 58 Wang et al. DFT reference systems were refitted using ABCG2 charges while keeping all other settings identical (JAX-SciPy hybrid optimizer, geometry cycles, atom-type coupling). Only the antechamber charge method differs (``-c bcc`` vs ``-c abcg2``).
+
+.. raw:: html
+
+   <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
+   <thead>
+   <tr style="border-bottom: 2px solid #333;">
+     <th rowspan="2" style="text-align: left; padding: 10px 14px; border-bottom: 2px solid #333;"><b>Metric</b></th>
+     <th colspan="2" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>TYK2</b> (16 sys, neutral)</th>
+     <th colspan="2" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>MCL1</b> (42 sys, q = −1)</th>
+   </tr>
+   <tr style="border-bottom: 2px solid #333;">
+     <th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th>
+     <th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>AM1-BCC charges</b> — torsions improved: TYK2 73/90 (81%), MCL1 169/215 (79%)</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.34 ± 0.08</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.09</td><td style="padding: 8px 12px;">0.43 ± 0.05</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.47 ± 0.11</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.56 ± 0.07</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.96</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.94</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.85</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58</td><td style="padding: 8px 12px;">0.59</td></tr>
+
+   <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>ABCG2 charges</b> — torsions improved: TYK2 90/90 (100%), MCL1 173/215 (80%)</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.80 ± 0.27</td><td style="padding: 8px 12px;">0.15 ± 0.05</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.92 ± 0.09</td><td style="padding: 8px 12px;">0.31 ± 0.03</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.24 ± 0.31</td><td style="padding: 8px 12px;">0.22 ± 0.08</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.14 ± 0.11</td><td style="padding: 8px 12px;">0.41 ± 0.04</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.97</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.94</td><td style="padding: 8px 12px;">1.06</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.59</td><td style="padding: 8px 12px;">0.72</td></tr>
+   </tbody>
+   </table>
+
+ABCG2 charges produce substantially better torsion fits across both datasets. For TYK2, AFFDO RMSE drops from 0.47 to 0.22 kcal/mol (53% reduction) and 100% of torsions are improved (vs 81% with BCC). For MCL1, AFFDO RMSE drops from 0.56 to 0.41 kcal/mol (27% reduction). In a head-to-head comparison, ABCG2 wins 46 of 58 systems with a mean improvement delta of +13.1%.
+
+The GAFF2 baseline is slightly worse with ABCG2 charges (e.g. TYK2 RMSE 2.24 vs 2.04 kcal/mol). This is expected because GAFF2 was parameterized with AM1-BCC charges, so switching to ABCG2 degrades the unfitted starting point. However, AFFDO more than compensates: the net AFFDO RMSE with ABCG2 (0.22 kcal/mol) is far below the BCC result (0.47 kcal/mol).
+
+The physical explanation is that more accurate charges produce a cleaner torsion residual (E\ :sub:`QM` − E\ :sub:`MM,non-torsion`). When charges are inaccurate, torsion parameters must compensate for electrostatic errors — a task that simple cosine functions cannot perform well. With ABCG2 charges, the residual is genuinely torsional in character, allowing the optimizer to achieve near-perfect fits.
+
+Max RMSD is slightly higher with ABCG2 (TYK2: 1.06 vs 0.85 A, MCL1: 0.72 vs 0.59 A), consistent with the energy-geometry trade-off described above — better energy fits push MM geometries slightly further from QM reference.
+
+This benchmark is being extended to additional Wang et al. [1] systems and charge models (RESP) as results become available.
 
 **References**
 
