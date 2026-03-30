@@ -1,9 +1,7 @@
 Known Limitations
 =================
 
-AFFDO is designed for automated reparameterization of small organic
-drug-like molecules. The following limitations define the current scope
-of the platform.
+The following limitations define the current scope of the AFFDO platform.
 
 Supported Molecules
 -------------------
@@ -34,7 +32,7 @@ Reference Level Constraints
 - DFT calculations use PBE0-D3BJ with Pople-family basis sets (via QUICK).
   Basis set coverage may be limited for certain element and charge
   combinations depending on the underlying QC engine.
-- AFFDO relies on third-party tools (QUICK, XTB, RDKit, AmberTools) whose
+- AFFDO relies on third-party tools (Amber, QUICK, XTB, RDKit) whose
   own limitations may impose additional constraints. Refer to the respective
   documentation for details.
 
