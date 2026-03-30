@@ -4,9 +4,9 @@ sys.path.append(os.path.abspath("./source"))
 sys.path.append(os.path.abspath("./source/user"))
 
 project = 'AFFDO'
-copyright = '2024, ATTMOS Inc'
+copyright = '2024-2026, ATTMOS Inc'
 author = 'Madu Manathunga'
-release = '24.1.0'
+release = '25.11'
 
 # -- General configuration ---------------------------------------------------
 extensions = ["sphinx.ext.todo", "sphinx.ext.viewcode", "sphinx.ext.autodoc", "rst2pdf.pdfbuilder"]
