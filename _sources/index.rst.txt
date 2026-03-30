@@ -15,6 +15,7 @@ Welcome to |AFFDO_VERSION| Documentation!
    user/about
    user/release-notes
    user/performance
+   user/limitations
    user/getting-started-guide
    user/citation
    user/license
