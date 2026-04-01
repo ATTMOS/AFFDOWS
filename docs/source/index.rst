@@ -19,6 +19,7 @@ Welcome to |AFFDO_VERSION| Documentation!
    user/getting-started-guide
    user/citation
    user/license
+   developer/deployment
 
 **Note to Users:** If you experience any runtime issues, please report to us 
 through: `AFFDOWS Issues <https://github.com/ATTMOS/AFFDOWS>`_. 
