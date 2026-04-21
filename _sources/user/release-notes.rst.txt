@@ -31,7 +31,7 @@ and a smoother user experience, while remaining fully automated and optimized fo
 
 * **Enhanced torsion selection and scoring** using improved metrics for selecting representative torsional profiles.
 
-* **Extended charge models** making RESP electrostatics and ABCG2 charge capabilities selectable directly from the workflow widgets.
+* **Extended charge models** including RESP electrostatics and ABCG2 charge capabilities (charge model benchmark pending re-evaluation).
 
 * **Versatile workflow modes** adding a Topology-only option for quick GAFF2 topology generation with RESP charges, plus a Fragmentation-only mode that exposes FragMentor so users can isolate and parametrize just the ligand fragments they care about.
 
