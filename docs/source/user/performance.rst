@@ -252,13 +252,11 @@ DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol
 Charge Model Comparison
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-AFFDO supports multiple charge models for generating molecular topologies:
+In AFFDO's torsion fitting, the optimizer targets the residual E\ :sub:`QM` − E\ :sub:`MM,non-torsion` — the energy that torsion parameters must account for. The non-torsional MM energy includes electrostatics, so if atomic charges are inaccurate, the electrostatic contribution is wrong and the residual contains artifacts. Cosine torsion functions cannot compensate for these artifacts, which limits fitting quality regardless of optimizer sophistication. Better charges produce a cleaner, genuinely torsional residual that the optimizer can fit more effectively.
 
-- **AM1-BCC** (default): Fast semi-empirical charges via the Austin Model 1 with Bond Charge Correction.
-- **ABCG2**: Boltzmann-averaged AM1-BCC charges across multiple conformers, producing charges that better represent the ensemble electrostatics of flexible molecules.
-- **RESP**: Restrained Electrostatic Potential charges derived from DFT-level quantum mechanical calculations, providing the most physically rigorous electrostatic description.
+AFFDO supports three charge models of increasing physical rigor: **AM1-BCC** (fast semi-empirical charges), **ABCG2** (Boltzmann-averaged AM1-BCC charges across multiple conformers), and **RESP** (restrained electrostatic potential charges from DFT-level electron density).
 
-To evaluate the impact of charge quality on torsion fitting, all 58 Wang et al. DFT reference systems were refitted using each charge model while keeping all other settings identical (JAX-SciPy hybrid optimizer, geometry cycles, atom-type coupling). Only the charge derivation method differs.
+To isolate the effect of charge quality, all 58 Wang et al. DFT reference systems were refitted using each charge model while keeping all other settings identical (JAX-SciPy hybrid optimizer, geometry cycles, atom-type coupling). Only the charge derivation method differs.
 
 .. raw:: html
 
@@ -298,11 +296,11 @@ To evaluate the impact of charge quality on torsion fitting, all 58 Wang et al. 
    </tbody>
    </table>
 
-Both QM-derived charge models (ABCG2 and RESP) produce substantially better torsion fits than the default AM1-BCC charges. For TYK2 (neutral), AFFDO RMSE drops from 0.47 kcal/mol (BCC) to 0.24 (ABCG2) and 0.25 (RESP) — a ~49% reduction. For MCL1 (charged), AFFDO RMSE drops from 0.56 to 0.44 (ABCG2) and 0.41 (RESP). RESP achieves the highest fitting success rate (85% for MCL1 vs 81% for ABCG2 and 79% for BCC).
+QM-derived charges (ABCG2 and RESP) reduce AFFDO RMSE by ~49% for TYK2 (0.47 → 0.24 kcal/mol) but only ~21% for MCL1 (0.56 → 0.44 kcal/mol). The difference reflects the underlying physics: in charged systems like MCL1 (q = −1), strong intramolecular electrostatic interactions create large non-torsional contributions to the rotational energy profile. Even with QM-derived charges, cleanly partitioning these contributions into torsional vs non-torsional components is inherently difficult, which limits the headroom for improvement. For neutral molecules like TYK2, the torsion residual is inherently cleaner, so correcting the charge model has a more direct impact on the fitted parameters.
 
-In a per-torsion head-to-head comparison across 305 matched torsions, ABCG2 and RESP perform similarly — 68% of torsion comparisons are ties (within 1% improvement delta). Both QM-derived models clearly outperform BCC, with RESP winning 58% of per-torsion matchups against BCC and ABCG2 winning 54%.
+In per-torsion head-to-head comparisons, ABCG2 and RESP are remarkably similar — 68% of 305 matched torsions show no meaningful difference (within 1% improvement delta). Both methods capture conformationally-appropriate electrostatics: ABCG2 through Boltzmann-averaging over an ensemble, RESP through direct fitting to the quantum-mechanical electron density. This convergence suggests that the critical factor is whether charges reflect the molecule's conformational flexibility, not the specific QM method used to derive them.
 
-The physical explanation is that more accurate charges produce a cleaner torsion residual (E\ :sub:`QM` − E\ :sub:`MM,non-torsion`). When charges are inaccurate, torsion parameters must compensate for electrostatic errors — a task that simple cosine functions cannot perform well. With QM-derived charges, the residual is genuinely torsional in character, allowing the optimizer to achieve near-perfect fits.
+The practical implication is that the cost–benefit curve flattens sharply after ABCG2. The jump from BCC to ABCG2 is large (mean improvement 62.5% → 68.8%) and free — ABCG2 uses the same AM1-BCC method applied to conformers already generated during the workflow. The further step from ABCG2 to RESP yields only a marginal gain (68.8% → 69.5%) at significant additional cost, since RESP requires a dedicated DFT ESP calculation. RESP does achieve the highest fitting success rate (85% for MCL1 vs 81% for ABCG2), making it worthwhile when maximizing the fraction of improved torsions matters more than minimizing computation time.
 
 .. list-table:: Charge Model Recommendations
    :header-rows: 1
@@ -310,15 +308,15 @@ The physical explanation is that more accurate charges produce a cleaner torsion
    * - Use case
      - Charge model
      - Notes
-   * - **Production (default)**
+   * - **Fast screening**
      - AM1-BCC
-     - Fast, no QM required; good baseline (79–81% success)
-   * - **Higher accuracy**
+     - No QM cost; 79–81% success rate; best when turnaround time is the priority
+   * - **Best cost–benefit (recommended)**
      - ABCG2
-     - Boltzmann-averaged BCC; no extra QM cost; +6% improvement over BCC
-   * - **Highest accuracy**
+     - No extra QM cost (reuses existing conformers); +6% improvement over BCC for free
+   * - **Maximum accuracy**
      - RESP
-     - Requires DFT ESP calculation; best success rate (85%) and lowest RMSE
+     - Requires DFT ESP calculation; +1% over ABCG2 but highest success rate (85%); justified when maximizing fitted torsions matters
 
 **References**
 
