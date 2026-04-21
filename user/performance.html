@@ -291,8 +291,13 @@
 </section>
 <section id="charge-model-comparison">
 <h3>Charge Model Comparison<a class="headerlink" href="#charge-model-comparison" title="Link to this heading"></a></h3>
-<p>AFFDO supports multiple charge models for generating molecular topologies. The default is AM1-BCC (Austin Model 1 with Bond Charge Correction), a fast semi-empirical method. An alternative is ABCG2, which computes Boltzmann-averaged AM1-BCC charges across multiple conformers, producing charges that better represent the ensemble electrostatics of flexible molecules.</p>
-<p>To evaluate the impact of charge quality on torsion fitting, all 58 Wang et al. DFT reference systems were refitted using ABCG2 charges while keeping all other settings identical (JAX-SciPy hybrid optimizer, geometry cycles, atom-type coupling). Only the antechamber charge method differs (<code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">bcc</span></code> vs <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">abcg2</span></code>).</p>
+<p>AFFDO supports multiple charge models for generating molecular topologies:</p>
+<ul class="simple">
+<li><p><strong>AM1-BCC</strong> (default): Fast semi-empirical charges via the Austin Model 1 with Bond Charge Correction.</p></li>
+<li><p><strong>ABCG2</strong>: Boltzmann-averaged AM1-BCC charges across multiple conformers, producing charges that better represent the ensemble electrostatics of flexible molecules.</p></li>
+<li><p><strong>RESP</strong>: Restrained Electrostatic Potential charges derived from DFT-level quantum mechanical calculations, providing the most physically rigorous electrostatic description.</p></li>
+</ul>
+<p>To evaluate the impact of charge quality on torsion fitting, all 58 Wang et al. DFT reference systems were refitted using each charge model while keeping all other settings identical (JAX-SciPy hybrid optimizer, geometry cycles, atom-type coupling). Only the charge derivation method differs.</p>
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
 <thead>
 <tr style="border-bottom: 2px solid #333;">
@@ -311,19 +316,46 @@
 <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.47 ± 0.11</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.56 ± 0.07</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.96</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.94</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (Å)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.85</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58</td><td style="padding: 8px 12px;">0.59</td></tr>
-<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>ABCG2 charges</b> — torsions improved: TYK2 90/90 (100%), MCL1 173/215 (80%)</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.80 ± 0.27</td><td style="padding: 8px 12px;">0.15 ± 0.05</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.92 ± 0.09</td><td style="padding: 8px 12px;">0.31 ± 0.03</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.24 ± 0.31</td><td style="padding: 8px 12px;">0.22 ± 0.08</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.14 ± 0.11</td><td style="padding: 8px 12px;">0.41 ± 0.04</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.97</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">73.5%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">57.7%</td></tr>
+<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>ABCG2 charges</b> — torsions improved: TYK2 74/90 (82%), MCL1 174/215 (81%)</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.17 ± 0.06</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.09</td><td style="padding: 8px 12px;">0.32 ± 0.03</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.24 ± 0.10</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.44 ± 0.04</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.97</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (Å)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.94</td><td style="padding: 8px 12px;">1.06</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.59</td><td style="padding: 8px 12px;">0.72</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">88.2%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">60.6%</td></tr>
+<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>RESP charges</b> — torsions improved: TYK2 74/90 (82%), MCL1 183/215 (85%)</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.17 ± 0.06</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.91 ± 0.10</td><td style="padding: 8px 12px;">0.30 ± 0.03</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.05 ± 0.27</td><td style="padding: 8px 12px;">0.25 ± 0.09</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.41 ± 0.04</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.97</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">88.1%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">61.9%</td></tr>
 </tbody>
-</table><p>ABCG2 charges produce substantially better torsion fits across both datasets. For TYK2, AFFDO RMSE drops from 0.47 to 0.22 kcal/mol (53% reduction) and 100% of torsions are improved (vs 81% with BCC). For MCL1, AFFDO RMSE drops from 0.56 to 0.41 kcal/mol (27% reduction). In a head-to-head comparison, ABCG2 wins 46 of 58 systems with a mean improvement delta of +13.1%.</p>
-<p>The GAFF2 baseline is slightly worse with ABCG2 charges (e.g. TYK2 RMSE 2.24 vs 2.04 kcal/mol). This is expected because GAFF2 was parameterized with AM1-BCC charges, so switching to ABCG2 degrades the unfitted starting point. However, AFFDO more than compensates: the net AFFDO RMSE with ABCG2 (0.22 kcal/mol) is far below the BCC result (0.47 kcal/mol).</p>
-<p>The physical explanation is that more accurate charges produce a cleaner torsion residual (E<sub>QM</sub> − E<sub>MM,non-torsion</sub>). When charges are inaccurate, torsion parameters must compensate for electrostatic errors — a task that simple cosine functions cannot perform well. With ABCG2 charges, the residual is genuinely torsional in character, allowing the optimizer to achieve near-perfect fits.</p>
-<p>Max RMSD is slightly higher with ABCG2 (TYK2: 1.06 vs 0.85 A, MCL1: 0.72 vs 0.59 A), consistent with the energy-geometry trade-off described above — better energy fits push MM geometries slightly further from QM reference.</p>
-<p>This benchmark is being extended to additional Wang et al. [1] systems and charge models (RESP) as results become available.</p>
+</table><p>Both QM-derived charge models (ABCG2 and RESP) produce substantially better torsion fits than the default AM1-BCC charges. For TYK2 (neutral), AFFDO RMSE drops from 0.47 kcal/mol (BCC) to 0.24 (ABCG2) and 0.25 (RESP) — a ~49% reduction. For MCL1 (charged), AFFDO RMSE drops from 0.56 to 0.44 (ABCG2) and 0.41 (RESP). RESP achieves the highest fitting success rate (85% for MCL1 vs 81% for ABCG2 and 79% for BCC).</p>
+<p>In a per-torsion head-to-head comparison across 305 matched torsions, ABCG2 and RESP perform similarly — 68% of torsion comparisons are ties (within 1% improvement delta). Both QM-derived models clearly outperform BCC, with RESP winning 58% of per-torsion matchups against BCC and ABCG2 winning 54%.</p>
+<p>The physical explanation is that more accurate charges produce a cleaner torsion residual (E<sub>QM</sub> − E<sub>MM,non-torsion</sub>). When charges are inaccurate, torsion parameters must compensate for electrostatic errors — a task that simple cosine functions cannot perform well. With QM-derived charges, the residual is genuinely torsional in character, allowing the optimizer to achieve near-perfect fits.</p>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Charge Model Recommendations</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Use case</p></th>
+<th class="head"><p>Charge model</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Production (default)</strong></p></td>
+<td><p>AM1-BCC</p></td>
+<td><p>Fast, no QM required; good baseline (79–81% success)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Higher accuracy</strong></p></td>
+<td><p>ABCG2</p></td>
+<td><p>Boltzmann-averaged BCC; no extra QM cost; +6% improvement over BCC</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Highest accuracy</strong></p></td>
+<td><p>RESP</p></td>
+<td><p>Requires DFT ESP calculation; best success rate (85%) and lowest RMSE</p></td>
+</tr>
+</tbody>
+</table>
 <p><strong>References</strong></p>
 <p>[1] Wang, L., Wu, Y., Deng, Y., et al. (2015). Accurate and reliable prediction of relative ligand binding
 potency in prospective drug discovery by way of a modern free-energy calculation protocol and force
