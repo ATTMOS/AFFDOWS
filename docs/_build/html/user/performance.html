@@ -1,47 +1,55 @@
 <!DOCTYPE html>
-
-<html class="writer-html5" data-content_root="../" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Accuracy and Performance — AFFDO 25.11 documentation</title>
-<link href="../_static/pygments.css?v=b86133f3" rel="stylesheet" type="text/css"/>
-<link href="../_static/css/theme.css?v=19f00094" rel="stylesheet" type="text/css"/>
-<link href="../_static/custom.css?v=6e71f13b" rel="stylesheet" type="text/css"/>
-<!--[if lt IE 9]>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accuracy and Performance &mdash; AFFDO 25.11 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=6e71f13b" />
+
+  
+  <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-<script src="../_static/jquery.js?v=5d32c60e"></script>
-<script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-<script src="../_static/documentation_options.js?v=9b3a6cc6"></script>
-<script src="../_static/doctools.js?v=fd6eb6e6"></script>
-<script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
-<script src="../_static/js/theme.js"></script>
-<link href="../genindex.html" rel="index" title="Index"/>
-<link href="../search.html" rel="search" title="Search"/>
-<link href="limitations.html" rel="next" title="Known Limitations"/>
-<link href="release-notes.html" rel="prev" title="Release Notes"/>
-<link href="../_static/version-selector.css" rel="stylesheet" type="text/css"/>
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=9b3a6cc6"></script>
+        <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Known Limitations" href="limitations.html" />
+    <link rel="prev" title="Release Notes" href="release-notes.html" />
+<link rel="stylesheet" href="../_static/version-selector.css" type="text/css" />
 <script src="../_static/version-selector.js"></script>
+
 </head>
-<body class="wy-body-for-nav">
-<div class="wy-grid-for-nav">
-<nav class="wy-nav-side" data-toggle="wy-nav-shift">
-<div class="wy-side-scroll">
-<div class="wy-side-nav-search">
-<a class="icon icon-home" href="../index.html">
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
             AFFDO
           </a>
 <div role="search">
-<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
-<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
-<input name="check_keywords" type="hidden" value="yes"/>
-<input name="area" type="hidden" value="default"/>
-</form>
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About AFFDO Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-notes.html">Release Notes</a></li>
@@ -52,9 +60,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#aggregate-metrics">Aggregate Metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fitting-accuracy-by-reference-level">Fitting Accuracy by Reference Level</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry-fidelity">Geometry Fidelity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#direct-quality-comparison">Direct Quality Comparison</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a></li>
 </ul>
 </li>
 </ul>
@@ -66,28 +73,32 @@
 <li class="toctree-l1"><a class="reference internal" href="citation.html">Citation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">Software License Agreement</a></li>
 </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AFFDO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Accuracy and Performance</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user/performance.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
 </div>
-</div>
-</nav>
-<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
-<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
-<a href="../index.html">AFFDO</a>
-</nav>
-<div class="wy-nav-content">
-<div class="rst-content">
-<div aria-label="Page navigation" role="navigation">
-<ul class="wy-breadcrumbs">
-<li><a aria-label="Home" class="icon icon-home" href="../index.html"></a></li>
-<li class="breadcrumb-item active">Accuracy and Performance</li>
-<li class="wy-breadcrumbs-aside">
-<a href="../_sources/user/performance.rst.txt" rel="nofollow"> View page source</a>
-</li>
-</ul>
-<hr/>
-</div>
-<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
-<div itemprop="articleBody">
-<section id="accuracy-and-performance">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="accuracy-and-performance">
 <h1>Accuracy and Performance<a class="headerlink" href="#accuracy-and-performance" title="Link to this heading"></a></h1>
 <p>This section presents three chronological benchmarks that document AFFDO’s development and validation. Each benchmark phase builds on the previous one, progressively expanding the test set and refining the methodology:</p>
 <ol class="arabic simple">
@@ -102,7 +113,7 @@
 <p>AFFDO improves molecular mechanics force fields by fitting torsion parameters to reproduce quantum-mechanical (QM) reference energy profiles. The examples below, drawn from the Wang et al. [1] protein-ligand dataset, illustrate the core approach and its impact.</p>
 <p>In <strong>Figure 1</strong>, torsional scan energy profiles are shown for representative torsions of TYK2 ejm42 (<strong>A</strong>) and jmc27 (<strong>B</strong>). The standard GAFF2 profile of the former mostly differs from the reference by barrier height, while the latter differs in both barrier height and phase. Using AFFDO, both the phase and barrier height are fitted, resulting in much tighter agreement with the QM reference profiles (Fitted GAFF). Reparameterization times range from 3 to 48 hours depending on system size, atom types, and hardware.</p>
 <p>These torsion-profile improvements also translate to better downstream predictions. As shown in <strong>Figure 2</strong>, RBFE values recomputed with the fitted parameters using the Amber Drug Discovery Boost package [2] (ff14SB for proteins, TIP4P for water) improve for all tested systems, with some pairs (e.g., TYK2 jmc28-jmc30, jmc27-jmc30) showing more prominent improvements than others. The systematic benchmarks that follow quantify these gains across larger datasets.</p>
-<img alt="This project was supported by NIH SBIR Seed fund." src="../_images/validation_figure.png"/>
+<img alt="This project was supported by NIH SBIR Seed fund." src="../_images/validation_figure.png" />
 </section>
 <section id="manuscript-benchmark-torsion-scaling-factor-optimization">
 <h2>Manuscript Benchmark (Torsion + Scaling Factor Optimization)<a class="headerlink" href="#manuscript-benchmark-torsion-scaling-factor-optimization" title="Link to this heading"></a></h2>
@@ -126,10 +137,10 @@
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
 <thead>
 <tr style="border-bottom: 2px solid #333;">
-<th style="text-align: left; padding: 8px;"><b>Metric</b></th>
-<th style="padding: 8px;"><b>GAFF2</b></th>
-<th style="padding: 8px;"><b>AFFDO</b></th>
-<th style="padding: 8px;"><b>Change</b></th>
+  <th style="text-align: left; padding: 8px;"><b>Metric</b></th>
+  <th style="padding: 8px;"><b>GAFF2</b></th>
+  <th style="padding: 8px;"><b>AFFDO</b></th>
+  <th style="padding: 8px;"><b>Change</b></th>
 </tr>
 </thead>
 <tbody>
@@ -137,10 +148,10 @@
 <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.12</td><td>0.55 ± 0.05</td><td>−60%</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.96</td><td>+10%</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td><td>+11%</td></tr>
-<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Max RMSD<sup>b</sup> (Å)</td><td>0.68 ± 0.06</td><td>0.81 ± 0.07</td><td>+19%</td></tr>
+<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Max RMSD<sup>b</sup> (&#8491;)</td><td>0.68 ± 0.06</td><td>0.81 ± 0.07</td><td>+19%</td></tr>
 </tbody>
 <tfoot>
-<tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.<br/><sup>b</sup> Maximum RMSD between reference (DFT) and MM-optimized geometries across scan points per torsion; see <a href="#geometry-fidelity">Geometry Fidelity</a>.</td></tr>
+<tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.<br><sup>b</sup> Maximum RMSD between reference (DFT) and MM-optimized geometries across scan points per torsion; see <a href="#geometry-fidelity">Geometry Fidelity</a>.</td></tr>
 </tfoot>
 </table><p>Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. The increase in Max RMSD (0.68 to 0.81 A, +0.13 A) is an expected side effect of improving the energy fit; the baseline GAFF2 geometries are already close to the reference, so the absolute change remains small. AFFDO mitigates this through geometry-aware regularization (see <a class="reference internal" href="#geometry-fidelity">Geometry Fidelity</a>). These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.</p>
 </section>
@@ -160,13 +171,13 @@
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0; border-spacing: 0;">
 <thead>
 <tr style="border-bottom: 2px solid #333;">
-<th rowspan="2" style="text-align: left; padding: 10px 14px; border-bottom: 2px solid #333;"><b>Metric</b></th>
-<th colspan="3" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>TYK2</b> (16 sys, neutral)</th>
-<th colspan="3" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>MCL1</b> (42 sys, q = −1)</th>
+  <th rowspan="2" style="text-align: left; padding: 10px 14px; border-bottom: 2px solid #333;"><b>Metric</b></th>
+  <th colspan="3" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>TYK2</b> (16 sys, neutral)</th>
+  <th colspan="3" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>MCL1</b> (42 sys, q = −1)</th>
 </tr>
 <tr style="border-bottom: 2px solid #333;">
-<th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th><th style="padding: 8px 10px;">Δ</th>
-<th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th><th style="padding: 8px 10px;">Δ</th>
+  <th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th><th style="padding: 8px 10px;">Δ</th>
+  <th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th><th style="padding: 8px 10px;">Δ</th>
 </tr>
 </thead>
 <tbody>
@@ -175,19 +186,21 @@
 <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.00 ± 0.31</td><td style="padding: 8px 12px;">0.21 ± 0.07</td><td style="padding: 8px 10px;">−90%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.76 ± 0.13</td><td style="padding: 8px 12px;">0.40 ± 0.04</td><td style="padding: 8px 10px;">−77%</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 10px;">+25%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.86</td><td style="padding: 8px 12px;">0.96</td><td style="padding: 8px 10px;">+12%</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+31%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.86</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+10%</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (Å)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.85 ± 0.11</td><td style="padding: 8px 12px;">1.01 ± 0.13</td><td style="padding: 8px 10px;">+19%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.79 ± 0.08</td><td style="padding: 8px 10px;">0%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.85 ± 0.11</td><td style="padding: 8px 12px;">1.01 ± 0.13</td><td style="padding: 8px 10px;">+19%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.79 ± 0.08</td><td style="padding: 8px 10px;">0%</td></tr>
+
 <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>DFT-SP reference</b></td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.68 ± 0.22</td><td style="padding: 8px 12px;">0.28 ± 0.06</td><td style="padding: 8px 10px;">−83%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.05 ± 0.08</td><td style="padding: 8px 12px;">0.34 ± 0.03</td><td style="padding: 8px 10px;">−68%</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.09 ± 0.26</td><td style="padding: 8px 12px;">0.39 ± 0.09</td><td style="padding: 8px 10px;">−81%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.32 ± 0.09</td><td style="padding: 8px 12px;">0.47 ± 0.05</td><td style="padding: 8px 10px;">−64%</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 10px;">+21%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.88</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 10px;">+10%</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.77</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+27%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.88</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+8%</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (Å)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82 ± 0.11</td><td style="padding: 8px 12px;">0.89 ± 0.14</td><td style="padding: 8px 10px;">+9%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.84 ± 0.08</td><td style="padding: 8px 10px;">+6%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82 ± 0.11</td><td style="padding: 8px 12px;">0.89 ± 0.14</td><td style="padding: 8px 10px;">+9%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.84 ± 0.08</td><td style="padding: 8px 10px;">+6%</td></tr>
+
 <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>DFT reference</b></td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.46 ± 0.09</td><td style="padding: 8px 10px;">−72%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90 ± 0.09</td><td style="padding: 8px 12px;">0.39 ± 0.04</td><td style="padding: 8px 10px;">−57%</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.63 ± 0.13</td><td style="padding: 8px 10px;">−69%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.52 ± 0.05</td><td style="padding: 8px 10px;">−54%</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+21%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.96</td><td style="padding: 8px 10px;">+7%</td></tr>
 <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+27%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.94</td><td style="padding: 8px 10px;">+6%</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (Å)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.11</td><td style="padding: 8px 12px;">0.95 ± 0.13</td><td style="padding: 8px 10px;">+7%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58 ± 0.07</td><td style="padding: 8px 12px;">0.75 ± 0.08</td><td style="padding: 8px 10px;">+29%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.11</td><td style="padding: 8px 12px;">0.95 ± 0.13</td><td style="padding: 8px 10px;">+7%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58 ± 0.07</td><td style="padding: 8px 12px;">0.75 ± 0.08</td><td style="padding: 8px 10px;">+29%</td></tr>
 </tbody>
 </table><p>All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 60–90% and Pearson correlations reaching 0.95–0.99. Max RMSD increases range from 0.05 to 0.17 A in absolute terms; larger percentage changes reflect cases where GAFF2 geometries are already close to the reference (e.g., DFT MCL1 baseline of 0.58 A). In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 81% of TYK2 and 79% of MCL1 torsions.</p>
 <p>DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.</p>
@@ -204,14 +217,14 @@
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
 <thead>
 <tr style="border-bottom: 2px solid #333;">
-<th style="text-align: left; padding: 8px;"><b>Metric</b></th>
-<th style="padding: 8px;"><b>λ = 0</b></th>
-<th style="padding: 8px;"><b>λ = 0.5</b> (default)</th>
+  <th style="text-align: left; padding: 8px;"><b>Metric</b></th>
+  <th style="padding: 8px;"><b>&lambda; = 0</b></th>
+  <th style="padding: 8px;"><b>&lambda; = 0.5</b> (default)</th>
 </tr>
 </thead>
 <tbody>
 <tr><td style="text-align: left; padding: 6px;">Mean energy RMSD (kcal/mol)</td><td><b>0.129</b></td><td>0.132</td></tr>
-<tr><td style="text-align: left; padding: 6px;">Mean geom RMSD (Å)</td><td>0.418</td><td><b>0.375</b></td></tr>
+<tr><td style="text-align: left; padding: 6px;">Mean geom RMSD (&#8491;)</td><td>0.418</td><td><b>0.375</b></td></tr>
 <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Mean norm_RMSE</td><td><b>0.045</b></td><td>0.046</td></tr>
 </tbody>
 </table><p>With no regularization (<span class="math notranslate nohighlight">\(\lambda = 0\)</span>), the optimizer achieves the lowest energy RMSD but the mean geometry RMSD rises to 0.418 A. Enabling the default regularization (<span class="math notranslate nohighlight">\(\lambda = 0.5\)</span>) brings geometry RMSD down to 0.375 A — a 10% improvement — at a negligible energy cost. The net result is a fitting procedure that converges faster than full geometry optimization at every iteration, produces better energy fits, and maintains acceptable structural accuracy.</p>
@@ -230,9 +243,9 @@
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
 <thead>
 <tr style="border-bottom: 2px solid #333;">
-<th style="text-align: left; padding: 8px;"><b>Metric</b></th>
-<th style="padding: 8px;"><b>XTB vs DFT</b></th>
-<th style="padding: 8px;"><b>DFT-SP vs DFT</b></th>
+  <th style="text-align: left; padding: 8px;"><b>Metric</b></th>
+  <th style="padding: 8px;"><b>XTB vs DFT</b></th>
+  <th style="padding: 8px;"><b>DFT-SP vs DFT</b></th>
 </tr>
 </thead>
 <tbody>
@@ -245,10 +258,10 @@
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
 <thead>
 <tr style="border-bottom: 2px solid #333;">
-<th style="text-align: left; padding: 8px;"><b>Reference</b></th>
-<th style="padding: 8px;"><b>Fitting quality</b><br/><span style="font-size: 0.85em;">(self-ref RMSE)</span></th>
-<th style="padding: 8px;"><b>Reference quality</b><br/><span style="font-size: 0.85em;">(vs DFT RMSE)</span></th>
-<th style="padding: 8px;"><b>Net accuracy</b><br/><span style="font-size: 0.85em;">(fitted vs DFT RMSE)</span></th>
+  <th style="text-align: left; padding: 8px;"><b>Reference</b></th>
+  <th style="padding: 8px;"><b>Fitting quality</b><br><span style="font-size: 0.85em;">(self-ref RMSE)</span></th>
+  <th style="padding: 8px;"><b>Reference quality</b><br><span style="font-size: 0.85em;">(vs DFT RMSE)</span></th>
+  <th style="padding: 8px;"><b>Net accuracy</b><br><span style="font-size: 0.85em;">(fitted vs DFT RMSE)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -263,10 +276,10 @@
 <table class="docutils align-default" id="id2">
 <caption><span class="caption-text">Reference Level Summary</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 20.0%"/>
-<col style="width: 15.0%"/>
-<col style="width: 15.0%"/>
-<col style="width: 50.0%"/>
+<col style="width: 20.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Reference Level</p></th>
@@ -293,108 +306,232 @@
 </tr>
 </tbody>
 </table>
-</section>
 <section id="charge-model-comparison">
-<h3>Charge Model Comparison<a class="headerlink" href="#charge-model-comparison" title="Link to this heading"></a></h3>
-<p>In AFFDO’s torsion fitting, the optimizer targets the residual E<sub>QM</sub> − E<sub>MM,non-torsion</sub> — the energy that torsion parameters must account for. The non-torsional MM energy includes electrostatics, so if atomic charges are inaccurate, the electrostatic contribution is wrong and the residual contains artifacts. Cosine torsion functions cannot compensate for these artifacts, which limits fitting quality regardless of optimizer sophistication. Better charges produce a cleaner, genuinely torsional residual that the optimizer can fit more effectively.</p>
-<p>AFFDO supports three charge models of increasing physical rigor: <strong>AM1-BCC</strong> (fast semi-empirical charges), <strong>ABCG2</strong> (AM1-BCC-GAFF2: re-optimized bond charge correction parameters for GAFF2), and <strong>RESP</strong> (restrained electrostatic potential charges from DFT-level electron density). In all cases, AFFDO computes charges for each centroid conformer and Boltzmann-averages them to produce conformation-weighted atomic charges.</p>
-<p>To isolate the effect of charge quality, all 58 Wang et al. DFT reference systems were refitted using each charge model while keeping all other settings identical (JAX-SciPy hybrid optimizer, geometry cycles, atom-type coupling). Only the charge derivation method differs.</p>
-<table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
-<thead>
-<tr style="border-bottom: 2px solid #333;">
-<th rowspan="2" style="text-align: left; padding: 10px 14px; border-bottom: 2px solid #333;"><b>Metric</b></th>
-<th colspan="2" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>TYK2</b> (16 sys, neutral)</th>
-<th colspan="2" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>MCL1</b> (42 sys, q = −1)</th>
-</tr>
-<tr style="border-bottom: 2px solid #333;">
-<th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th>
-<th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th>
-</tr>
-</thead>
-<tbody>
-<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>AM1-BCC charges</b> — torsions improved: TYK2 73/90 (81%), MCL1 169/215 (79%)</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.34 ± 0.08</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.09</td><td style="padding: 8px 12px;">0.43 ± 0.05</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.47 ± 0.11</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.56 ± 0.07</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.96</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.94</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">73.5%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">57.7%</td></tr>
-<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>ABCG2 charges</b> — torsions improved: TYK2 74/90 (82%), MCL1 174/215 (81%)</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.17 ± 0.06</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.09</td><td style="padding: 8px 12px;">0.32 ± 0.03</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.24 ± 0.10</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.44 ± 0.04</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.97</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">88.2%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">60.6%</td></tr>
-<tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>RESP charges</b> — torsions improved: TYK2 74/90 (82%), MCL1 183/215 (85%)</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.17 ± 0.06</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.91 ± 0.10</td><td style="padding: 8px 12px;">0.30 ± 0.03</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.05 ± 0.27</td><td style="padding: 8px 12px;">0.25 ± 0.09</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.41 ± 0.04</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.97</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td></tr>
-<tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">88.1%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">61.9%</td></tr>
-</tbody>
-<tfoot>
-<tr><td colspan="5" style="text-align: left; padding: 6px; font-size: 0.9em;"><b>Note on GAFF2 baselines:</b> AM1-BCC and ABCG2 runs share identical GAFF2 baselines (ABCG2 restarts from the BCC-charge topology). RESP runs regenerated the topology with RESP charges, producing different GAFF2 energy profiles for 35% of torsions. Aggregated means differ by ≤0.01 kcal/mol, so overall statistics are negligibly affected. The direct quality comparison below avoids this issue by comparing absolute AFFDO RMSE values.</td></tr>
-</tfoot>
-</table><p>QM-derived charges (ABCG2 and RESP) reduce AFFDO RMSE by ~49% for TYK2 (0.47 → 0.24 kcal/mol) but only ~21% for MCL1 (0.56 → 0.44 kcal/mol). The difference reflects the underlying physics: in charged systems like MCL1 (q = −1), strong intramolecular electrostatic interactions create large non-torsional contributions to the rotational energy profile. Even with QM-derived charges, cleanly partitioning these contributions into torsional vs non-torsional components is inherently difficult, which limits the headroom for improvement. For neutral molecules like TYK2, the torsion residual is inherently cleaner, so correcting the charge model has a more direct impact on the fitted parameters.</p>
-<p>In per-torsion head-to-head comparisons, ABCG2 and RESP are remarkably similar — 68% of 305 matched torsions show no meaningful difference (within 1% improvement delta). Both methods improve on the original AM1-BCC parameterization: ABCG2 through re-optimized bond charge corrections tuned for GAFF2, RESP through direct fitting to the quantum-mechanical electron density. This convergence suggests that the critical factor is the quality of the underlying charge parameterization, not the specific QM method used to derive charges.</p>
-<p>The practical implication is that the cost–benefit curve flattens sharply after ABCG2. The jump from BCC to ABCG2 is large (mean improvement 62.5% → 68.8%) and free — ABCG2 uses the same AM1-BCC method applied to conformers already generated during the workflow. The further step from ABCG2 to RESP yields only a marginal gain (68.8% → 69.5%) at significant additional cost, since RESP requires a dedicated DFT ESP calculation. RESP does achieve the highest fitting success rate (85% for MCL1 vs 81% for ABCG2), making it worthwhile when maximizing the fraction of improved torsions matters more than minimizing computation time.</p>
-<section id="direct-quality-comparison">
-<h4>Direct Quality Comparison<a class="headerlink" href="#direct-quality-comparison" title="Link to this heading"></a></h4>
-<p>The improvement percentages above depend on the GAFF2 baseline. A more direct, baseline-independent metric is head-to-head comparison by absolute AFFDO RMSE: on each torsion, which charge model achieves the lower fitted error? Restricting to the 241 torsions fitted by all three models:</p>
-<table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
-<thead>
-<tr style="border-bottom: 2px solid #333;">
-<th style="text-align: left; padding: 8px;"><b>Matchup</b></th>
-<th style="padding: 8px;"><b>Lower RMSE wins</b></th>
-<th style="padding: 8px;"><b>Higher RMSE loses</b></th>
-<th style="padding: 8px;"><b>Tie (±0.01)</b></th>
-</tr>
-</thead>
-<tbody>
-<tr><td style="text-align: left; padding: 6px;">BCC vs ABCG2</td><td>ABCG2: 165 (68%)</td><td>BCC: 70 (29%)</td><td>6 (2%)</td></tr>
-<tr><td style="text-align: left; padding: 6px;">BCC vs RESP</td><td>RESP: 164 (68%)</td><td>BCC: 71 (29%)</td><td>6 (2%)</td></tr>
-<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">ABCG2 vs RESP</td><td>RESP: 42 (17%)</td><td>ABCG2: 35 (15%)</td><td>164 (68%)</td></tr>
-</tbody>
-</table><p>This confirms the same ranking (ABCG2 ≈ RESP &gt;&gt; BCC) with a cleaner metric. ABCG2 and RESP produce nearly identical RMSE on 68% of torsions; where they diverge, RESP has a slight edge but the margin is small.</p>
-<p>Beyond individual fit quality, RESP’s main advantage is its ability to rescue more torsions — cases where the optimizer converges successfully with RESP charges but fails with BCC. Out of 305 torsions: BCC fits 242 (79%), ABCG2 fits 248 (81%, +6 vs BCC), and RESP fits 257 (84%, +15 vs BCC, including 10 torsions that only RESP can fit). The additional torsions are predominantly charged MCL1 systems where RESP’s DFT-derived electrostatics provide a sufficiently clean residual for the optimizer to converge.</p>
-<p>The quality distribution of fitted RMSE values further illustrates the gap:</p>
-<table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
-<thead>
-<tr style="border-bottom: 2px solid #333;">
-<th style="text-align: left; padding: 8px;"><b>Model</b></th>
-<th style="padding: 8px;"><b>&lt;0.25 kcal/mol</b></th>
-<th style="padding: 8px;"><b>&lt;0.50 kcal/mol</b></th>
-<th style="padding: 8px;"><b>&lt;1.00 kcal/mol</b></th>
-</tr>
-</thead>
-<tbody>
-<tr><td style="text-align: left; padding: 6px;">BCC (242 fitted)</td><td>62 (26%)</td><td>157 (65%)</td><td>204 (84%)</td></tr>
-<tr><td style="text-align: left; padding: 6px;">ABCG2 (248 fitted)</td><td>110 (44%)</td><td>195 (79%)</td><td>233 (94%)</td></tr>
-<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">RESP (257 fitted)</td><td>124 (48%)</td><td>208 (81%)</td><td>246 (96%)</td></tr>
-</tbody>
-</table><p>ABCG2 and RESP don’t just improve more torsions — they produce substantially more high-quality fits. Nearly half of QM-charge fits (44–48%) achieve sub-0.25 kcal/mol RMSE, compared with only 26% for BCC. At the 1.00 kcal/mol threshold, QM charges bring 94–96% of fitted torsions below this cutoff vs 84% for BCC.</p>
+<h4>Charge Model Comparison<a class="headerlink" href="#charge-model-comparison" title="Link to this heading"></a></h4>
+<p>Torsion parameters and partial charges are deeply coupled in molecular mechanics force fields.
+The torsion Fourier series must compensate for errors in 1-4 electrostatic interactions, so the
+quality of partial charges directly affects torsion fitting accuracy. GAFF2 was originally
+parameterized using RESP charges [4], meaning its generic torsion parameters assume RESP-quality
+electrostatics. Substituting AM1-BCC charges introduces a coupling error where fitted torsion
+parameters must absorb both genuine torsional effects and charge model artifacts.</p>
+<p>We benchmarked three charge models on all 58 DFT reference systems using identical optimizer settings:</p>
+<ul class="simple">
+<li><p><strong>AM1-BCC</strong>: Semi-empirical Austin Model 1 with Bond Charge Corrections [5] — fast, default</p></li>
+<li><p><strong>ABCG2</strong>: Re-optimized BCC parameters for GAFF2 [6] — fast, improved solvation accuracy</p></li>
+<li><p><strong>RESP</strong>: Restrained ElectroStatic Potential fitting to QM ESP at HF/6-31G* [7] — requires DFT calculation</p></li>
+</ul>
 <table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Charge Model Recommendations</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<caption><span class="caption-text">Three-Way Charge Model Comparison (58 systems, 305 torsions, DFT reference)</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 16.0%" />
+<col style="width: 16.0%" />
+<col style="width: 16.0%" />
+<col style="width: 16.0%" />
+<col style="width: 16.0%" />
+</colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Use case</p></th>
-<th class="head"><p>Charge model</p></th>
-<th class="head"><p>Notes</p></th>
+<tr class="row-odd"><th class="head"><p>Charge Model</p></th>
+<th class="head"><p>Torsions Fitted</p></th>
+<th class="head"><p>Mean Improvement (%)</p></th>
+<th class="head"><p>GAFF2 RMSE</p></th>
+<th class="head"><p>AFFDO RMSE</p></th>
+<th class="head"><p>RMSE Reduction (%)</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>Fast screening</strong></p></td>
-<td><p>AM1-BCC</p></td>
-<td><p>No QM cost; 79–81% success rate; 26% of fits below 0.25 kcal/mol</p></td>
+<tr class="row-even"><td><p>AM1-BCC</p></td>
+<td><p>242/305 (79%)</p></td>
+<td><p>62.5</p></td>
+<td><p>1.389</p></td>
+<td><p>0.531</p></td>
+<td><p>62%</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Best cost–benefit (recommended)</strong></p></td>
-<td><p>ABCG2</p></td>
-<td><p>No extra QM cost (reuses existing conformers); 44% of fits below 0.25 kcal/mol; +6 rescued torsions vs BCC</p></td>
+<tr class="row-odd"><td><p>ABCG2</p></td>
+<td><p>263/305 (86%)</p></td>
+<td><p>72.4</p></td>
+<td><p>1.467</p></td>
+<td><p>0.354</p></td>
+<td><p>76%</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Maximum accuracy</strong></p></td>
-<td><p>RESP</p></td>
-<td><p>Requires DFT ESP calculation; 48% of fits below 0.25 kcal/mol; +15 rescued torsions vs BCC (10 RESP-only)</p></td>
+<tr class="row-even"><td><p><strong>RESP</strong></p></td>
+<td><p><strong>292/305 (96%)</strong></p></td>
+<td><p><strong>76.7</strong></p></td>
+<td><p>1.626</p></td>
+<td><p><strong>0.313</strong></p></td>
+<td><p><strong>81%</strong></p></td>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Per-Family Breakdown</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 13.2%" />
+<col style="width: 19.7%" />
+<col style="width: 15.8%" />
+<col style="width: 15.8%" />
+<col style="width: 15.8%" />
+<col style="width: 19.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Family</p></th>
+<th class="head"><p>Charge Model</p></th>
+<th class="head"><p>GAFF2 RMSE</p></th>
+<th class="head"><p>AFFDO RMSE</p></th>
+<th class="head"><p>Improvement (%)</p></th>
+<th class="head"><p>Torsions Fitted</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TYK2 (neutral)</p></td>
+<td><p>AM1-BCC</p></td>
+<td><p>2.04</p></td>
+<td><p>0.47</p></td>
+<td><p>73.5</p></td>
+<td><p>73/90 (81%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>TYK2 (neutral)</p></td>
+<td><p>ABCG2</p></td>
+<td><p>2.24</p></td>
+<td><p>0.21</p></td>
+<td><p>90.4</p></td>
+<td><p>90/90 (100%)</p></td>
+</tr>
+<tr class="row-even"><td><p>TYK2 (neutral)</p></td>
+<td><p>RESP</p></td>
+<td><p>2.38</p></td>
+<td><p>0.24</p></td>
+<td><p>89.0</p></td>
+<td><p>90/90 (100%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCL1 (q = -1)</p></td>
+<td><p>AM1-BCC</p></td>
+<td><p>1.12</p></td>
+<td><p>0.56</p></td>
+<td><p>57.7</p></td>
+<td><p>169/215 (79%)</p></td>
+</tr>
+<tr class="row-even"><td><p>MCL1 (q = -1)</p></td>
+<td><p>ABCG2</p></td>
+<td><p>1.15</p></td>
+<td><p>0.43</p></td>
+<td><p>63.0</p></td>
+<td><p>173/215 (80%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCL1 (q = -1)</p></td>
+<td><p>RESP</p></td>
+<td><p>1.31</p></td>
+<td><p>0.35</p></td>
+<td><p>71.2</p></td>
+<td><p>202/215 (94%)</p></td>
+</tr>
+</tbody>
+</table>
+<p>To make the comparison robust to the choice of GAFF2 baseline, we also report a
+direct head-to-head on the absolute AFFDO RMSE — i.e., the per-torsion RMSE
+after fitting, ignoring the starting point. The table below counts wins
+(<span class="math notranslate nohighlight">\(\Delta\)</span> RMSE &gt; 0.01 kcal/mol) across 226 torsions fitted by all three
+charge models.</p>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">Direct AFFDO RMSE Head-to-Head (226 commonly-fitted torsions)</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Matchup</p></th>
+<th class="head"><p>Lower RMSE wins (Model A)</p></th>
+<th class="head"><p>Lower RMSE wins (Model B)</p></th>
+<th class="head"><p>Tie (±0.01)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AM1-BCC vs ABCG2</p></td>
+<td><p>25%</p></td>
+<td><p><strong>73%</strong></p></td>
+<td><p>2%</p></td>
+</tr>
+<tr class="row-odd"><td><p>AM1-BCC vs RESP</p></td>
+<td><p>15%</p></td>
+<td><p><strong>81%</strong></p></td>
+<td><p>3%</p></td>
+</tr>
+<tr class="row-even"><td><p>ABCG2 vs RESP</p></td>
+<td><p>35%</p></td>
+<td><p><strong>40%</strong></p></td>
+<td><p>24%</p></td>
+</tr>
+</tbody>
+</table>
+<p>At the system level (58 systems), RESP wins <strong>51/58</strong> head-to-head against
+AM1-BCC and <strong>34/58</strong> against ABCG2; ABCG2 wins <strong>45/58</strong> against AM1-BCC.</p>
+<p>To translate these RMSE values into something more interpretable, the
+distribution table below shows the fraction of fitted torsions that fall
+below common quality thresholds:</p>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text">AFFDO RMSE Quality Distribution</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 18.0%" />
+<col style="width: 18.0%" />
+<col style="width: 18.0%" />
+<col style="width: 21.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Charge Model</p></th>
+<th class="head"><p>Torsions Fitted</p></th>
+<th class="head"><p>&lt; 0.25 kcal/mol</p></th>
+<th class="head"><p>&lt; 0.50 kcal/mol</p></th>
+<th class="head"><p>&lt; 1.00 kcal/mol</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AM1-BCC</p></td>
+<td><p>242</p></td>
+<td><p>26%</p></td>
+<td><p>65%</p></td>
+<td><p>84%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ABCG2</p></td>
+<td><p>263</p></td>
+<td><p>48%</p></td>
+<td><p>80%</p></td>
+<td><p>95%</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>RESP</strong></p></td>
+<td><p><strong>292</strong></p></td>
+<td><p><strong>64%</strong></p></td>
+<td><p><strong>82%</strong></p></td>
+<td><p><strong>96%</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>RESP also has the highest “torsion rescue rate”: switching from AM1-BCC to RESP
+moves 50 additional torsions across the fitting threshold (242 → 292), and
+ABCG2 moves 21 (242 → 263). Many of these rescued torsions are in charged MCL1
+systems where AM1-BCC’s electrostatic errors mask the true torsional error,
+making the GAFF2 baseline appear acceptable when it is not.</p>
+<p><strong>Key findings:</strong></p>
+<ul class="simple">
+<li><p><strong>RESP is the overall best charge model for torsion fitting</strong>: lowest post-fit RMSE (0.313 kcal/mol),
+highest fit rate (96%), and largest RMSE reduction (81%). RESP wins 51/58 systems head-to-head
+against AM1-BCC.</p></li>
+<li><p><strong>ABCG2 excels for neutral molecules</strong>: For TYK2 (neutral), ABCG2 slightly outperforms RESP
+(90.4% vs 89.0% improvement) with the lowest AFFDO RMSE (0.21 kcal/mol). Both achieve 100%
+fit rate vs 81% for AM1-BCC.</p></li>
+<li><p><strong>RESP dominates for charged systems</strong>: For MCL1 (q = -1), RESP fits 94% of torsions vs 79-80% for
+BCC/ABCG2, consistent with the limited charged-molecule coverage in AM1-BCC’s training set [5].
+RESP’s direct fitting to the QM electrostatic potential of the charged state provides more accurate
+electrostatics around anionic functional groups.</p></li>
+<li><p><strong>GAFF2 baseline inversion</strong>: RESP shows the highest GAFF2 baseline RMSE because its more accurate
+charges expose larger discrepancies with generic torsion parameters. After bespoke fitting, RESP
+achieves the best result — confirming that generic GAFF2 torsions absorb electrostatic errors when
+paired with approximate charges.</p></li>
+<li><p><strong>Quality distribution</strong>: 64% of RESP-fitted torsions achieve sub-0.25 kcal/mol RMSE, compared to
+48% for ABCG2 and 26% for AM1-BCC.</p></li>
+</ul>
 <p><strong>References</strong></p>
 <p>[1] Wang, L., Wu, Y., Deng, Y., et al. (2015). Accurate and reliable prediction of relative ligand binding
 potency in prospective drug discovery by way of a modern free-energy calculation protocol and force
@@ -403,31 +540,49 @@ field. Journal of the American Chemical Society, 137(7), 2695-2703.</p>
 Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simulation Setup and Analysis (ProFESSA).
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.</p>
 <p>[3] Blanco-Gonzalez, A.; Betancourt, W.; Snyder, R. M.; Zhang, S.; Giese, T. J.; Piskulich, Z. A.; Götz, A. W.; Merz, K. M., Jr.; York, D. M.; Aktulga, H. M.; Manathunga, M. Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. J. Chem. Inf. Model. 2026, 66 (6), 3206–3219. DOI: 10.1021/acs.jcim.6c00528</p>
-<p><em>Last updated on</em> <em>03/29/2026</em>.</p>
+<p>[4] Wang, J.; Wolf, R. M.; Caldwell, J. W.; Kollman, P. A.; Case, D. A. Development and Testing of a General Amber Force Field. J. Comput. Chem. 2004, 25 (9), 1157-1174.</p>
+<p>[5] Jakalian, A.; Jack, D. B.; Bayly, C. I. Fast, Efficient Generation of High-Quality Atomic Charges. AM1-BCC Model: II. Parameterization and Validation. J. Comput. Chem. 2002, 23 (16), 1623-1641.</p>
+<p>[6] He, X.; Man, V. H.; Yang, W.; Lee, T. S.; Wang, J. A Fast and High-Quality Charge Model for the Next Generation General AMBER Force Field. J. Chem. Phys. 2020, 153, 114502.</p>
+<p>[7] Bayly, C. I.; Cieplak, P.; Cornell, W. D.; Kollman, P. A. A Well-Behaved Electrostatic Potential Based Method Using Charge Restraints for Deriving Atomic Charges: The RESP Model. J. Phys. Chem. 1993, 97 (40), 10269-10280.</p>
+<p><em>Last updated on</em> <em>05/02/2026</em>.</p>
 </section>
 </section>
 </section>
 </section>
-</div>
-</div>
-<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
-<a accesskey="p" class="btn btn-neutral float-left" href="release-notes.html" rel="prev" title="Release Notes"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
-<a accesskey="n" class="btn btn-neutral float-right" href="limitations.html" rel="next" title="Known Limitations">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
-</div>
-<hr/>
-<div role="contentinfo">
-<p>© Copyright 2024-2026, ATTMOS Inc.</p>
-</div></footer>
-</div>
-</div>
-</section>
-</div>
-<script>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="release-notes.html" class="btn btn-neutral float-left" title="Release Notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="limitations.html" class="btn btn-neutral float-right" title="Known Limitations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, ATTMOS Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
 <div id="version-selector">Version: <select onchange="document.location = this.value;">
 </select></div>
+ 
+
+
 </body>
 </html>

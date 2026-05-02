@@ -250,125 +250,184 @@ DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol
      - Rapid screening; limited by reference quality
 
 Charge Model Comparison
-^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~
 
-In AFFDO's torsion fitting, the optimizer targets the residual E\ :sub:`QM` − E\ :sub:`MM,non-torsion` — the energy that torsion parameters must account for. The non-torsional MM energy includes electrostatics, so if atomic charges are inaccurate, the electrostatic contribution is wrong and the residual contains artifacts. Cosine torsion functions cannot compensate for these artifacts, which limits fitting quality regardless of optimizer sophistication. Better charges produce a cleaner, genuinely torsional residual that the optimizer can fit more effectively.
+Torsion parameters and partial charges are deeply coupled in molecular mechanics force fields.
+The torsion Fourier series must compensate for errors in 1-4 electrostatic interactions, so the
+quality of partial charges directly affects torsion fitting accuracy. GAFF2 was originally
+parameterized using RESP charges [4], meaning its generic torsion parameters assume RESP-quality
+electrostatics. Substituting AM1-BCC charges introduces a coupling error where fitted torsion
+parameters must absorb both genuine torsional effects and charge model artifacts.
 
-AFFDO supports three charge models of increasing physical rigor: **AM1-BCC** (fast semi-empirical charges), **ABCG2** (AM1-BCC-GAFF2: re-optimized bond charge correction parameters for GAFF2), and **RESP** (restrained electrostatic potential charges from DFT-level electron density). In all cases, AFFDO computes charges for each centroid conformer and Boltzmann-averages them to produce conformation-weighted atomic charges.
+We benchmarked three charge models on all 58 DFT reference systems using identical optimizer settings:
 
-To isolate the effect of charge quality, all 58 Wang et al. DFT reference systems were refitted using each charge model while keeping all other settings identical (JAX-SciPy hybrid optimizer, geometry cycles, atom-type coupling). Only the charge derivation method differs.
+- **AM1-BCC**: Semi-empirical Austin Model 1 with Bond Charge Corrections [5] — fast, default
+- **ABCG2**: Re-optimized BCC parameters for GAFF2 [6] — fast, improved solvation accuracy
+- **RESP**: Restrained ElectroStatic Potential fitting to QM ESP at HF/6-31G* [7] — requires DFT calculation
 
-.. raw:: html
-
-   <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
-   <thead>
-   <tr style="border-bottom: 2px solid #333;">
-     <th rowspan="2" style="text-align: left; padding: 10px 14px; border-bottom: 2px solid #333;"><b>Metric</b></th>
-     <th colspan="2" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>TYK2</b> (16 sys, neutral)</th>
-     <th colspan="2" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>MCL1</b> (42 sys, q = −1)</th>
-   </tr>
-   <tr style="border-bottom: 2px solid #333;">
-     <th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th>
-     <th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>AM1-BCC charges</b> — torsions improved: TYK2 73/90 (81%), MCL1 169/215 (79%)</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.34 ± 0.08</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.09</td><td style="padding: 8px 12px;">0.43 ± 0.05</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.47 ± 0.11</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.56 ± 0.07</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.96</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.94</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">73.5%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">57.7%</td></tr>
-
-   <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>ABCG2 charges</b> — torsions improved: TYK2 74/90 (82%), MCL1 174/215 (81%)</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.17 ± 0.06</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.09</td><td style="padding: 8px 12px;">0.32 ± 0.03</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.24 ± 0.10</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.44 ± 0.04</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.97</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">88.2%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">60.6%</td></tr>
-
-   <tr style="background: #f0f0f0;"><td colspan="5" style="text-align: left; padding: 8px 14px;"><b>RESP charges</b> — torsions improved: TYK2 74/90 (82%), MCL1 183/215 (85%)</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.17 ± 0.06</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.91 ± 0.10</td><td style="padding: 8px 12px;">0.30 ± 0.03</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.05 ± 0.27</td><td style="padding: 8px 12px;">0.25 ± 0.09</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.41 ± 0.04</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.97</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Mean Improvement</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">88.1%</td><td colspan="2" style="padding: 8px 12px; border-left: 2px solid #ccc;">61.9%</td></tr>
-   </tbody>
-   <tfoot>
-   <tr><td colspan="5" style="text-align: left; padding: 6px; font-size: 0.9em;"><b>Note on GAFF2 baselines:</b> AM1-BCC and ABCG2 runs share identical GAFF2 baselines (ABCG2 restarts from the BCC-charge topology). RESP runs regenerated the topology with RESP charges, producing different GAFF2 energy profiles for 35% of torsions. Aggregated means differ by ≤0.01 kcal/mol, so overall statistics are negligibly affected. The direct quality comparison below avoids this issue by comparing absolute AFFDO RMSE values.</td></tr>
-   </tfoot>
-   </table>
-
-QM-derived charges (ABCG2 and RESP) reduce AFFDO RMSE by ~49% for TYK2 (0.47 → 0.24 kcal/mol) but only ~21% for MCL1 (0.56 → 0.44 kcal/mol). The difference reflects the underlying physics: in charged systems like MCL1 (q = −1), strong intramolecular electrostatic interactions create large non-torsional contributions to the rotational energy profile. Even with QM-derived charges, cleanly partitioning these contributions into torsional vs non-torsional components is inherently difficult, which limits the headroom for improvement. For neutral molecules like TYK2, the torsion residual is inherently cleaner, so correcting the charge model has a more direct impact on the fitted parameters.
-
-In per-torsion head-to-head comparisons, ABCG2 and RESP are remarkably similar — 68% of 305 matched torsions show no meaningful difference (within 1% improvement delta). Both methods improve on the original AM1-BCC parameterization: ABCG2 through re-optimized bond charge corrections tuned for GAFF2, RESP through direct fitting to the quantum-mechanical electron density. This convergence suggests that the critical factor is the quality of the underlying charge parameterization, not the specific QM method used to derive charges.
-
-The practical implication is that the cost–benefit curve flattens sharply after ABCG2. The jump from BCC to ABCG2 is large (mean improvement 62.5% → 68.8%) and free — ABCG2 uses the same AM1-BCC method applied to conformers already generated during the workflow. The further step from ABCG2 to RESP yields only a marginal gain (68.8% → 69.5%) at significant additional cost, since RESP requires a dedicated DFT ESP calculation. RESP does achieve the highest fitting success rate (85% for MCL1 vs 81% for ABCG2), making it worthwhile when maximizing the fraction of improved torsions matters more than minimizing computation time.
-
-Direct Quality Comparison
-""""""""""""""""""""""""""
-
-The improvement percentages above depend on the GAFF2 baseline. A more direct, baseline-independent metric is head-to-head comparison by absolute AFFDO RMSE: on each torsion, which charge model achieves the lower fitted error? Restricting to the 241 torsions fitted by all three models:
-
-.. raw:: html
-
-   <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
-   <thead>
-   <tr style="border-bottom: 2px solid #333;">
-     <th style="text-align: left; padding: 8px;"><b>Matchup</b></th>
-     <th style="padding: 8px;"><b>Lower RMSE wins</b></th>
-     <th style="padding: 8px;"><b>Higher RMSE loses</b></th>
-     <th style="padding: 8px;"><b>Tie (±0.01)</b></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr><td style="text-align: left; padding: 6px;">BCC vs ABCG2</td><td>ABCG2: 165 (68%)</td><td>BCC: 70 (29%)</td><td>6 (2%)</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">BCC vs RESP</td><td>RESP: 164 (68%)</td><td>BCC: 71 (29%)</td><td>6 (2%)</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">ABCG2 vs RESP</td><td>RESP: 42 (17%)</td><td>ABCG2: 35 (15%)</td><td>164 (68%)</td></tr>
-   </tbody>
-   </table>
-
-This confirms the same ranking (ABCG2 ≈ RESP >> BCC) with a cleaner metric. ABCG2 and RESP produce nearly identical RMSE on 68% of torsions; where they diverge, RESP has a slight edge but the margin is small.
-
-Beyond individual fit quality, RESP's main advantage is its ability to rescue more torsions — cases where the optimizer converges successfully with RESP charges but fails with BCC. Out of 305 torsions: BCC fits 242 (79%), ABCG2 fits 248 (81%, +6 vs BCC), and RESP fits 257 (84%, +15 vs BCC, including 10 torsions that only RESP can fit). The additional torsions are predominantly charged MCL1 systems where RESP's DFT-derived electrostatics provide a sufficiently clean residual for the optimizer to converge.
-
-The quality distribution of fitted RMSE values further illustrates the gap:
-
-.. raw:: html
-
-   <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
-   <thead>
-   <tr style="border-bottom: 2px solid #333;">
-     <th style="text-align: left; padding: 8px;"><b>Model</b></th>
-     <th style="padding: 8px;"><b>&lt;0.25 kcal/mol</b></th>
-     <th style="padding: 8px;"><b>&lt;0.50 kcal/mol</b></th>
-     <th style="padding: 8px;"><b>&lt;1.00 kcal/mol</b></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr><td style="text-align: left; padding: 6px;">BCC (242 fitted)</td><td>62 (26%)</td><td>157 (65%)</td><td>204 (84%)</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">ABCG2 (248 fitted)</td><td>110 (44%)</td><td>195 (79%)</td><td>233 (94%)</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">RESP (257 fitted)</td><td>124 (48%)</td><td>208 (81%)</td><td>246 (96%)</td></tr>
-   </tbody>
-   </table>
-
-ABCG2 and RESP don't just improve more torsions — they produce substantially more high-quality fits. Nearly half of QM-charge fits (44–48%) achieve sub-0.25 kcal/mol RMSE, compared with only 26% for BCC. At the 1.00 kcal/mol threshold, QM charges bring 94–96% of fitted torsions below this cutoff vs 84% for BCC.
-
-.. list-table:: Charge Model Recommendations
+.. list-table:: Three-Way Charge Model Comparison (58 systems, 305 torsions, DFT reference)
    :header-rows: 1
+   :widths: 15 12 12 12 12 12
 
-   * - Use case
-     - Charge model
-     - Notes
-   * - **Fast screening**
+   * - Charge Model
+     - Torsions Fitted
+     - Mean Improvement (%)
+     - GAFF2 RMSE
+     - AFFDO RMSE
+     - RMSE Reduction (%)
+   * - AM1-BCC
+     - 242/305 (79%)
+     - 62.5
+     - 1.389
+     - 0.531
+     - 62%
+   * - ABCG2
+     - 263/305 (86%)
+     - 72.4
+     - 1.467
+     - 0.354
+     - 76%
+   * - **RESP**
+     - **292/305 (96%)**
+     - **76.7**
+     - 1.626
+     - **0.313**
+     - **81%**
+
+.. list-table:: Per-Family Breakdown
+   :header-rows: 1
+   :widths: 10 15 12 12 12 15
+
+   * - Family
+     - Charge Model
+     - GAFF2 RMSE
+     - AFFDO RMSE
+     - Improvement (%)
+     - Torsions Fitted
+   * - TYK2 (neutral)
      - AM1-BCC
-     - No QM cost; 79–81% success rate; 26% of fits below 0.25 kcal/mol
-   * - **Best cost–benefit (recommended)**
+     - 2.04
+     - 0.47
+     - 73.5
+     - 73/90 (81%)
+   * - TYK2 (neutral)
      - ABCG2
-     - No extra QM cost (reuses existing conformers); 44% of fits below 0.25 kcal/mol; +6 rescued torsions vs BCC
-   * - **Maximum accuracy**
+     - 2.24
+     - 0.21
+     - 90.4
+     - 90/90 (100%)
+   * - TYK2 (neutral)
      - RESP
-     - Requires DFT ESP calculation; 48% of fits below 0.25 kcal/mol; +15 rescued torsions vs BCC (10 RESP-only)
+     - 2.38
+     - 0.24
+     - 89.0
+     - 90/90 (100%)
+   * - MCL1 (q = -1)
+     - AM1-BCC
+     - 1.12
+     - 0.56
+     - 57.7
+     - 169/215 (79%)
+   * - MCL1 (q = -1)
+     - ABCG2
+     - 1.15
+     - 0.43
+     - 63.0
+     - 173/215 (80%)
+   * - MCL1 (q = -1)
+     - RESP
+     - 1.31
+     - 0.35
+     - 71.2
+     - 202/215 (94%)
+
+To make the comparison robust to the choice of GAFF2 baseline, we also report a
+direct head-to-head on the absolute AFFDO RMSE — i.e., the per-torsion RMSE
+after fitting, ignoring the starting point. The table below counts wins
+(:math:`\Delta` RMSE > 0.01 kcal/mol) across 226 torsions fitted by all three
+charge models.
+
+.. list-table:: Direct AFFDO RMSE Head-to-Head (226 commonly-fitted torsions)
+   :header-rows: 1
+   :widths: 30 25 25 20
+
+   * - Matchup
+     - Lower RMSE wins (Model A)
+     - Lower RMSE wins (Model B)
+     - Tie (±0.01)
+   * - AM1-BCC vs ABCG2
+     - 25%
+     - **73%**
+     - 2%
+   * - AM1-BCC vs RESP
+     - 15%
+     - **81%**
+     - 3%
+   * - ABCG2 vs RESP
+     - 35%
+     - **40%**
+     - 24%
+
+At the system level (58 systems), RESP wins **51/58** head-to-head against
+AM1-BCC and **34/58** against ABCG2; ABCG2 wins **45/58** against AM1-BCC.
+
+To translate these RMSE values into something more interpretable, the
+distribution table below shows the fraction of fitted torsions that fall
+below common quality thresholds:
+
+.. list-table:: AFFDO RMSE Quality Distribution
+   :header-rows: 1
+   :widths: 25 18 18 18 21
+
+   * - Charge Model
+     - Torsions Fitted
+     - < 0.25 kcal/mol
+     - < 0.50 kcal/mol
+     - < 1.00 kcal/mol
+   * - AM1-BCC
+     - 242
+     - 26%
+     - 65%
+     - 84%
+   * - ABCG2
+     - 263
+     - 48%
+     - 80%
+     - 95%
+   * - **RESP**
+     - **292**
+     - **64%**
+     - **82%**
+     - **96%**
+
+RESP also has the highest "torsion rescue rate": switching from AM1-BCC to RESP
+moves 50 additional torsions across the fitting threshold (242 → 292), and
+ABCG2 moves 21 (242 → 263). Many of these rescued torsions are in charged MCL1
+systems where AM1-BCC's electrostatic errors mask the true torsional error,
+making the GAFF2 baseline appear acceptable when it is not.
+
+**Key findings:**
+
+- **RESP is the overall best charge model for torsion fitting**: lowest post-fit RMSE (0.313 kcal/mol),
+  highest fit rate (96%), and largest RMSE reduction (81%). RESP wins 51/58 systems head-to-head
+  against AM1-BCC.
+
+- **ABCG2 excels for neutral molecules**: For TYK2 (neutral), ABCG2 slightly outperforms RESP
+  (90.4% vs 89.0% improvement) with the lowest AFFDO RMSE (0.21 kcal/mol). Both achieve 100%
+  fit rate vs 81% for AM1-BCC.
+
+- **RESP dominates for charged systems**: For MCL1 (q = -1), RESP fits 94% of torsions vs 79-80% for
+  BCC/ABCG2, consistent with the limited charged-molecule coverage in AM1-BCC's training set [5].
+  RESP's direct fitting to the QM electrostatic potential of the charged state provides more accurate
+  electrostatics around anionic functional groups.
+
+- **GAFF2 baseline inversion**: RESP shows the highest GAFF2 baseline RMSE because its more accurate
+  charges expose larger discrepancies with generic torsion parameters. After bespoke fitting, RESP
+  achieves the best result — confirming that generic GAFF2 torsions absorb electrostatic errors when
+  paired with approximate charges.
+
+- **Quality distribution**: 64% of RESP-fitted torsions achieve sub-0.25 kcal/mol RMSE, compared to
+  48% for ABCG2 and 26% for AM1-BCC.
 
 **References**
 
@@ -381,5 +440,13 @@ Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simula
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.
 
 [3] Blanco-Gonzalez, A.; Betancourt, W.; Snyder, R. M.; Zhang, S.; Giese, T. J.; Piskulich, Z. A.; Götz, A. W.; Merz, K. M., Jr.; York, D. M.; Aktulga, H. M.; Manathunga, M. Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. J. Chem. Inf. Model. 2026, 66 (6), 3206–3219. DOI: 10.1021/acs.jcim.6c00528
+
+[4] Wang, J.; Wolf, R. M.; Caldwell, J. W.; Kollman, P. A.; Case, D. A. Development and Testing of a General Amber Force Field. J. Comput. Chem. 2004, 25 (9), 1157-1174.
+
+[5] Jakalian, A.; Jack, D. B.; Bayly, C. I. Fast, Efficient Generation of High-Quality Atomic Charges. AM1-BCC Model: II. Parameterization and Validation. J. Comput. Chem. 2002, 23 (16), 1623-1641.
+
+[6] He, X.; Man, V. H.; Yang, W.; Lee, T. S.; Wang, J. A Fast and High-Quality Charge Model for the Next Generation General AMBER Force Field. J. Chem. Phys. 2020, 153, 114502.
+
+[7] Bayly, C. I.; Cieplak, P.; Cornell, W. D.; Kollman, P. A. A Well-Behaved Electrostatic Potential Based Method Using Charge Restraints for Deriving Atomic Charges: The RESP Model. J. Phys. Chem. 1993, 97 (40), 10269-10280.
 
 *Last updated on* |UPDATE_DATE|.
