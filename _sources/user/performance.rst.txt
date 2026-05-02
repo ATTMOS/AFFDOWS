@@ -341,6 +341,71 @@ We benchmarked three charge models on all 58 DFT reference systems using identic
      - 71.2
      - 202/215 (94%)
 
+To make the comparison robust to the choice of GAFF2 baseline, we also report a
+direct head-to-head on the absolute AFFDO RMSE — i.e., the per-torsion RMSE
+after fitting, ignoring the starting point. The table below counts wins
+(:math:`\Delta` RMSE > 0.01 kcal/mol) across 226 torsions fitted by all three
+charge models.
+
+.. list-table:: Direct AFFDO RMSE Head-to-Head (226 commonly-fitted torsions)
+   :header-rows: 1
+   :widths: 30 25 25 20
+
+   * - Matchup
+     - Lower RMSE wins (Model A)
+     - Lower RMSE wins (Model B)
+     - Tie (±0.01)
+   * - AM1-BCC vs ABCG2
+     - 25%
+     - **73%**
+     - 2%
+   * - AM1-BCC vs RESP
+     - 15%
+     - **81%**
+     - 3%
+   * - ABCG2 vs RESP
+     - 35%
+     - **40%**
+     - 24%
+
+At the system level (58 systems), RESP wins **51/58** head-to-head against
+AM1-BCC and **34/58** against ABCG2; ABCG2 wins **45/58** against AM1-BCC.
+
+To translate these RMSE values into something more interpretable, the
+distribution table below shows the fraction of fitted torsions that fall
+below common quality thresholds:
+
+.. list-table:: AFFDO RMSE Quality Distribution
+   :header-rows: 1
+   :widths: 25 18 18 18 21
+
+   * - Charge Model
+     - Torsions Fitted
+     - < 0.25 kcal/mol
+     - < 0.50 kcal/mol
+     - < 1.00 kcal/mol
+   * - AM1-BCC
+     - 242
+     - 26%
+     - 65%
+     - 84%
+   * - ABCG2
+     - 263
+     - 48%
+     - 80%
+     - 95%
+   * - **RESP**
+     - **292**
+     - **64%**
+     - **82%**
+     - **96%**
+
+RESP also has the highest "torsion rescue rate": switching from AM1-BCC to RESP
+moves 50 additional torsions across the fitting threshold (242 → 292), and
+ABCG2 moves 21 (242 → 263). Many of these rescued torsions are in charged MCL1
+systems where AM1-BCC's electrostatic errors mask the true torsional error,
+making the GAFF2 baseline appear acceptable when it is not.
+
 **Key findings:**
 
 - **RESP is the overall best charge model for torsion fitting**: lowest post-fit RMSE (0.313 kcal/mol),

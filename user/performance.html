@@ -411,6 +411,92 @@ parameters must absorb both genuine torsional effects and charge model artifacts
 </tr>
 </tbody>
 </table>
+<p>To make the comparison robust to the choice of GAFF2 baseline, we also report a
+direct head-to-head on the absolute AFFDO RMSE — i.e., the per-torsion RMSE
+after fitting, ignoring the starting point. The table below counts wins
+(<span class="math notranslate nohighlight">\(\Delta\)</span> RMSE &gt; 0.01 kcal/mol) across 226 torsions fitted by all three
+charge models.</p>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">Direct AFFDO RMSE Head-to-Head (226 commonly-fitted torsions)</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%"/>
+<col style="width: 25.0%"/>
+<col style="width: 25.0%"/>
+<col style="width: 20.0%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Matchup</p></th>
+<th class="head"><p>Lower RMSE wins (Model A)</p></th>
+<th class="head"><p>Lower RMSE wins (Model B)</p></th>
+<th class="head"><p>Tie (±0.01)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AM1-BCC vs ABCG2</p></td>
+<td><p>25%</p></td>
+<td><p><strong>73%</strong></p></td>
+<td><p>2%</p></td>
+</tr>
+<tr class="row-odd"><td><p>AM1-BCC vs RESP</p></td>
+<td><p>15%</p></td>
+<td><p><strong>81%</strong></p></td>
+<td><p>3%</p></td>
+</tr>
+<tr class="row-even"><td><p>ABCG2 vs RESP</p></td>
+<td><p>35%</p></td>
+<td><p><strong>40%</strong></p></td>
+<td><p>24%</p></td>
+</tr>
+</tbody>
+</table>
+<p>At the system level (58 systems), RESP wins <strong>51/58</strong> head-to-head against
+AM1-BCC and <strong>34/58</strong> against ABCG2; ABCG2 wins <strong>45/58</strong> against AM1-BCC.</p>
+<p>To translate these RMSE values into something more interpretable, the
+distribution table below shows the fraction of fitted torsions that fall
+below common quality thresholds:</p>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text">AFFDO RMSE Quality Distribution</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%"/>
+<col style="width: 18.0%"/>
+<col style="width: 18.0%"/>
+<col style="width: 18.0%"/>
+<col style="width: 21.0%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Charge Model</p></th>
+<th class="head"><p>Torsions Fitted</p></th>
+<th class="head"><p>&lt; 0.25 kcal/mol</p></th>
+<th class="head"><p>&lt; 0.50 kcal/mol</p></th>
+<th class="head"><p>&lt; 1.00 kcal/mol</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AM1-BCC</p></td>
+<td><p>242</p></td>
+<td><p>26%</p></td>
+<td><p>65%</p></td>
+<td><p>84%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ABCG2</p></td>
+<td><p>263</p></td>
+<td><p>48%</p></td>
+<td><p>80%</p></td>
+<td><p>95%</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>RESP</strong></p></td>
+<td><p><strong>292</strong></p></td>
+<td><p><strong>64%</strong></p></td>
+<td><p><strong>82%</strong></p></td>
+<td><p><strong>96%</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>RESP also has the highest “torsion rescue rate”: switching from AM1-BCC to RESP
+moves 50 additional torsions across the fitting threshold (242 → 292), and
+ABCG2 moves 21 (242 → 263). Many of these rescued torsions are in charged MCL1
+systems where AM1-BCC’s electrostatic errors mask the true torsional error,
+making the GAFF2 baseline appear acceptable when it is not.</p>
 <p><strong>Key findings:</strong></p>
 <ul class="simple">
 <li><p><strong>RESP is the overall best charge model for torsion fitting</strong>: lowest post-fit RMSE (0.313 kcal/mol),
