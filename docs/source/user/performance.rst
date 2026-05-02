@@ -50,7 +50,7 @@ The benchmark covers 58 systems from two protein families: **TYK2** (16 systems,
 Aggregate Metrics
 ^^^^^^^^^^^^^^^^^^
 
-The table below summarizes the overall GAFF2 vs AFFDO performance across 58 systems (305 torsions) from the Wang et al. [1] dataset, using DFT constrained-optimization (PBE0-D3BJ/6-31G*) as the reference level. Metrics quantify agreement with QC torsional potential energy surfaces obtained from constrained dihedral scans evaluated on a 20° angular grid (i.e., scan-point energies) and should not be interpreted as RBFE predictive accuracy.
+The table below summarizes the overall GAFF2 vs AFFDO performance across 58 systems (305 torsions) from the Wang et al. [1] dataset, using DFT constrained-optimization (PBE0-D3BJ/6-31G*, with 6-31+G* for anionic species) as the reference level. Metrics quantify agreement with QC torsional potential energy surfaces obtained from constrained dihedral scans evaluated on a 20° angular grid (i.e., scan-point energies) and should not be interpreted as RBFE predictive accuracy.
 
 .. raw:: html
 
@@ -68,14 +68,14 @@ The table below summarizes the overall GAFF2 vs AFFDO performance across 58 syst
    <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.12</td><td>0.55 ± 0.05</td><td>−60%</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.96</td><td>+10%</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.94</td><td>+11%</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Max RMSD<sup>b</sup> (&#8491;)</td><td>0.68 ± 0.06</td><td>0.81 ± 0.07</td><td>+19%</td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Max RMSD<sup>b</sup> (&#8491;)</td><td>0.68 ± 0.06</td><td>0.65 ± 0.06</td><td>&#8722;4%</td></tr>
    </tbody>
    <tfoot>
    <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are reported as 95% CI calculated analytically.<br><sup>b</sup> Maximum RMSD between reference (DFT) and MM-optimized geometries across scan points per torsion; see <a href="#geometry-fidelity">Geometry Fidelity</a>.</td></tr>
    </tfoot>
    </table>
 
-Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. The increase in Max RMSD (0.68 to 0.81 A, +0.13 A) is an expected side effect of improving the energy fit; the baseline GAFF2 geometries are already close to the reference, so the absolute change remains small. AFFDO mitigates this through geometry-aware regularization (see `Geometry Fidelity`_). These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.
+Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 60% (from 1.39 to 0.55 kcal/mol) and the MAE by 63% (from 1.12 to 0.41 kcal/mol), while improving the Pearson correlation from 0.87 to 0.96. Geometry fidelity is preserved: the per-torsion Max RMSD between reference and MM-optimized geometries is essentially unchanged (0.68 → 0.65 Å, −4%) thanks to AFFDO's geometry-aware regularization (see `Geometry Fidelity`_). These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.
 
 Fitting Accuracy by Reference Level
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -83,8 +83,8 @@ Fitting Accuracy by Reference Level
 AFFDO supports multiple reference levels for torsion energy profiles. To guide users in selecting the appropriate reference level, we benchmarked the same 58 systems (16 TYK2, 42 MCL1) at three theory levels:
 
 * **XTB**: GFN2-XTB torsional scan (fast, semi-empirical)
-* **DFT-SP**: DFT single-point on XTB geometries (PBE0-D3BJ/6-31G*)
-* **DFT**: Full DFT constrained optimization (PBE0-D3BJ/6-31G*)
+* **DFT-SP**: DFT single-point on XTB geometries (PBE0-D3BJ/6-31G*, with 6-31+G* for anionic species)
+* **DFT**: Full DFT constrained optimization (PBE0-D3BJ/6-31G*, with 6-31+G* for anionic species)
 
 .. note::
 
@@ -112,25 +112,25 @@ All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When A
    <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.00 ± 0.31</td><td style="padding: 8px 12px;">0.21 ± 0.07</td><td style="padding: 8px 10px;">−90%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.76 ± 0.13</td><td style="padding: 8px 12px;">0.40 ± 0.04</td><td style="padding: 8px 10px;">−77%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 10px;">+25%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.86</td><td style="padding: 8px 12px;">0.96</td><td style="padding: 8px 10px;">+12%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+31%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.86</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+10%</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.85 ± 0.11</td><td style="padding: 8px 12px;">1.01 ± 0.13</td><td style="padding: 8px 10px;">+19%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.79 ± 0.08</td><td style="padding: 8px 10px;">0%</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.85 ± 0.11</td><td style="padding: 8px 12px;">0.92 ± 0.11</td><td style="padding: 8px 10px;">+8%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.77 ± 0.08</td><td style="padding: 8px 10px;">&#8722;3%</td></tr>
 
    <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>DFT-SP reference</b></td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.68 ± 0.22</td><td style="padding: 8px 12px;">0.28 ± 0.06</td><td style="padding: 8px 10px;">−83%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.05 ± 0.08</td><td style="padding: 8px 12px;">0.34 ± 0.03</td><td style="padding: 8px 10px;">−68%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.09 ± 0.26</td><td style="padding: 8px 12px;">0.39 ± 0.09</td><td style="padding: 8px 10px;">−81%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.32 ± 0.09</td><td style="padding: 8px 12px;">0.47 ± 0.05</td><td style="padding: 8px 10px;">−64%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 10px;">+21%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.88</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 10px;">+10%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.77</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+27%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.88</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+8%</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82 ± 0.11</td><td style="padding: 8px 12px;">0.89 ± 0.14</td><td style="padding: 8px 10px;">+9%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.84 ± 0.08</td><td style="padding: 8px 10px;">+6%</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82 ± 0.11</td><td style="padding: 8px 12px;">0.93 ± 0.12</td><td style="padding: 8px 10px;">+13%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.84 ± 0.07</td><td style="padding: 8px 10px;">+6%</td></tr>
 
    <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>DFT reference</b></td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.46 ± 0.09</td><td style="padding: 8px 10px;">−72%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90 ± 0.09</td><td style="padding: 8px 12px;">0.39 ± 0.04</td><td style="padding: 8px 10px;">−57%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.63 ± 0.13</td><td style="padding: 8px 10px;">−69%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.52 ± 0.05</td><td style="padding: 8px 10px;">−54%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+21%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.96</td><td style="padding: 8px 10px;">+7%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+27%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.94</td><td style="padding: 8px 10px;">+6%</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.11</td><td style="padding: 8px 12px;">0.95 ± 0.13</td><td style="padding: 8px 10px;">+7%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58 ± 0.07</td><td style="padding: 8px 12px;">0.75 ± 0.08</td><td style="padding: 8px 10px;">+29%</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.11</td><td style="padding: 8px 12px;">0.90 ± 0.12</td><td style="padding: 8px 10px;">+1%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58 ± 0.07</td><td style="padding: 8px 12px;">0.53 ± 0.06</td><td style="padding: 8px 10px;">&#8722;9%</td></tr>
    </tbody>
    </table>
 
-All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 60–90% and Pearson correlations reaching 0.95–0.99. Max RMSD increases range from 0.05 to 0.17 A in absolute terms; larger percentage changes reflect cases where GAFF2 geometries are already close to the reference (e.g., DFT MCL1 baseline of 0.58 A). In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 81% of TYK2 and 79% of MCL1 torsions.
+All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 60–90% and Pearson correlations reaching 0.95–0.99. Geometry fidelity is preserved across all three: Max RMSD stays within roughly ±0.1 Å of the GAFF2 baseline post-fit, with DFT MCL1 actually improving slightly (0.58 → 0.53 Å). In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 81% of TYK2 and 79% of MCL1 torsions.
 
 DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.
 
@@ -139,7 +139,7 @@ Geometry Fidelity
 
 AFFDO uses a two-level optimization strategy to balance energy accuracy with geometric fidelity. In the inner loop, torsion parameters are refined using single-point (SP) energy evaluations on fixed geometries — this is fast and allows efficient gradient-based exploration of parameter space. Periodically, outer geometry-refresh cycles re-minimize MM geometries with the updated parameters and recompute energy profiles, ensuring that the torsion parameters remain consistent with relaxed molecular structures.
 
-This approach yields substantial energy improvements (60–90% RMSE reduction) with only a modest increase in structural deviation from the reference geometries. The Max RMSD between reference and MM-optimized geometries (see per-reference-level tables above) typically increases by 0.05–0.17 A after fitting — well within general force field accuracy expectations.
+This approach yields substantial energy improvements (60–90% RMSE reduction) without compromising geometric fidelity. The Max RMSD between reference and MM-optimized geometries (see per-reference-level tables above) stays within ±0.1 Å of the GAFF2 baseline after fitting — and decreases for the largest, charged-ligand subset (DFT MCL1).
 
 To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:
 
@@ -254,16 +254,16 @@ Charge Model Comparison
 
 Torsion parameters and partial charges are deeply coupled in molecular mechanics force fields.
 The torsion Fourier series must compensate for errors in 1-4 electrostatic interactions, so the
-quality of partial charges directly affects torsion fitting accuracy. GAFF2 was originally
-parameterized using RESP charges [4], meaning its generic torsion parameters assume RESP-quality
-electrostatics. Substituting AM1-BCC charges introduces a coupling error where fitted torsion
-parameters must absorb both genuine torsional effects and charge model artifacts.
+quality of partial charges directly affects torsion fitting accuracy. GAFF2's generic torsion
+parameters were derived assuming RESP-quality electrostatics; pairing them with approximate charges
+therefore introduces a coupling error that the fitted torsions must absorb alongside genuine
+torsional effects.
 
 We benchmarked three charge models on all 58 DFT reference systems using identical optimizer settings:
 
-- **AM1-BCC**: Semi-empirical Austin Model 1 with Bond Charge Corrections [5] — fast, default
-- **ABCG2**: Re-optimized BCC parameters for GAFF2 [6] — fast, improved solvation accuracy
-- **RESP**: Restrained ElectroStatic Potential fitting to QM ESP at HF/6-31G* [7] — requires DFT calculation
+- **AM1-BCC**: semi-empirical AM1 charges with Bond Charge Corrections — fast, default in AmberTools
+- **ABCG2**: BCC parameters re-fitted for GAFF2 against neutral solvation free energies — fast, improved solvation accuracy on neutral organic solutes
+- **RESP**: charges fitted to the QM electrostatic potential (HF/6-31G*, with HF/6-31+G* for anions) — requires a DFT-level QM calculation
 
 .. list-table:: Three-Way Charge Model Comparison (58 systems, 305 torsions, DFT reference)
    :header-rows: 1
@@ -417,9 +417,10 @@ making the GAFF2 baseline appear acceptable when it is not.
   fit rate vs 81% for AM1-BCC.
 
 - **RESP dominates for charged systems**: For MCL1 (q = -1), RESP fits 94% of torsions vs 79-80% for
-  BCC/ABCG2, consistent with the limited charged-molecule coverage in AM1-BCC's training set [5].
-  RESP's direct fitting to the QM electrostatic potential of the charged state provides more accurate
-  electrostatics around anionic functional groups.
+  BCC/ABCG2. Both AM1-BCC and ABCG2 were parameterized primarily on neutral organic molecules, while
+  RESP fits charges directly to the QM electrostatic potential of the actual (anionic) state — which
+  is reflected in the data here, where bespoke torsion fitting cannot fully compensate for the
+  electrostatic errors of the BCC-family models on charged ligands.
 
 - **GAFF2 baseline inversion**: RESP shows the highest GAFF2 baseline RMSE because its more accurate
   charges expose larger discrepancies with generic torsion parameters. After bespoke fitting, RESP
@@ -440,13 +441,5 @@ Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simula
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.
 
 [3] Blanco-Gonzalez, A.; Betancourt, W.; Snyder, R. M.; Zhang, S.; Giese, T. J.; Piskulich, Z. A.; Götz, A. W.; Merz, K. M., Jr.; York, D. M.; Aktulga, H. M.; Manathunga, M. Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. J. Chem. Inf. Model. 2026, 66 (6), 3206–3219. DOI: 10.1021/acs.jcim.6c00528
-
-[4] Wang, J.; Wolf, R. M.; Caldwell, J. W.; Kollman, P. A.; Case, D. A. Development and Testing of a General Amber Force Field. J. Comput. Chem. 2004, 25 (9), 1157-1174.
-
-[5] Jakalian, A.; Jack, D. B.; Bayly, C. I. Fast, Efficient Generation of High-Quality Atomic Charges. AM1-BCC Model: II. Parameterization and Validation. J. Comput. Chem. 2002, 23 (16), 1623-1641.
-
-[6] He, X.; Man, V. H.; Yang, W.; Lee, T. S.; Wang, J. A Fast and High-Quality Charge Model for the Next Generation General AMBER Force Field. J. Chem. Phys. 2020, 153, 114502.
-
-[7] Bayly, C. I.; Cieplak, P.; Cornell, W. D.; Kollman, P. A. A Well-Behaved Electrostatic Potential Based Method Using Charge Restraints for Deriving Atomic Charges: The RESP Model. J. Phys. Chem. 1993, 97 (40), 10269-10280.
 
 *Last updated on* |UPDATE_DATE|.
