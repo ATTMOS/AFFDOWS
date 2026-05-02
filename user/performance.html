@@ -50,7 +50,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#aggregate-metrics">Aggregate Metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fitting-accuracy-by-reference-level">Fitting Accuracy by Reference Level</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry-fidelity">Geometry Fidelity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -287,11 +290,146 @@
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>A charge model comparison (AM1-BCC vs ABCG2 vs RESP) is planned for a future release.
-Benchmark results will be published here once the full evaluation is complete.</p>
-</div>
+<section id="charge-model-comparison">
+<h4>Charge Model Comparison<a class="headerlink" href="#charge-model-comparison" title="Link to this heading"></a></h4>
+<p>Torsion parameters and partial charges are deeply coupled in molecular mechanics force fields.
+The torsion Fourier series must compensate for errors in 1-4 electrostatic interactions, so the
+quality of partial charges directly affects torsion fitting accuracy. GAFF2 was originally
+parameterized using RESP charges [4], meaning its generic torsion parameters assume RESP-quality
+electrostatics. Substituting AM1-BCC charges introduces a coupling error where fitted torsion
+parameters must absorb both genuine torsional effects and charge model artifacts.</p>
+<p>We benchmarked three charge models on all 58 DFT reference systems using identical optimizer settings:</p>
+<ul class="simple">
+<li><p><strong>AM1-BCC</strong>: Semi-empirical Austin Model 1 with Bond Charge Corrections [5] — fast, default</p></li>
+<li><p><strong>ABCG2</strong>: Re-optimized BCC parameters for GAFF2 [6] — fast, improved solvation accuracy</p></li>
+<li><p><strong>RESP</strong>: Restrained ElectroStatic Potential fitting to QM ESP at HF/6-31G* [7] — requires DFT calculation</p></li>
+</ul>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Three-Way Charge Model Comparison (58 systems, 305 torsions, DFT reference)</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%"/>
+<col style="width: 16.0%"/>
+<col style="width: 16.0%"/>
+<col style="width: 16.0%"/>
+<col style="width: 16.0%"/>
+<col style="width: 16.0%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Charge Model</p></th>
+<th class="head"><p>Torsions Fitted</p></th>
+<th class="head"><p>Mean Improvement (%)</p></th>
+<th class="head"><p>GAFF2 RMSE</p></th>
+<th class="head"><p>AFFDO RMSE</p></th>
+<th class="head"><p>RMSE Reduction (%)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AM1-BCC</p></td>
+<td><p>242/305 (79%)</p></td>
+<td><p>62.5</p></td>
+<td><p>1.389</p></td>
+<td><p>0.531</p></td>
+<td><p>62%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ABCG2</p></td>
+<td><p>263/305 (86%)</p></td>
+<td><p>72.4</p></td>
+<td><p>1.467</p></td>
+<td><p>0.354</p></td>
+<td><p>76%</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>RESP</strong></p></td>
+<td><p><strong>292/305 (96%)</strong></p></td>
+<td><p><strong>76.7</strong></p></td>
+<td><p>1.626</p></td>
+<td><p><strong>0.313</strong></p></td>
+<td><p><strong>81%</strong></p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Per-Family Breakdown</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 13.2%"/>
+<col style="width: 19.7%"/>
+<col style="width: 15.8%"/>
+<col style="width: 15.8%"/>
+<col style="width: 15.8%"/>
+<col style="width: 19.7%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Family</p></th>
+<th class="head"><p>Charge Model</p></th>
+<th class="head"><p>GAFF2 RMSE</p></th>
+<th class="head"><p>AFFDO RMSE</p></th>
+<th class="head"><p>Improvement (%)</p></th>
+<th class="head"><p>Torsions Fitted</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TYK2 (neutral)</p></td>
+<td><p>AM1-BCC</p></td>
+<td><p>2.04</p></td>
+<td><p>0.47</p></td>
+<td><p>73.5</p></td>
+<td><p>73/90 (81%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>TYK2 (neutral)</p></td>
+<td><p>ABCG2</p></td>
+<td><p>2.24</p></td>
+<td><p>0.21</p></td>
+<td><p>90.4</p></td>
+<td><p>90/90 (100%)</p></td>
+</tr>
+<tr class="row-even"><td><p>TYK2 (neutral)</p></td>
+<td><p>RESP</p></td>
+<td><p>2.38</p></td>
+<td><p>0.24</p></td>
+<td><p>89.0</p></td>
+<td><p>90/90 (100%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCL1 (q = -1)</p></td>
+<td><p>AM1-BCC</p></td>
+<td><p>1.12</p></td>
+<td><p>0.56</p></td>
+<td><p>57.7</p></td>
+<td><p>169/215 (79%)</p></td>
+</tr>
+<tr class="row-even"><td><p>MCL1 (q = -1)</p></td>
+<td><p>ABCG2</p></td>
+<td><p>1.15</p></td>
+<td><p>0.43</p></td>
+<td><p>63.0</p></td>
+<td><p>173/215 (80%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCL1 (q = -1)</p></td>
+<td><p>RESP</p></td>
+<td><p>1.31</p></td>
+<td><p>0.35</p></td>
+<td><p>71.2</p></td>
+<td><p>202/215 (94%)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key findings:</strong></p>
+<ul class="simple">
+<li><p><strong>RESP is the overall best charge model for torsion fitting</strong>: lowest post-fit RMSE (0.313 kcal/mol),
+highest fit rate (96%), and largest RMSE reduction (81%). RESP wins 51/58 systems head-to-head
+against AM1-BCC.</p></li>
+<li><p><strong>ABCG2 excels for neutral molecules</strong>: For TYK2 (neutral), ABCG2 slightly outperforms RESP
+(90.4% vs 89.0% improvement) with the lowest AFFDO RMSE (0.21 kcal/mol). Both achieve 100%
+fit rate vs 81% for AM1-BCC.</p></li>
+<li><p><strong>RESP dominates for charged systems</strong>: For MCL1 (q = -1), RESP fits 94% of torsions vs 79-80% for
+BCC/ABCG2, consistent with the limited charged-molecule coverage in AM1-BCC’s training set [5].
+RESP’s direct fitting to the QM electrostatic potential of the charged state provides more accurate
+electrostatics around anionic functional groups.</p></li>
+<li><p><strong>GAFF2 baseline inversion</strong>: RESP shows the highest GAFF2 baseline RMSE because its more accurate
+charges expose larger discrepancies with generic torsion parameters. After bespoke fitting, RESP
+achieves the best result — confirming that generic GAFF2 torsions absorb electrostatic errors when
+paired with approximate charges.</p></li>
+<li><p><strong>Quality distribution</strong>: 64% of RESP-fitted torsions achieve sub-0.25 kcal/mol RMSE, compared to
+48% for ABCG2 and 26% for AM1-BCC.</p></li>
+</ul>
 <p><strong>References</strong></p>
 <p>[1] Wang, L., Wu, Y., Deng, Y., et al. (2015). Accurate and reliable prediction of relative ligand binding
 potency in prospective drug discovery by way of a modern free-energy calculation protocol and force
@@ -300,7 +438,12 @@ field. Journal of the American Chemical Society, 137(7), 2695-2703.</p>
 Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simulation Setup and Analysis (ProFESSA).
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.</p>
 <p>[3] Blanco-Gonzalez, A.; Betancourt, W.; Snyder, R. M.; Zhang, S.; Giese, T. J.; Piskulich, Z. A.; Götz, A. W.; Merz, K. M., Jr.; York, D. M.; Aktulga, H. M.; Manathunga, M. Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. J. Chem. Inf. Model. 2026, 66 (6), 3206–3219. DOI: 10.1021/acs.jcim.6c00528</p>
-<p><em>Last updated on</em> <em>03/29/2026</em>.</p>
+<p>[4] Wang, J.; Wolf, R. M.; Caldwell, J. W.; Kollman, P. A.; Case, D. A. Development and Testing of a General Amber Force Field. J. Comput. Chem. 2004, 25 (9), 1157-1174.</p>
+<p>[5] Jakalian, A.; Jack, D. B.; Bayly, C. I. Fast, Efficient Generation of High-Quality Atomic Charges. AM1-BCC Model: II. Parameterization and Validation. J. Comput. Chem. 2002, 23 (16), 1623-1641.</p>
+<p>[6] He, X.; Man, V. H.; Yang, W.; Lee, T. S.; Wang, J. A Fast and High-Quality Charge Model for the Next Generation General AMBER Force Field. J. Chem. Phys. 2020, 153, 114502.</p>
+<p>[7] Bayly, C. I.; Cieplak, P.; Cornell, W. D.; Kollman, P. A. A Well-Behaved Electrostatic Potential Based Method Using Charge Restraints for Deriving Atomic Charges: The RESP Model. J. Phys. Chem. 1993, 97 (40), 10269-10280.</p>
+<p><em>Last updated on</em> <em>05/02/2026</em>.</p>
+</section>
 </section>
 </section>
 </section>
