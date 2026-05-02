@@ -31,7 +31,7 @@ and a smoother user experience, while remaining fully automated and optimized fo
 
 * **Enhanced torsion selection and scoring** using improved metrics for selecting representative torsional profiles.
 
-* **Extended charge models** including RESP electrostatics and ABCG2 charge capabilities (charge model benchmark pending re-evaluation).
+* **Extended charge models** including RESP electrostatics and ABCG2 charge capabilities. Benchmarked on 58 Wang Dataset systems: RESP achieves 0.313 kcal/mol RMSE with 96% fit rate, ABCG2 achieves 0.354 kcal/mol with 86% fit rate, both significantly outperforming AM1-BCC (0.531 kcal/mol, 79%).
 
 * **Versatile workflow modes** adding a Topology-only option for quick GAFF2 topology generation with RESP charges, plus a Fragmentation-only mode that exposes FragMentor so users can isolate and parametrize just the ligand fragments they care about.
 

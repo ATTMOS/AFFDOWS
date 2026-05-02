@@ -249,10 +249,120 @@ DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol
      - 1.40
      - Rapid screening; limited by reference quality
 
-.. note::
+Charge Model Comparison
+~~~~~~~~~~~~~~~~~~~~~~~
 
-   A charge model comparison (AM1-BCC vs ABCG2 vs RESP) is planned for a future release.
-   Benchmark results will be published here once the full evaluation is complete.
+Torsion parameters and partial charges are deeply coupled in molecular mechanics force fields.
+The torsion Fourier series must compensate for errors in 1-4 electrostatic interactions, so the
+quality of partial charges directly affects torsion fitting accuracy. GAFF2 was originally
+parameterized using RESP charges [4], meaning its generic torsion parameters assume RESP-quality
+electrostatics. Substituting AM1-BCC charges introduces a coupling error where fitted torsion
+parameters must absorb both genuine torsional effects and charge model artifacts.
+
+We benchmarked three charge models on all 58 DFT reference systems using identical optimizer settings:
+
+- **AM1-BCC**: Semi-empirical Austin Model 1 with Bond Charge Corrections [5] — fast, default
+- **ABCG2**: Re-optimized BCC parameters for GAFF2 [6] — fast, improved solvation accuracy
+- **RESP**: Restrained ElectroStatic Potential fitting to QM ESP at HF/6-31G* [7] — requires DFT calculation
+
+.. list-table:: Three-Way Charge Model Comparison (58 systems, 305 torsions, DFT reference)
+   :header-rows: 1
+   :widths: 15 12 12 12 12 12
+
+   * - Charge Model
+     - Torsions Fitted
+     - Mean Improvement (%)
+     - GAFF2 RMSE
+     - AFFDO RMSE
+     - RMSE Reduction (%)
+   * - AM1-BCC
+     - 242/305 (79%)
+     - 62.5
+     - 1.389
+     - 0.531
+     - 62%
+   * - ABCG2
+     - 263/305 (86%)
+     - 72.4
+     - 1.467
+     - 0.354
+     - 76%
+   * - **RESP**
+     - **292/305 (96%)**
+     - **76.7**
+     - 1.626
+     - **0.313**
+     - **81%**
+
+.. list-table:: Per-Family Breakdown
+   :header-rows: 1
+   :widths: 10 15 12 12 12 15
+
+   * - Family
+     - Charge Model
+     - GAFF2 RMSE
+     - AFFDO RMSE
+     - Improvement (%)
+     - Torsions Fitted
+   * - TYK2 (neutral)
+     - AM1-BCC
+     - 2.04
+     - 0.47
+     - 73.5
+     - 73/90 (81%)
+   * - TYK2 (neutral)
+     - ABCG2
+     - 2.24
+     - 0.21
+     - 90.4
+     - 90/90 (100%)
+   * - TYK2 (neutral)
+     - RESP
+     - 2.38
+     - 0.24
+     - 89.0
+     - 90/90 (100%)
+   * - MCL1 (q = -1)
+     - AM1-BCC
+     - 1.12
+     - 0.56
+     - 57.7
+     - 169/215 (79%)
+   * - MCL1 (q = -1)
+     - ABCG2
+     - 1.15
+     - 0.43
+     - 63.0
+     - 173/215 (80%)
+   * - MCL1 (q = -1)
+     - RESP
+     - 1.31
+     - 0.35
+     - 71.2
+     - 202/215 (94%)
+
+**Key findings:**
+
+- **RESP is the overall best charge model for torsion fitting**: lowest post-fit RMSE (0.313 kcal/mol),
+  highest fit rate (96%), and largest RMSE reduction (81%). RESP wins 51/58 systems head-to-head
+  against AM1-BCC.
+
+- **ABCG2 excels for neutral molecules**: For TYK2 (neutral), ABCG2 slightly outperforms RESP
+  (90.4% vs 89.0% improvement) with the lowest AFFDO RMSE (0.21 kcal/mol). Both achieve 100%
+  fit rate vs 81% for AM1-BCC.
+
+- **RESP dominates for charged systems**: For MCL1 (q = -1), RESP fits 94% of torsions vs 79-80% for
+  BCC/ABCG2, consistent with the limited charged-molecule coverage in AM1-BCC's training set [5].
+  RESP's direct fitting to the QM electrostatic potential of the charged state provides more accurate
+  electrostatics around anionic functional groups.
+
+- **GAFF2 baseline inversion**: RESP shows the highest GAFF2 baseline RMSE because its more accurate
+  charges expose larger discrepancies with generic torsion parameters. After bespoke fitting, RESP
+  achieves the best result — confirming that generic GAFF2 torsions absorb electrostatic errors when
+  paired with approximate charges.
+
+- **Quality distribution**: 64% of RESP-fitted torsions achieve sub-0.25 kcal/mol RMSE, compared to
+  48% for ABCG2 and 26% for AM1-BCC.
 
 **References**
 
@@ -265,5 +375,13 @@ Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simula
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.
 
 [3] Blanco-Gonzalez, A.; Betancourt, W.; Snyder, R. M.; Zhang, S.; Giese, T. J.; Piskulich, Z. A.; Götz, A. W.; Merz, K. M., Jr.; York, D. M.; Aktulga, H. M.; Manathunga, M. Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. J. Chem. Inf. Model. 2026, 66 (6), 3206–3219. DOI: 10.1021/acs.jcim.6c00528
+
+[4] Wang, J.; Wolf, R. M.; Caldwell, J. W.; Kollman, P. A.; Case, D. A. Development and Testing of a General Amber Force Field. J. Comput. Chem. 2004, 25 (9), 1157-1174.
+
+[5] Jakalian, A.; Jack, D. B.; Bayly, C. I. Fast, Efficient Generation of High-Quality Atomic Charges. AM1-BCC Model: II. Parameterization and Validation. J. Comput. Chem. 2002, 23 (16), 1623-1641.
+
+[6] He, X.; Man, V. H.; Yang, W.; Lee, T. S.; Wang, J. A Fast and High-Quality Charge Model for the Next Generation General AMBER Force Field. J. Chem. Phys. 2020, 153, 114502.
+
+[7] Bayly, C. I.; Cieplak, P.; Cornell, W. D.; Kollman, P. A. A Well-Behaved Electrostatic Potential Based Method Using Charge Restraints for Deriving Atomic Charges: The RESP Model. J. Phys. Chem. 1993, 97 (40), 10269-10280.
 
 *Last updated on* |UPDATE_DATE|.
