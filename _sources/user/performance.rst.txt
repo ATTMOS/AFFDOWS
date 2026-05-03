@@ -265,6 +265,12 @@ We benchmarked three charge models on all 58 DFT reference systems using identic
 - **ABCG2**: BCC parameters re-fitted for GAFF2 against neutral solvation free energies — fast, improved solvation accuracy on neutral organic solutes
 - **RESP**: charges fitted to the QM electrostatic potential (HF/6-31G*, with HF/6-31+G* for anions) — requires a DFT-level QM calculation
 
+In the table below, "AFFDO RMSE" is averaged only over torsions where AFFDO
+improved on the GAFF2 baseline (the "Torsions Fitted" column), so it reflects
+the quality of the fitting itself. This differs from the production-behavior
+RMSE in the per-reference-level table above, which retains GAFF2 for unfitted
+torsions.
+
 .. list-table:: Three-Way Charge Model Comparison (58 systems, 305 torsions, DFT reference)
    :header-rows: 1
    :widths: 15 12 12 12 12 12
