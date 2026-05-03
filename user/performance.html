@@ -304,163 +304,86 @@ torsional effects.</p>
 <li><p><strong>ABCG2</strong>: BCC parameters re-fitted for GAFF2 against neutral solvation free energies — fast, improved solvation accuracy on neutral organic solutes</p></li>
 <li><p><strong>RESP</strong>: charges fitted to the QM electrostatic potential (HF/6-31G*, with HF/6-31+G* for anions) — requires a DFT-level QM calculation</p></li>
 </ul>
-<p>In the table below, “AFFDO RMSE” is averaged only over torsions where AFFDO
-improved on the GAFF2 baseline (the “Torsions Fitted” column), so it reflects
-the quality of the fitting itself. This differs from the production-behavior
-RMSE in the per-reference-level table above, which retains GAFF2 for unfitted
-torsions.</p>
-<table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Three-Way Charge Model Comparison (58 systems, 305 torsions, DFT reference)</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
-<colgroup>
-<col style="width: 20.0%"/>
-<col style="width: 16.0%"/>
-<col style="width: 16.0%"/>
-<col style="width: 16.0%"/>
-<col style="width: 16.0%"/>
-<col style="width: 16.0%"/>
-</colgroup>
+<p>All metrics below are averaged only over torsions where AFFDO improved on the
+GAFF2 baseline (the per-section “torsions fitted” counts). This differs from
+the production-behavior RMSE in the per-reference-level table above, which
+retains GAFF2 for unfitted torsions.</p>
+<table style="border-collapse: collapse; text-align: center; margin: 20px 0; border-spacing: 0;">
 <thead>
-<tr class="row-odd"><th class="head"><p>Charge Model</p></th>
-<th class="head"><p>Torsions Fitted</p></th>
-<th class="head"><p>Mean Improvement (%)</p></th>
-<th class="head"><p>GAFF2 RMSE</p></th>
-<th class="head"><p>AFFDO RMSE</p></th>
-<th class="head"><p>RMSE Reduction (%)</p></th>
+<tr style="border-bottom: 2px solid #333;">
+<th rowspan="2" style="text-align: left; padding: 10px 14px; border-bottom: 2px solid #333;"><b>Metric</b></th>
+<th colspan="3" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>TYK2</b> (16 sys, neutral)</th>
+<th colspan="3" style="padding: 10px 12px; border-bottom: 1px solid #999; border-left: 2px solid #ccc;"><b>MCL1</b> (42 sys, q = −1)</th>
+</tr>
+<tr style="border-bottom: 2px solid #333;">
+<th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th><th style="padding: 8px 10px;">Δ</th>
+<th style="padding: 8px 12px; border-left: 2px solid #ccc;">GAFF2</th><th style="padding: 8px 12px;">AFFDO</th><th style="padding: 8px 10px;">Δ</th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>AM1-BCC</p></td>
-<td><p>242/305 (79%)</p></td>
-<td><p>62.5</p></td>
-<td><p>1.389</p></td>
-<td><p>0.531</p></td>
-<td><p>62%</p></td>
-</tr>
-<tr class="row-odd"><td><p>ABCG2</p></td>
-<td><p>263/305 (86%)</p></td>
-<td><p>72.4</p></td>
-<td><p>1.467</p></td>
-<td><p>0.354</p></td>
-<td><p>76%</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>RESP</strong></p></td>
-<td><p><strong>292/305 (96%)</strong></p></td>
-<td><p><strong>76.7</strong></p></td>
-<td><p>1.626</p></td>
-<td><p><strong>0.313</strong></p></td>
-<td><p><strong>81%</strong></p></td>
-</tr>
+<tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>AM1-BCC charges</b> — torsions fitted: TYK2 73/90 (81%), MCL1 169/215 (79%)</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.34 ± 0.08</td><td style="padding: 8px 10px;">−80%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.09</td><td style="padding: 8px 12px;">0.43 ± 0.05</td><td style="padding: 8px 10px;">−52%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.47 ± 0.11</td><td style="padding: 8px 10px;">−77%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.11</td><td style="padding: 8px 12px;">0.56 ± 0.07</td><td style="padding: 8px 10px;">−50%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+21%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.96</td><td style="padding: 8px 10px;">+7%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+27%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.94</td><td style="padding: 8px 10px;">+6%</td></tr>
+<tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>ABCG2 charges</b> — torsions fitted: TYK2 90/90 (100%), MCL1 173/215 (80%)</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.80 ± 0.27</td><td style="padding: 8px 12px;">0.14 ± 0.04</td><td style="padding: 8px 10px;">−92%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.92 ± 0.09</td><td style="padding: 8px 12px;">0.31 ± 0.03</td><td style="padding: 8px 10px;">−66%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.24 ± 0.32</td><td style="padding: 8px 12px;">0.21 ± 0.08</td><td style="padding: 8px 10px;">−91%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.15 ± 0.11</td><td style="padding: 8px 12px;">0.43 ± 0.04</td><td style="padding: 8px 10px;">−63%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 10px;">+22%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 10px;">+8%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+31%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+7%</td></tr>
+<tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>RESP charges</b> — torsions fitted: TYK2 90/90 (100%), MCL1 202/215 (94%)</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.95 ± 0.23</td><td style="padding: 8px 12px;">0.17 ± 0.04</td><td style="padding: 8px 10px;">−91%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.03 ± 0.10</td><td style="padding: 8px 12px;">0.26 ± 0.02</td><td style="padding: 8px 10px;">−75%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.38 ± 0.26</td><td style="padding: 8px 12px;">0.24 ± 0.07</td><td style="padding: 8px 10px;">−90%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.31 ± 0.13</td><td style="padding: 8px 12px;">0.35 ± 0.04</td><td style="padding: 8px 10px;">−73%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.83</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 10px;">+19%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.86</td><td style="padding: 8px 12px;">0.98</td><td style="padding: 8px 10px;">+14%</td></tr>
+<tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 10px;">+29%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.87</td><td style="padding: 8px 12px;">0.96</td><td style="padding: 8px 10px;">+10%</td></tr>
 </tbody>
-</table>
-<table class="docutils align-default" id="id4">
-<caption><span class="caption-text">Per-Family Breakdown</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
-<colgroup>
-<col style="width: 13.2%"/>
-<col style="width: 19.7%"/>
-<col style="width: 15.8%"/>
-<col style="width: 15.8%"/>
-<col style="width: 15.8%"/>
-<col style="width: 19.7%"/>
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Family</p></th>
-<th class="head"><p>Charge Model</p></th>
-<th class="head"><p>GAFF2 RMSE</p></th>
-<th class="head"><p>AFFDO RMSE</p></th>
-<th class="head"><p>Improvement (%)</p></th>
-<th class="head"><p>Torsions Fitted</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>TYK2 (neutral)</p></td>
-<td><p>AM1-BCC</p></td>
-<td><p>2.04</p></td>
-<td><p>0.47</p></td>
-<td><p>73.5</p></td>
-<td><p>73/90 (81%)</p></td>
-</tr>
-<tr class="row-odd"><td><p>TYK2 (neutral)</p></td>
-<td><p>ABCG2</p></td>
-<td><p>2.24</p></td>
-<td><p>0.21</p></td>
-<td><p>90.4</p></td>
-<td><p>90/90 (100%)</p></td>
-</tr>
-<tr class="row-even"><td><p>TYK2 (neutral)</p></td>
-<td><p>RESP</p></td>
-<td><p>2.38</p></td>
-<td><p>0.24</p></td>
-<td><p>89.0</p></td>
-<td><p>90/90 (100%)</p></td>
-</tr>
-<tr class="row-odd"><td><p>MCL1 (q = -1)</p></td>
-<td><p>AM1-BCC</p></td>
-<td><p>1.12</p></td>
-<td><p>0.56</p></td>
-<td><p>57.7</p></td>
-<td><p>169/215 (79%)</p></td>
-</tr>
-<tr class="row-even"><td><p>MCL1 (q = -1)</p></td>
-<td><p>ABCG2</p></td>
-<td><p>1.15</p></td>
-<td><p>0.43</p></td>
-<td><p>63.0</p></td>
-<td><p>173/215 (80%)</p></td>
-</tr>
-<tr class="row-odd"><td><p>MCL1 (q = -1)</p></td>
-<td><p>RESP</p></td>
-<td><p>1.31</p></td>
-<td><p>0.35</p></td>
-<td><p>71.2</p></td>
-<td><p>202/215 (94%)</p></td>
-</tr>
-</tbody>
-</table>
+</table><p>Aggregating across both families: AM1-BCC fits 242/305 torsions (79%) with mean
+post-fit RMSE 0.531 kcal/mol; ABCG2 fits 263/305 (86%) with 0.354; RESP fits
+292/305 (96%) with <strong>0.313</strong>. The RMSE reduction over GAFF2 is 62%, 76%, and
+<strong>81%</strong> respectively.</p>
 <p>To make the comparison robust to the choice of GAFF2 baseline, we also report a
 direct head-to-head on the absolute AFFDO RMSE — i.e., the per-torsion RMSE
-after fitting, ignoring the starting point. The table below counts wins
-(<span class="math notranslate nohighlight">\(\Delta\)</span> RMSE &gt; 0.01 kcal/mol) across 226 torsions fitted by all three
-charge models.</p>
-<table class="docutils align-default" id="id5">
-<caption><span class="caption-text">Direct AFFDO RMSE Head-to-Head (226 commonly-fitted torsions)</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+after fitting, ignoring the starting point — on the 226 torsions fitted by all
+three charge models. The table also includes per-system wins on the full
+58-system set (mean improvement delta &gt; 1%).</p>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Head-to-Head: per-torsion (226 common) and per-system (58 total)</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 30.0%"/>
-<col style="width: 25.0%"/>
-<col style="width: 25.0%"/>
-<col style="width: 20.0%"/>
+<col style="width: 22.0%"/>
+<col style="width: 26.0%"/>
+<col style="width: 26.0%"/>
+<col style="width: 26.0%"/>
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Matchup</p></th>
-<th class="head"><p>Lower RMSE wins (Model A)</p></th>
-<th class="head"><p>Lower RMSE wins (Model B)</p></th>
-<th class="head"><p>Tie (±0.01)</p></th>
+<th class="head"><p>Per-torsion winner</p></th>
+<th class="head"><p>Per-system winner</p></th>
+<th class="head"><p>Tie</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>AM1-BCC vs ABCG2</p></td>
-<td><p>25%</p></td>
-<td><p><strong>73%</strong></p></td>
-<td><p>2%</p></td>
+<td><p><strong>ABCG2 73%</strong> (BCC 25%)</p></td>
+<td><p><strong>ABCG2 45/58</strong> (BCC 11)</p></td>
+<td><p>2% / 2 sys</p></td>
 </tr>
 <tr class="row-odd"><td><p>AM1-BCC vs RESP</p></td>
-<td><p>15%</p></td>
-<td><p><strong>81%</strong></p></td>
-<td><p>3%</p></td>
+<td><p><strong>RESP 81%</strong> (BCC 15%)</p></td>
+<td><p><strong>RESP 51/58</strong> (BCC 4)</p></td>
+<td><p>3% / 3 sys</p></td>
 </tr>
 <tr class="row-even"><td><p>ABCG2 vs RESP</p></td>
-<td><p>35%</p></td>
-<td><p><strong>40%</strong></p></td>
-<td><p>24%</p></td>
+<td><p><strong>RESP 40%</strong> (ABCG2 35%)</p></td>
+<td><p><strong>RESP 34/58</strong> (ABCG2 18)</p></td>
+<td><p>24% / 6 sys</p></td>
 </tr>
 </tbody>
 </table>
-<p>At the system level (58 systems), RESP wins <strong>51/58</strong> head-to-head against
-AM1-BCC and <strong>34/58</strong> against ABCG2; ABCG2 wins <strong>45/58</strong> against AM1-BCC.</p>
 <p>To translate these RMSE values into something more interpretable, the
 distribution table below shows the fraction of fitted torsions that fall
 below common quality thresholds:</p>
-<table class="docutils align-default" id="id6">
-<caption><span class="caption-text">AFFDO RMSE Quality Distribution</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">AFFDO RMSE Quality Distribution</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 25.0%"/>
 <col style="width: 18.0%"/>
