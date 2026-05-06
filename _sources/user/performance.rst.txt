@@ -250,7 +250,7 @@ DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol
      - Rapid screening; limited by reference quality
 
 Charge Model Comparison
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Torsion parameters and partial charges are deeply coupled in molecular mechanics force fields.
 The torsion Fourier series must compensate for errors in 1-4 electrostatic interactions, so the
@@ -397,7 +397,7 @@ making the GAFF2 baseline appear acceptable when it is not.
   48% for ABCG2 and 26% for AM1-BCC.
 
 RESP Geometry Source — XTB vs DFT-Opt Centroids
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 AFFDO 25.11 introduces the ``resp_geometry_source`` setting, which controls
 how centroid geometries feed the RESP HF/6-31G\* ESP single-point. The new

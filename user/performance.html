@@ -50,11 +50,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#aggregate-metrics">Aggregate Metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fitting-accuracy-by-reference-level">Fitting Accuracy by Reference Level</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry-fidelity">Geometry Fidelity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#resp-geometry-source-xtb-vs-dft-opt-centroids">RESP Geometry Source — XTB vs DFT-Opt Centroids</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#resp-geometry-source-xtb-vs-dft-opt-centroids">RESP Geometry Source — XTB vs DFT-Opt Centroids</a></li>
 </ul>
 </li>
 </ul>
@@ -291,8 +291,9 @@
 </tr>
 </tbody>
 </table>
+</section>
 <section id="charge-model-comparison">
-<h4>Charge Model Comparison<a class="headerlink" href="#charge-model-comparison" title="Link to this heading"></a></h4>
+<h3>Charge Model Comparison<a class="headerlink" href="#charge-model-comparison" title="Link to this heading"></a></h3>
 <p>Torsion parameters and partial charges are deeply coupled in molecular mechanics force fields.
 The torsion Fourier series must compensate for errors in 1-4 electrostatic interactions, so the
 quality of partial charges directly affects torsion fitting accuracy. GAFF2’s generic torsion
@@ -446,10 +447,8 @@ paired with approximate charges.</p></li>
 <li><p><strong>Quality distribution</strong>: 64% of RESP-fitted torsions achieve sub-0.25 kcal/mol RMSE, compared to
 48% for ABCG2 and 26% for AM1-BCC.</p></li>
 </ul>
-</section>
-</section>
 <section id="resp-geometry-source-xtb-vs-dft-opt-centroids">
-<h3>RESP Geometry Source — XTB vs DFT-Opt Centroids<a class="headerlink" href="#resp-geometry-source-xtb-vs-dft-opt-centroids" title="Link to this heading"></a></h3>
+<h4>RESP Geometry Source — XTB vs DFT-Opt Centroids<a class="headerlink" href="#resp-geometry-source-xtb-vs-dft-opt-centroids" title="Link to this heading"></a></h4>
 <p>AFFDO 25.11 introduces the <code class="docutils literal notranslate"><span class="pre">resp_geometry_source</span></code> setting, which controls
 how centroid geometries feed the RESP HF/6-31G* ESP single-point. The new
 default <code class="docutils literal notranslate"><span class="pre">xtb</span></code> uses post-clustering XTB centroids directly and skips the
@@ -509,6 +508,7 @@ Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simula
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.</p>
 <p>[3] Blanco-Gonzalez, A.; Betancourt, W.; Snyder, R. M.; Zhang, S.; Giese, T. J.; Piskulich, Z. A.; Götz, A. W.; Merz, K. M., Jr.; York, D. M.; Aktulga, H. M.; Manathunga, M. Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. J. Chem. Inf. Model. 2026, 66 (6), 3206–3219. DOI: 10.1021/acs.jcim.6c00528</p>
 <p><em>Last updated on</em> <em>05/05/2026</em>.</p>
+</section>
 </section>
 </section>
 </section>
