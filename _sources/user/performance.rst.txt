@@ -396,6 +396,54 @@ making the GAFF2 baseline appear acceptable when it is not.
 - **Quality distribution**: 64% of RESP-fitted torsions achieve sub-0.25 kcal/mol RMSE, compared to
   48% for ABCG2 and 26% for AM1-BCC.
 
+RESP Geometry Source — XTB vs DFT-Opt Centroids
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+AFFDO 25.11 introduces the ``resp_geometry_source`` setting, which controls
+how centroid geometries feed the RESP HF/6-31G\* ESP single-point. The new
+default ``xtb`` uses post-clustering XTB centroids directly and skips the
+upstream PBE0/6-31G\* centroid optimization; the legacy ``dft`` path is
+preserved for reproducibility and edge cases. ESP and the RESP fit itself
+are unchanged in both modes (HF/6-31G\*, 6-31+G\* for anions). Validated on
+the Wang benchmark (58 systems, 291 fitted torsions): aggregate post-fit
+AFFDO RMSE differs by 0.003 kcal/mol — statistically equivalent at the MM
+noise floor. A DFT geometry optimization is therefore not a strict
+prerequisite for a RESP charge fit; an ensemble of reasonable
+XTB-optimized structures is sufficient when XTB minima are close to DFT
+minima, which holds across the entire Wang benchmark.
+
+.. list-table:: RESP geometry source comparison (mean AFFDO RMSE, kcal/mol)
+   :header-rows: 1
+
+   * - Family
+     - Fitted torsions
+     - dft (PBE0-opt geom)
+     - xtb (XTB centroid)
+     - Δ %
+   * - TYK2 (neutral, 16 sys)
+     - 90
+     - 0.241
+     - 0.227
+     - −5.6%
+   * - MCL1 (q = −1, 42 sys)
+     - 202
+     - 0.345
+     - 0.347
+     - +0.6%
+   * - **TOTAL (58 sys)**
+     - **291**
+     - **0.313**
+     - **0.310**
+     - **−0.9%**
+
+Median identical (0.230 kcal/mol both modes); 31/58 systems are slightly
+better under ``xtb``, 27/58 slightly worse — symmetric, no systematic bias.
+Validation covers neutral (TYK2) and anionic (MCL1, q = −1) ligands. For
+cationic, zwitterionic, or unusual ligand classes a head-to-head check on a
+representative molecule is recommended. To revert to the classical
+PBE0-opt pipeline use ``--resp-geometry-source dft`` on the CLI, or pick
+"DFT (advanced — slowest)" in the AFFDOWS RESP geometry source selector.
+
 **References**
 
 [1] Wang, L., Wu, Y., Deng, Y., et al. (2015). Accurate and reliable prediction of relative ligand binding

@@ -54,6 +54,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#resp-geometry-source-xtb-vs-dft-opt-centroids">RESP Geometry Source — XTB vs DFT-Opt Centroids</a></li>
 </ul>
 </li>
 </ul>
@@ -445,6 +446,60 @@ paired with approximate charges.</p></li>
 <li><p><strong>Quality distribution</strong>: 64% of RESP-fitted torsions achieve sub-0.25 kcal/mol RMSE, compared to
 48% for ABCG2 and 26% for AM1-BCC.</p></li>
 </ul>
+</section>
+</section>
+<section id="resp-geometry-source-xtb-vs-dft-opt-centroids">
+<h3>RESP Geometry Source — XTB vs DFT-Opt Centroids<a class="headerlink" href="#resp-geometry-source-xtb-vs-dft-opt-centroids" title="Link to this heading"></a></h3>
+<p>AFFDO 25.11 introduces the <code class="docutils literal notranslate"><span class="pre">resp_geometry_source</span></code> setting, which controls
+how centroid geometries feed the RESP HF/6-31G* ESP single-point. The new
+default <code class="docutils literal notranslate"><span class="pre">xtb</span></code> uses post-clustering XTB centroids directly and skips the
+upstream PBE0/6-31G* centroid optimization; the legacy <code class="docutils literal notranslate"><span class="pre">dft</span></code> path is
+preserved for reproducibility and edge cases. ESP and the RESP fit itself
+are unchanged in both modes (HF/6-31G*, 6-31+G* for anions). Validated on
+the Wang benchmark (58 systems, 291 fitted torsions): aggregate post-fit
+AFFDO RMSE differs by 0.003 kcal/mol — statistically equivalent at the MM
+noise floor. A DFT geometry optimization is therefore not a strict
+prerequisite for a RESP charge fit; an ensemble of reasonable
+XTB-optimized structures is sufficient when XTB minima are close to DFT
+minima, which holds across the entire Wang benchmark.</p>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">RESP geometry source comparison (mean AFFDO RMSE, kcal/mol)</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Family</p></th>
+<th class="head"><p>Fitted torsions</p></th>
+<th class="head"><p>dft (PBE0-opt geom)</p></th>
+<th class="head"><p>xtb (XTB centroid)</p></th>
+<th class="head"><p>Δ %</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TYK2 (neutral, 16 sys)</p></td>
+<td><p>90</p></td>
+<td><p>0.241</p></td>
+<td><p>0.227</p></td>
+<td><p>−5.6%</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCL1 (q = −1, 42 sys)</p></td>
+<td><p>202</p></td>
+<td><p>0.345</p></td>
+<td><p>0.347</p></td>
+<td><p>+0.6%</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>TOTAL (58 sys)</strong></p></td>
+<td><p><strong>291</strong></p></td>
+<td><p><strong>0.313</strong></p></td>
+<td><p><strong>0.310</strong></p></td>
+<td><p><strong>−0.9%</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>Median identical (0.230 kcal/mol both modes); 31/58 systems are slightly
+better under <code class="docutils literal notranslate"><span class="pre">xtb</span></code>, 27/58 slightly worse — symmetric, no systematic bias.
+Validation covers neutral (TYK2) and anionic (MCL1, q = −1) ligands. For
+cationic, zwitterionic, or unusual ligand classes a head-to-head check on a
+representative molecule is recommended. To revert to the classical
+PBE0-opt pipeline use <code class="docutils literal notranslate"><span class="pre">--resp-geometry-source</span> <span class="pre">dft</span></code> on the CLI, or pick
+“DFT (advanced — slowest)” in the AFFDOWS RESP geometry source selector.</p>
 <p><strong>References</strong></p>
 <p>[1] Wang, L., Wu, Y., Deng, Y., et al. (2015). Accurate and reliable prediction of relative ligand binding
 potency in prospective drug discovery by way of a modern free-energy calculation protocol and force
@@ -453,8 +508,7 @@ field. Journal of the American Chemical Society, 137(7), 2695-2703.</p>
 Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simulation Setup and Analysis (ProFESSA).
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.</p>
 <p>[3] Blanco-Gonzalez, A.; Betancourt, W.; Snyder, R. M.; Zhang, S.; Giese, T. J.; Piskulich, Z. A.; Götz, A. W.; Merz, K. M., Jr.; York, D. M.; Aktulga, H. M.; Manathunga, M. Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. J. Chem. Inf. Model. 2026, 66 (6), 3206–3219. DOI: 10.1021/acs.jcim.6c00528</p>
-<p><em>Last updated on</em> <em>05/02/2026</em>.</p>
-</section>
+<p><em>Last updated on</em> <em>05/05/2026</em>.</p>
 </section>
 </section>
 </section>
