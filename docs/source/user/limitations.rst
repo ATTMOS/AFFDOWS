@@ -46,14 +46,14 @@ RESP Charge Fitting
   in space (formal charge ≤ −2; e.g., polycarboxylates), and
   submissions in this regime will likely fail at the charge-fitting
   step.
-- AM1-BCC and ABCG2 work at any charge state and bypass the HF SCF
-  requirement, so they remain available as fallback options when RESP
-  cannot complete. Note however that both charge models were
-  parameterized primarily on neutral organic molecules; for highly
-  charged species their charge derivation lies outside the original
-  training domain, and their accuracy compared to a converged RESP fit
-  is reduced. The submission form surfaces this caveat automatically
-  when RESP is selected for highly anionic species.
+- AFFDO's other charge models (AM1-BCC, ABCG2) are available as
+  fallback options when RESP cannot complete, but should be used with
+  caution for this charge regime: both were parameterized primarily on
+  neutral organic molecules, so for highly charged species their charge
+  derivation lies outside the original training domain and their
+  accuracy compared to a converged RESP fit is reduced. The submission
+  form surfaces this caveat automatically when RESP is selected for
+  highly anionic species.
 
 
 Scope
