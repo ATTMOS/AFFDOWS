@@ -46,10 +46,14 @@ RESP Charge Fitting
   in space (formal charge ≤ −2; e.g., polycarboxylates), and
   submissions in this regime will likely fail at the charge-fitting
   step.
-- For these molecules, use the AM1-BCC or ABCG2 charge model instead.
-  Both are well-defined at any charge state and bypass the HF SCF
-  requirement. The submission form surfaces this recommendation
-  automatically when RESP is selected for highly anionic species.
+- AM1-BCC and ABCG2 work at any charge state and bypass the HF SCF
+  requirement, so they remain available as fallback options when RESP
+  cannot complete. Note however that both charge models were
+  parameterized primarily on neutral organic molecules; for highly
+  charged species their charge derivation lies outside the original
+  training domain, and their accuracy compared to a converged RESP fit
+  is reduced. The submission form surfaces this caveat automatically
+  when RESP is selected for highly anionic species.
 
 
 Scope
