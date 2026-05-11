@@ -37,6 +37,21 @@ Reference Level Constraints
   documentation for details.
 
 
+RESP Charge Fitting
+-------------------
+
+- AFFDO performs RESP charge fitting at HF/6-31+G* in the gas phase.
+  The SCF step at this theory level does not converge reliably for
+  highly charged anions with multiple negatively-charged groups close
+  in space (formal charge ≤ −2; e.g., polycarboxylates), and
+  submissions in this regime will likely fail at the charge-fitting
+  step.
+- For these molecules, use the AM1-BCC or ABCG2 charge model instead.
+  Both are well-defined at any charge state and bypass the HF SCF
+  requirement. The submission form surfaces this recommendation
+  automatically when RESP is selected for highly anionic species.
+
+
 Scope
 -----
 
