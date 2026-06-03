@@ -29,12 +29,43 @@ Force Field and Parameterization
 Reference Level Constraints
 ---------------------------
 
-- DFT calculations use PBE0-D3BJ with Pople-family basis sets (via QUICK).
-  Basis set coverage may be limited for certain element and charge
-  combinations depending on the underlying QC engine.
+- DFT calculations use PBE0-D3BJ with Pople-family basis sets (``6-31G*``
+  for neutral and cationic species; ``6-31+G*`` with diffuse functions for
+  anionic species).
 - AFFDO relies on third-party tools (Amber, QUICK, XTB, RDKit) whose
   own limitations may impose additional constraints. Refer to the respective
   documentation for details.
+
+Element coverage at the DFT level
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Two element/charge combinations are outside the current DFT scope because
+of basis-set limitations. When detected, AFFDO does **not** start the
+workflow; the submission is rejected up front with a clear message in the
+log and an explanatory email, and no compute time is consumed.
+
+- **Iodine (I).** Iodine requires effective core potentials (ECPs) at any
+  charge state. The DFT engine used by AFFDO does not currently provide
+  ECPs, so I-containing ligands cannot be run at any DFT reference level.
+
+  *Workaround:* Use the ``XTB`` reference level (``-l xtb``) for
+  I-containing molecules. XTB is parameterized for the full periodic table
+  up to Rn and handles iodine natively.
+
+- **Bromine (Br) on anions.** Bromine is fully supported on neutral and
+  cationic species at the standard ``6-31G*`` basis. For anionic species
+  AFFDO uses the diffuse-augmented ``6-31+G*`` basis, which does not cover
+  bromine in the current DFT engine. AFFDO therefore rejects Br-containing
+  anions at the DFT reference level.
+
+  *Workaround:* If the chemistry permits, submit a neutral or cationic
+  protonation state — Br is then fully supported at DFT. Otherwise, switch
+  to the ``XTB`` reference level.
+
+These two combinations are detected at the file-upload stage in the web
+app and at project initialization in the CLI. The submission is blocked
+before any DFT calculation begins; you receive an explanatory email
+instead of a workflow-failure notification.
 
 
 RESP Charge Fitting
@@ -43,10 +74,12 @@ RESP Charge Fitting
 - AFFDO supports RESP charge fitting for small organic ligands using an
   HF/6-31G* electrostatic-potential workflow, consistent with common
   AMBER/GAFF-style ligand parameterization practice.
-- RESP charge fitting may be unreliable for highly charged anions,
-  especially molecules with multiple negatively charged groups close in
-  space, such as some polycarboxylates. In this regime, AFFDO may be unable
-  to generate valid RESP charges.
+- RESP charge fitting may be unreliable in some cases, most commonly (but
+  not limited to) highly charged anions — especially molecules with
+  multiple negatively charged groups close in space, such as some
+  polycarboxylates. Neutral molecules with challenging electronic
+  structures can occasionally fall into the same regime. In such cases,
+  AFFDO may be unable to generate valid RESP charges.
 - Selecting DFT-prepared geometries does not necessarily resolve this
   limitation. For these highly charged systems, the DFT geometry-preparation
   step can encounter similar convergence limits before the RESP calculation
@@ -66,9 +99,9 @@ RESP Charge Fitting
 - Alternative charge models such as AM1-BCC and ABCG2 are available when
   RESP cannot be completed, but they are not RESP-equivalent. These methods
   do not require the same HF/6-31G* RESP calculation and may be more robust
-  for difficult inputs, but they were developed primarily for typical organic
-  molecules. Their reliability for highly charged species may be reduced
-  compared with a successful RESP fit.
+  for difficult inputs, but they were developed primarily for neutral
+  organic molecules. Their reliability for highly charged species may be
+  reduced compared with a successful RESP fit.
 
 
 Scope
