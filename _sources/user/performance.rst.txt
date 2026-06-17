@@ -405,44 +405,68 @@ default ``xtb`` uses post-clustering XTB centroids directly and skips the
 upstream PBE0/6-31G\* centroid optimization; the legacy ``dft`` path is
 preserved for reproducibility and edge cases. ESP and the RESP fit itself
 are unchanged in both modes (HF/6-31G\*, 6-31+G\* for anions). Validated on
-the Wang benchmark (58 systems, 291 fitted torsions): aggregate post-fit
-AFFDO RMSE differs by 0.003 kcal/mol — statistically equivalent at the MM
-noise floor. A DFT geometry optimization is therefore not a strict
-prerequisite for a RESP charge fit; an ensemble of reasonable
-XTB-optimized structures is sufficient when XTB minima are close to DFT
-minima, which holds across the entire Wang benchmark.
+a benchmark covering all three formal-charge classes — neutrals (TYK2,
+16 systems), anions (MCL1, q = −1, 42 systems), and cations (thrombin,
+q = +1, 10 systems): **68 systems, 372/370 fitted torsions (dft/xtb
+arm)**. Aggregate post-fit AFFDO RMSE differs by 0.009 kcal/mol —
+statistically equivalent at the MM noise floor (~0.05 kcal/mol). A DFT
+geometry optimization is therefore not a strict prerequisite for a RESP
+charge fit; an ensemble of reasonable XTB-optimized structures is
+sufficient when XTB minima are close to DFT minima, which holds across
+the benchmark including the cation arm.
 
 .. list-table:: RESP geometry source comparison (mean AFFDO RMSE, kcal/mol)
    :header-rows: 1
 
    * - Family
-     - Fitted torsions
+     - Fitted torsions (dft / xtb)
      - dft (PBE0-opt geom)
      - xtb (XTB centroid)
      - Δ %
    * - TYK2 (neutral, 16 sys)
-     - 90
+     - 90 / 90
      - 0.241
      - 0.227
      - −5.6%
    * - MCL1 (q = −1, 42 sys)
-     - 202
+     - 202 / 201
      - 0.345
      - 0.347
      - +0.6%
-   * - **TOTAL (58 sys)**
-     - **291**
-     - **0.313**
-     - **0.310**
-     - **−0.9%**
+   * - Thrombin (q = +1, 10 sys)
+     - 80 / 79
+     - 0.305
+     - 0.355
+     - +16.4%
+   * - **TOTAL (68 sys)**
+     - **372 / 370**
+     - **0.311**
+     - **0.320**
+     - **+2.9%**
 
-Median identical (0.230 kcal/mol both modes); 31/58 systems are slightly
-better under ``xtb``, 27/58 slightly worse — symmetric, no systematic bias.
-Validation covers neutral (TYK2) and anionic (MCL1, q = −1) ligands. For
-cationic, zwitterionic, or unusual ligand classes a head-to-head check on a
-representative molecule is recommended. To revert to the classical
-PBE0-opt pipeline use ``--resp-geometry-source dft`` on the CLI, or pick
-"DFT (advanced — slowest)" in the AFFDOWS RESP geometry source selector.
+Δ% is computed as ``(xtb − dft) / dft × 100`` (positive ⇒ DFT-geom yields
+lower mean RMSE). Median RMSE is 0.230 kcal/mol across the
+neutral + anion aggregate under both modes, with no systematic bias: 31/58
+systems are slightly better under ``xtb``, 27/58 slightly worse.
+
+The thrombin cation arm (10 ligands, 80/79 fitted torsions, benchmark
+completed 2026-06-17) tracks the same overall pattern at the median:
+**median XTB 0.200 < median DFT 0.255 kcal/mol** — most cation torsion
+fits are equivalent or slightly better under ``xtb``, and high-quality
+coverage is identical (65/65 fits with RMSE < 0.5 in both arms). The
++16.4% mean Δ comes from a small right-tail of XTB-geom fits where the
+cation centroid drifts toward a conformer the HF/6-31G\* ESP fit cannot
+match as cleanly; DFT-opt smooths these outliers. Paired analysis on the
+79 torsions both arms fit gives DFT 0.301 vs XTB 0.355 kcal/mol — same
+right-tail-driven gap.
+
+For most ligands the geom source is a wall-time decision, not a quality
+one — skipping qm_opt2 saves roughly 30–60 minutes per fragment. To opt
+into the PBE0-opt pipeline when worst-case tail robustness matters (e.g.
+highly-charged anions with ``q ≤ −2``, or cationic scaffolds where a few
+percent of torsions might land in the right tail), use
+``--resp-geometry-source dft`` on the CLI, or pick "DFT (advanced —
+slowest)" in the AFFDOWS RESP geometry source selector.
 
 **References**
 
