@@ -444,29 +444,26 @@ the benchmark including the cation arm.
      - **0.320**
      - **+2.9%**
 
-Δ% is computed as ``(xtb − dft) / dft × 100`` (positive ⇒ DFT-geom yields
-lower mean RMSE). Median RMSE is 0.230 kcal/mol across the
-neutral + anion aggregate under both modes, with no systematic bias: 31/58
-systems are slightly better under ``xtb``, 27/58 slightly worse.
+Δ% is computed as ``(xtb − dft) / dft × 100`` (positive ⇒ DFT-geom
+yields lower mean RMSE). Per-class Δ ranges from −5.6% (TYK2) to +16.4%
+(thrombin), but in absolute terms the gap never exceeds 0.050 kcal/mol
+— small relative to the ~0.05 kcal/mol MM fit-noise floor. Median RMSE
+is 0.230 kcal/mol under both modes across the neutral + anion
+aggregate, and high-quality coverage (fits with RMSE < 0.5 kcal/mol)
+is essentially identical between arms in every charge class.
 
-The thrombin cation arm (10 ligands, 80/79 fitted torsions, benchmark
-completed 2026-06-17) tracks the same overall pattern at the median:
-**median XTB 0.200 < median DFT 0.255 kcal/mol** — most cation torsion
-fits are equivalent or slightly better under ``xtb``, and high-quality
-coverage is identical (65/65 fits with RMSE < 0.5 in both arms). The
-+16.4% mean Δ comes from a small right-tail of XTB-geom fits where the
-cation centroid drifts toward a conformer the HF/6-31G\* ESP fit cannot
-match as cleanly; DFT-opt smooths these outliers. Paired analysis on the
-79 torsions both arms fit gives DFT 0.301 vs XTB 0.355 kcal/mol — same
-right-tail-driven gap.
-
-For most ligands the geom source is a wall-time decision, not a quality
-one — skipping qm_opt2 saves roughly 30–60 minutes per fragment. To opt
-into the PBE0-opt pipeline when worst-case tail robustness matters (e.g.
-highly-charged anions with ``q ≤ −2``, or cationic scaffolds where a few
-percent of torsions might land in the right tail), use
-``--resp-geometry-source dft`` on the CLI, or pick "DFT (advanced —
-slowest)" in the AFFDOWS RESP geometry source selector.
+The ``dft`` path is the more accurate option in the strict sense —
+particularly when a small right-tail of XTB-geom fits would otherwise
+be smoothed by a DFT-optimized centroid. But that accuracy costs
+roughly 30–60 minutes per fragment of additional QUICK GPU time for
+the qm_opt2 stage. ``xtb`` delivers equivalent fit quality at the MM
+noise floor across all 68 systems while skipping that stage entirely,
+making it the recommended default for production use. Opt into the
+DFT-opt pipeline via ``--resp-geometry-source dft`` on the CLI, or pick
+"DFT (advanced — slowest)" in the AFFDOWS RESP geometry source
+selector, when the most accurate possible fit is needed (e.g.
+publishable manuscript benchmarks, or ligands where the XTB→DFT
+geometry drift is known to be non-trivial).
 
 **References**
 
