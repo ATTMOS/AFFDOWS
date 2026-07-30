@@ -3,14 +3,14 @@
 Accuracy and Performance
 ========================
 
-This section presents four benchmark phases that document AFFDO's development, validation, and current default behavior. Each phase builds on the previous one, progressively expanding the test set and refining the methodology:
+This page presents four benchmark phases, each building on the last:
 
-1. **Validation Overview** — Illustrates AFFDO's torsion-fitting approach and its downstream effect on RBFE calculations using representative examples from the Wang et al. [1] dataset.
-2. **Manuscript Benchmark** *(historical)* — Evaluation published with the AFFDO manuscript, using DFT reference + AM1-BCC charges and optimizing both torsion barrier heights **and** 1-4 scaling factors simultaneously (torsion + SF).
-3. **Default AFFDO Benchmark: Full Wang Dataset** — Canonical accuracy benchmark for the current defaults. 175 systems across 7 Wang FEP+ protein families at DFT reference + AM1-BCC charges, optimizing torsion barrier heights only (no scaling-factor tuning). This is the headline benchmark for evaluating AFFDO going forward.
-4. **Deep-Dive Studies** — Targeted methodology explorations on the two manuscript families (MCL1 + TYK2): reference-level comparison (XTB vs DFT-SP vs DFT), charge-model comparison (BCC vs ABCG2 vs RESP), geometry fidelity, cross-reference analysis, and RESP geometry-source selection.
+1. **Validation Overview** — How torsion fitting works and its downstream effect on RBFE, using representative Wang et al. [1] examples.
+2. **Manuscript Benchmark** *(historical)* — Published with the AFFDO manuscript. Optimized barrier heights **and** 1-4 scaling factors together.
+3. **Default Benchmark** — The numbers to cite. 175 systems across 7 protein families at current defaults: DFT reference, AM1-BCC charges, barrier heights only.
+4. **Deep-Dive Studies** — Methodology comparisons on MCL1 + TYK2: reference level, charge model, geometry fidelity, and RESP geometry source.
 
-The primary accuracy metric throughout is **torsion-profile agreement** — how well AFFDO-fitted MM energy profiles reproduce quantum-mechanical reference scans. RBFE improvements are reported as complementary downstream validation where available.
+The primary metric throughout is **torsion-profile agreement** — how well AFFDO-fitted MM energy profiles reproduce QM reference scans. RBFE improvements are reported as complementary downstream validation where available.
 
 **Note**: The code is continuously being improved. Please make sure to use the latest AFFDO version.
 
@@ -27,10 +27,10 @@ These torsion-profile improvements also translate to better downstream predictio
 .. image:: images/validation_figure.png
     :alt: This project was supported by NIH SBIR Seed fund.
 
-Manuscript Benchmark (Torsion + Scaling Factor Optimization)
-------------------------------------------------------------
+Manuscript Benchmark
+---------------------
 
-In our manuscript [3], we benchmarked |BOLD_AFFDO_VERSION| against a wider range of drug-like molecules with complex torsions using DFT reference profiles and AM1-BCC charges. In this study, both dihedral barrier heights **and** 1-4 scaling factors (scee/scnb) were optimized simultaneously — note that this differs from current default settings, which optimize torsion parameters only (see `Default AFFDO Benchmark: Full Wang Dataset (DFT + BCC, barrier heights only)`_ below).
+In our manuscript [3], we benchmarked |BOLD_AFFDO_VERSION| against a wider range of drug-like molecules with complex torsions using DFT reference profiles and AM1-BCC charges. In this study, both dihedral barrier heights **and** 1-4 scaling factors (scee/scnb) were optimized simultaneously — note that this differs from current default settings, which optimize torsion parameters only (see `Default Benchmark: Full Wang Dataset`_ below).
 
 Key findings:
 
@@ -41,8 +41,8 @@ Key findings:
 
 Full torsional profiles, benchmarking workflows, and extended RBFE analyses are presented in the manuscript and its supporting information [3].
 
-Default AFFDO Benchmark: Full Wang Dataset (DFT + BCC, barrier heights only)
------------------------------------------------------------------------------
+Default Benchmark: Full Wang Dataset
+-------------------------------------
 
 This is the canonical accuracy benchmark for AFFDO's current default configuration: **DFT constrained-optimization** as the reference profile, **AM1-BCC** as the charge model, JAX-SciPy hybrid optimizer with atom-type torsion coupling, and **no 1-4 scaling-factor optimization**. It covers **175 systems and 789 torsions** across the seven Wang FEP+ protein families included in this study.
 
@@ -71,8 +71,8 @@ For historical comparison, the manuscript [3] benchmark (previous section) used 
    * - Excluded
      - PTP1B (20/23 ligands contain Br at net charge = −1, blocked by QUICK's ECP-free basis inventory)
 
-Aggregate Metrics (175 systems, 789 torsions)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Overall Accuracy
+^^^^^^^^^^^^^^^^^
 
 .. raw:: html
 
@@ -101,37 +101,36 @@ Across the full 789-torsion slate, AFFDO reduces RMSE by **78.8%** (1.82 → 0.3
 
 Worst-case geometry shifts modestly: Max RMSD moves from 0.81 to 0.89 Å (+9%). See `Geometry Fidelity`_ for what this metric measures and the regularization that bounds it.
 
-Per-Family Results
-^^^^^^^^^^^^^^^^^^
+Results by Protein Family
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Each cell reads **GAFF2 → AFFDO**. Energies in kcal/mol, Max RMSD in Å.
 
 .. raw:: html
 
-   <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
+   <table style="border-collapse: collapse; text-align: center; margin: 20px 0; font-size: 0.92em;">
    <thead>
    <tr style="border-bottom: 2px solid #333;">
-     <th style="text-align: left; padding: 8px;"><b>Family</b></th>
-     <th style="padding: 8px;"><b>Systems</b></th>
-     <th style="padding: 8px;"><b>Torsions</b></th>
-     <th style="padding: 8px;"><b>GAFF2 RMSE</b></th>
-     <th style="padding: 8px;"><b>AFFDO RMSE</b></th>
-     <th style="padding: 8px;"><b>GAFF2 MAE</b></th>
-     <th style="padding: 8px;"><b>AFFDO MAE</b></th>
-     <th style="padding: 8px;"><b>Pearson (GAFF2 &rarr; AFFDO)</b></th>
-     <th style="padding: 8px;"><b>Spearman (GAFF2 &rarr; AFFDO)</b></th>
-     <th style="padding: 8px;"><b>Max RMSD<sup>&#42;</sup> (&#8491;)</b></th>
+     <th style="text-align:left;padding:8px 10px;"><b>Family</b></th>
+     <th style="padding:8px;"><b>Sys</b></th>
+     <th style="padding:8px;"><b>Tors</b></th>
+     <th style="padding:8px;"><b>RMSE</b></th>
+     <th style="padding:8px;"><b>MAE</b></th>
+     <th style="padding:8px;"><b>Pearson</b></th>
+     <th style="padding:8px;"><b>Max RMSD</b><sup>&#42;</sup></th>
    </tr>
    </thead>
    <tbody>
-   <tr><td style="text-align: left; padding: 6px;">bace</td><td>36</td><td>90</td><td>0.59 &plusmn; 0.05</td><td><b>0.17 &plusmn; 0.01</b></td><td>0.45 &plusmn; 0.04</td><td>0.14 &plusmn; 0.01</td><td>0.81 &rarr; 0.98</td><td>0.79 &rarr; 0.95</td><td>0.25 &rarr; 0.39</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">cdk2</td><td>16</td><td>68</td><td>1.86 &plusmn; 0.11</td><td><b>0.28 &plusmn; 0.02</b></td><td>1.32 &plusmn; 0.07</td><td>0.20 &plusmn; 0.01</td><td>0.88 &rarr; 0.99</td><td>0.85 &rarr; 0.97</td><td>1.09 &rarr; 1.10</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">jnk1</td><td>21</td><td>105</td><td>2.81 &plusmn; 0.10</td><td><b>0.55 &plusmn; 0.04</b></td><td>2.18 &plusmn; 0.09</td><td>0.39 &plusmn; 0.03</td><td>0.60 &rarr; 0.95</td><td>0.55 &rarr; 0.91</td><td>1.01 &rarr; 1.07</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">mcl1</td><td>42</td><td>215</td><td>1.12 &plusmn; 0.06</td><td><b>0.42 &plusmn; 0.02</b></td><td>0.89 &plusmn; 0.05</td><td>0.30 &plusmn; 0.01</td><td>0.90 &rarr; 0.97</td><td>0.89 &rarr; 0.95</td><td>0.58 &rarr; 0.67</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">p38</td><td>34</td><td>145</td><td>2.02 &plusmn; 0.13</td><td><b>0.44 &plusmn; 0.03</b></td><td>1.48 &plusmn; 0.10</td><td>0.34 &plusmn; 0.02</td><td>0.68 &rarr; 0.89</td><td>0.66 &rarr; 0.88</td><td>1.10 &rarr; <b>1.09</b></td></tr>
-   <tr><td style="text-align: left; padding: 6px;">thrombin</td><td>10</td><td>76</td><td>3.26 &plusmn; 0.35</td><td><b>0.30 &plusmn; 0.04</b></td><td>2.49 &plusmn; 0.25</td><td>0.22 &plusmn; 0.03</td><td>0.78 &rarr; 0.96</td><td>0.75 &rarr; 0.95</td><td>0.95 &rarr; 1.12</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">tyk2</td><td>16</td><td>90</td><td>2.04 &plusmn; 0.14</td><td><b>0.41 &plusmn; 0.06</b></td><td>1.66 &plusmn; 0.12</td><td>0.29 &plusmn; 0.04</td><td>0.81 &rarr; 0.99</td><td>0.75 &rarr; 0.97</td><td>0.89 &rarr; 0.99</td></tr>
+   <tr><td style="text-align:left;padding:6px 10px;">bace</td><td style="padding:6px 8px;">36</td><td style="padding:6px 8px;">90</td><td style="padding:6px 8px;">0.59 → <b>0.17</b></td><td style="padding:6px 8px;">0.45 → 0.14</td><td style="padding:6px 8px;">0.81 → 0.98</td><td style="padding:6px 8px;">0.25 → 0.39</td></tr>
+   <tr><td style="text-align:left;padding:6px 10px;">cdk2</td><td style="padding:6px 8px;">16</td><td style="padding:6px 8px;">68</td><td style="padding:6px 8px;">1.86 → <b>0.28</b></td><td style="padding:6px 8px;">1.32 → 0.20</td><td style="padding:6px 8px;">0.88 → 0.99</td><td style="padding:6px 8px;">1.09 → 1.10</td></tr>
+   <tr><td style="text-align:left;padding:6px 10px;">jnk1</td><td style="padding:6px 8px;">21</td><td style="padding:6px 8px;">105</td><td style="padding:6px 8px;">2.81 → <b>0.55</b></td><td style="padding:6px 8px;">2.18 → 0.39</td><td style="padding:6px 8px;">0.60 → 0.95</td><td style="padding:6px 8px;">1.01 → 1.07</td></tr>
+   <tr><td style="text-align:left;padding:6px 10px;">mcl1</td><td style="padding:6px 8px;">42</td><td style="padding:6px 8px;">215</td><td style="padding:6px 8px;">1.12 → <b>0.42</b></td><td style="padding:6px 8px;">0.89 → 0.30</td><td style="padding:6px 8px;">0.90 → 0.97</td><td style="padding:6px 8px;">0.58 → 0.67</td></tr>
+   <tr><td style="text-align:left;padding:6px 10px;">p38</td><td style="padding:6px 8px;">34</td><td style="padding:6px 8px;">145</td><td style="padding:6px 8px;">2.02 → <b>0.44</b></td><td style="padding:6px 8px;">1.48 → 0.34</td><td style="padding:6px 8px;">0.68 → 0.89</td><td style="padding:6px 8px;">1.10 → <b>1.09</b></td></tr>
+   <tr><td style="text-align:left;padding:6px 10px;">thrombin</td><td style="padding:6px 8px;">10</td><td style="padding:6px 8px;">76</td><td style="padding:6px 8px;">3.26 → <b>0.30</b></td><td style="padding:6px 8px;">2.49 → 0.22</td><td style="padding:6px 8px;">0.78 → 0.96</td><td style="padding:6px 8px;">0.95 → 1.12</td></tr>
+   <tr><td style="text-align:left;padding:6px 10px;">tyk2</td><td style="padding:6px 8px;">16</td><td style="padding:6px 8px;">90</td><td style="padding:6px 8px;">2.04 → <b>0.41</b></td><td style="padding:6px 8px;">1.66 → 0.29</td><td style="padding:6px 8px;">0.81 → 0.99</td><td style="padding:6px 8px;">0.89 → 0.99</td></tr>
    </tbody>
    <tfoot>
-   <tr><td colspan="10" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>&#42;</sup> Worst-case metric &mdash; the maximum deviation across scan points per torsion. p38 (bold) improves; the rest shift by 0.01&ndash;0.17 &#8491;.</td></tr>
+   <tr style="border-top:2px solid #333;"><td colspan="7" style="text-align:left;padding:6px 10px;font-size:0.9em;"><sup>&#42;</sup> Worst-case metric &mdash; the maximum deviation across a torsion's scan points. p38 improves; the rest shift 0.01&ndash;0.17 &#8491;. Uncertainties omitted here for width; see <a href="#overall-accuracy">Overall Accuracy</a>.</td></tr>
    </tfoot>
    </table>
 
@@ -141,15 +140,15 @@ For focused methodology comparisons (reference level, charge model, geometry reg
 
 .. _deep-dive-studies:
 
-Deep-Dive Studies (MCL1 + TYK2 methodology explorations)
---------------------------------------------------------
+Deep-Dive Studies
+------------------
 
-The following studies use the two manuscript families — **MCL1** (42 systems, q = −1) and **TYK2** (16 systems, neutral) — as representative anionic and neutral tests for exploring specific aspects of the AFFDO workflow. Each study addresses one methodology question that shapes the current defaults documented in `Default AFFDO Benchmark: Full Wang Dataset (DFT + BCC, barrier heights only)`_ above. All studies retain the barrier-heights-only fitting scope (no scaling-factor optimization).
+The following studies use the two manuscript families — **MCL1** (42 systems, q = −1) and **TYK2** (16 systems, neutral) — as representative anionic and neutral tests for exploring specific aspects of the AFFDO workflow. Each study addresses one methodology question that shapes the current defaults documented in `Default Benchmark: Full Wang Dataset`_ above. All studies retain the barrier-heights-only fitting scope (no scaling-factor optimization).
 
 The metrics reported in these studies are self-referential (each reference level fits its own energy surface). For a direct comparison of reference levels against DFT ground truth, see the `Cross-Reference Analysis`_ subsection.
 
-Aggregate Metrics (58 systems, DFT reference)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Baseline Accuracy (58-System Subset)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The table below summarizes the overall GAFF2 vs AFFDO performance across the 58-system MCL1 + TYK2 methodology test set (305 torsions) at the DFT constrained-optimization reference level (PBE0-D3BJ/6-31G\*, with 6-31+G\* for anionic species) — the same reference used in the headline benchmark (Section 3). Metrics quantify agreement with QC torsional potential energy surfaces obtained from constrained dihedral scans evaluated on a 20° angular grid (i.e., scan-point energies) and should not be interpreted as RBFE predictive accuracy.
 
@@ -189,7 +188,7 @@ AFFDO supports multiple reference levels for torsion energy profiles. To guide u
 
 .. note::
 
-   Each reference level uses a different energy surface. The metrics below assess how well AFFDO fits each level's own profile. Because the reference profiles differ, RMSE/MAE values **cannot be directly compared across levels** — a lower RMSE at XTB reflects the smoothness of XTB profiles, not necessarily better parameter quality. For a direct comparison of reference levels against DFT ground truth, see the `Cross-Reference Analysis`_ below.
+   Each reference level fits a **different energy surface**, so the RMSE/MAE values below **cannot be compared across levels**. A lower RMSE at XTB reflects how smooth XTB profiles are, not better parameters. To rank the levels on parameter quality, see `Cross-Reference Analysis`_ — which reverses the apparent ordering.
 
 All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When AFFDO does not improve a torsion, GAFF2 parameters are retained.
 
@@ -234,9 +233,9 @@ All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When A
    </tfoot>
    </table>
 
-All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 63–90% and AFFDO Pearson correlations of 0.97–0.99. Worst-case geometry stays bounded across all three: Max RMSD shifts by roughly ±0.1 Å relative to the GAFF2 baseline post-fit — see `Geometry Fidelity`_ for what this metric measures. In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 82% of TYK2 and 81% of MCL1 torsions.
+All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 63–90% and AFFDO Pearson correlations of 0.97–0.99. Worst-case geometry stays bounded across all three: Max RMSD shifts by roughly ±0.1 Å relative to the GAFF2 baseline post-fit — see `Geometry Fidelity`_ for what this metric measures. Fit rates — the fraction of torsions where AFFDO beat the GAFF2 baseline — are 82% (TYK2) / 95% (MCL1) for XTB, 83% / 98% for DFT-SP, and 82% / 81% for DFT.
 
-DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.
+DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth profiles that the optimizer fits reliably. XTB shows the lowest RMSE in this table for both neutral and charged molecules — but that is a *self-referential* result: XTB profiles are the smoothest, so they are the easiest to fit, which says nothing about how close the resulting parameters are to reality. `Cross-Reference Analysis`_ below resolves this. DFT constrained-optimization produces the most physically accurate profiles and is correspondingly the hardest to fit, because full geometry relaxation introduces landscape features a truncated Fourier series cannot fully capture.
 
 Geometry Fidelity
 ^^^^^^^^^^^^^^^^^^
@@ -513,8 +512,8 @@ making the GAFF2 baseline appear acceptable when it is not.
   point of each other (95-96%), so the models differ mainly in how many torsions reach the
   tightest quality tier, not in whether a usable fit is obtained.
 
-RESP Geometry Source — XTB vs DFT-Opt Centroids
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+RESP Geometry Source
+~~~~~~~~~~~~~~~~~~~~~
 
 AFFDO 25.11 introduces the ``resp_geometry_source`` setting, which controls
 how centroid geometries feed the RESP HF/6-31G\* ESP single-point. The new
