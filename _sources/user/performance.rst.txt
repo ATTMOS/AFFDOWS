@@ -245,7 +245,7 @@ AFFDO uses a two-level optimization strategy to balance energy accuracy with geo
 
 This is a deliberate cost/accuracy trade. The manuscript-era workflow ran a constrained optimization after *every* inner iteration, holding geometry close to the reference at much higher cost. Today's default reserves constrained optimization for the outer cycles, which is dramatically cheaper and shifts worst-case geometry slightly: Max RMSD moves from 0.68 to 0.76 Å (+13%) at the DFT reference, while energy RMSE drops ~71%.
 
-Max RMSD is the most pessimistic statistic in the reports — the *maximum* deviation over a torsion's scan points, so one stiff point sets the value. The mean deviation across the same scan points is less than half that (0.33 → 0.39 Å). The median torsion shifts by ~0.03 Å and about 40% improve.
+Max RMSD is the most pessimistic statistic in the reports — the *maximum* deviation over a torsion's scan points, so one stiff point sets the value. The mean deviation across the same scan points is less than half that (0.33 → 0.39 Å). Among torsions AFFDO actually refits, the median shifts ~0.04 Å and roughly a third improve.
 
 To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:
 
