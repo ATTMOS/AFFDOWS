@@ -88,14 +88,15 @@ Aggregate Metrics (175 systems, 789 torsions)
    <tbody>
    <tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>1.82 ± 0.06</td><td>0.39 ± 0.01</td><td>&minus;78.8%</td></tr>
    <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.40 ± 0.04</td><td>0.28 ± 0.01</td><td>&minus;79.7%</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.79</td><td>0.96</td><td>+22%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.79</td><td>0.96</td><td>+22%</td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Spearman (<i>&rho;</i>)</td><td>0.76</td><td>0.94</td><td>+23%</td></tr>
    </tbody>
    <tfoot>
-   <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">Uncertainties are &plusmn;SEM across per-torsion values.</td></tr>
+   <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">Uncertainties are &plusmn;SEM across per-torsion values. Torsions where the AFFDO fit was rejected by the quality gate retain GAFF2 parameters and are counted at their GAFF2 values, matching the shipped topology.</td></tr>
    </tfoot>
    </table>
 
-Across the full 789-torsion slate, AFFDO reduces RMSE by **78.8%** (1.82 → 0.39 kcal/mol) and MAE by **79.7%** (1.40 → 0.28 kcal/mol). The Pearson correlation to the DFT reference rises from 0.79 (GAFF2) to 0.96 (AFFDO) overall, indicating substantial profile-shape recovery in addition to the amplitude fit.
+Across the full 789-torsion slate, AFFDO reduces RMSE by **78.8%** (1.82 → 0.39 kcal/mol) and MAE by **79.7%** (1.40 → 0.28 kcal/mol). Rank correlation to the DFT reference rises from 0.79 → 0.96 (Pearson) and 0.76 → 0.94 (Spearman), indicating substantial profile-shape recovery in addition to the amplitude fit.
 
 Per-Family Results
 ^^^^^^^^^^^^^^^^^^
@@ -113,16 +114,17 @@ Per-Family Results
      <th style="padding: 8px;"><b>GAFF2 MAE</b></th>
      <th style="padding: 8px;"><b>AFFDO MAE</b></th>
      <th style="padding: 8px;"><b>Pearson (GAFF2 &rarr; AFFDO)</b></th>
+     <th style="padding: 8px;"><b>Spearman (GAFF2 &rarr; AFFDO)</b></th>
    </tr>
    </thead>
    <tbody>
-   <tr><td style="text-align: left; padding: 6px;">bace</td><td>36</td><td>90</td><td>0.59 &plusmn; 0.05</td><td><b>0.17 &plusmn; 0.01</b></td><td>0.45 &plusmn; 0.04</td><td>0.14 &plusmn; 0.01</td><td>0.81 &rarr; 0.98</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">cdk2</td><td>16</td><td>68</td><td>1.86 &plusmn; 0.11</td><td><b>0.28 &plusmn; 0.02</b></td><td>1.32 &plusmn; 0.07</td><td>0.20 &plusmn; 0.01</td><td>0.88 &rarr; 0.99</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">jnk1</td><td>21</td><td>105</td><td>2.81 &plusmn; 0.10</td><td><b>0.55 &plusmn; 0.04</b></td><td>2.18 &plusmn; 0.09</td><td>0.39 &plusmn; 0.03</td><td>0.60 &rarr; 0.95</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">mcl1</td><td>42</td><td>215</td><td>1.12 &plusmn; 0.06</td><td><b>0.42 &plusmn; 0.02</b></td><td>0.89 &plusmn; 0.05</td><td>0.30 &plusmn; 0.01</td><td>0.90 &rarr; 0.97</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">p38</td><td>34</td><td>145</td><td>2.02 &plusmn; 0.13</td><td><b>0.44 &plusmn; 0.03</b></td><td>1.48 &plusmn; 0.10</td><td>0.34 &plusmn; 0.02</td><td>0.68 &rarr; 0.89</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">thrombin</td><td>10</td><td>76</td><td>3.26 &plusmn; 0.35</td><td><b>0.30 &plusmn; 0.04</b></td><td>2.49 &plusmn; 0.25</td><td>0.22 &plusmn; 0.03</td><td>0.78 &rarr; 0.96</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">tyk2</td><td>16</td><td>90</td><td>2.04 &plusmn; 0.14</td><td><b>0.41 &plusmn; 0.06</b></td><td>1.66 &plusmn; 0.12</td><td>0.29 &plusmn; 0.04</td><td>0.81 &rarr; 0.99</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">bace</td><td>36</td><td>90</td><td>0.59 &plusmn; 0.05</td><td><b>0.17 &plusmn; 0.01</b></td><td>0.45 &plusmn; 0.04</td><td>0.14 &plusmn; 0.01</td><td>0.81 &rarr; 0.98</td><td>0.79 &rarr; 0.95</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">cdk2</td><td>16</td><td>68</td><td>1.86 &plusmn; 0.11</td><td><b>0.28 &plusmn; 0.02</b></td><td>1.32 &plusmn; 0.07</td><td>0.20 &plusmn; 0.01</td><td>0.88 &rarr; 0.99</td><td>0.85 &rarr; 0.97</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">jnk1</td><td>21</td><td>105</td><td>2.81 &plusmn; 0.10</td><td><b>0.55 &plusmn; 0.04</b></td><td>2.18 &plusmn; 0.09</td><td>0.39 &plusmn; 0.03</td><td>0.60 &rarr; 0.95</td><td>0.55 &rarr; 0.91</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">mcl1</td><td>42</td><td>215</td><td>1.12 &plusmn; 0.06</td><td><b>0.42 &plusmn; 0.02</b></td><td>0.89 &plusmn; 0.05</td><td>0.30 &plusmn; 0.01</td><td>0.90 &rarr; 0.97</td><td>0.89 &rarr; 0.95</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">p38</td><td>34</td><td>145</td><td>2.02 &plusmn; 0.13</td><td><b>0.44 &plusmn; 0.03</b></td><td>1.48 &plusmn; 0.10</td><td>0.34 &plusmn; 0.02</td><td>0.68 &rarr; 0.89</td><td>0.66 &rarr; 0.88</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">thrombin</td><td>10</td><td>76</td><td>3.26 &plusmn; 0.35</td><td><b>0.30 &plusmn; 0.04</b></td><td>2.49 &plusmn; 0.25</td><td>0.22 &plusmn; 0.03</td><td>0.78 &rarr; 0.96</td><td>0.75 &rarr; 0.95</td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">tyk2</td><td>16</td><td>90</td><td>2.04 &plusmn; 0.14</td><td><b>0.41 &plusmn; 0.06</b></td><td>1.66 &plusmn; 0.12</td><td>0.29 &plusmn; 0.04</td><td>0.81 &rarr; 0.99</td><td>0.75 &rarr; 0.97</td></tr>
    </tbody>
    </table>
 
