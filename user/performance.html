@@ -46,8 +46,13 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Accuracy and Performance</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#validation-overview">Validation Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#manuscript-benchmark-torsion-scaling-factor-optimization">Manuscript Benchmark (Torsion + Scaling Factor Optimization)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#extended-benchmark-default-affdo-settings">Extended Benchmark: Default AFFDO Settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#aggregate-metrics">Aggregate Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-affdo-benchmark-full-wang-dataset-dft-bcc-barrier-heights-only">Default AFFDO Benchmark: Full Wang Dataset (DFT + BCC, barrier heights only)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aggregate-metrics-175-systems-789-torsions">Aggregate Metrics (175 systems, 789 torsions)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#per-family-results">Per-Family Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deep-dive-studies-mcl1-tyk2-methodology-explorations">Deep-Dive Studies (MCL1 + TYK2 methodology explorations)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aggregate-metrics-58-systems-dft-reference">Aggregate Metrics (58 systems, DFT reference)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fitting-accuracy-by-reference-level">Fitting Accuracy by Reference Level</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry-fidelity">Geometry Fidelity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a></li>
@@ -87,11 +92,12 @@
 <div itemprop="articleBody">
 <section id="accuracy-and-performance">
 <h1>Accuracy and Performance<a class="headerlink" href="#accuracy-and-performance" title="Link to this heading"></a></h1>
-<p>This section presents three chronological benchmarks that document AFFDO’s development and validation. Each benchmark phase builds on the previous one, progressively expanding the test set and refining the methodology:</p>
+<p>This section presents four benchmark phases that document AFFDO’s development, validation, and current default behavior. Each phase builds on the previous one, progressively expanding the test set and refining the methodology:</p>
 <ol class="arabic simple">
 <li><p><strong>Validation Overview</strong> — Illustrates AFFDO’s torsion-fitting approach and its downstream effect on RBFE calculations using representative examples from the Wang et al. [1] dataset.</p></li>
-<li><p><strong>Manuscript Benchmark</strong> — Expanded evaluation published with <strong>AFFDO-25.11</strong>, optimizing both torsion barrier heights and 1-4 scaling factors simultaneously.</p></li>
-<li><p><strong>Extended Benchmark</strong> — Comprehensive analysis of current default settings (torsion-only optimization) across 58 systems at three reference levels.</p></li>
+<li><p><strong>Manuscript Benchmark</strong> <em>(historical)</em> — Evaluation published with the AFFDO manuscript, using DFT reference + AM1-BCC charges and optimizing both torsion barrier heights <strong>and</strong> 1-4 scaling factors simultaneously (torsion + SF).</p></li>
+<li><p><strong>Default AFFDO Benchmark: Full Wang Dataset</strong> — Canonical accuracy benchmark for the current defaults. 175 systems across 7 Wang FEP+ protein families at DFT reference + AM1-BCC charges, optimizing torsion barrier heights only (no scaling-factor tuning). This is the headline benchmark for evaluating AFFDO going forward.</p></li>
+<li><p><strong>Deep-Dive Studies</strong> — Targeted methodology explorations on the two manuscript families (MCL1 + TYK2): reference-level comparison (XTB vs DFT-SP vs DFT), charge-model comparison (BCC vs ABCG2 vs RESP), geometry fidelity, cross-reference analysis, and RESP geometry-source selection.</p></li>
 </ol>
 <p>The primary accuracy metric throughout is <strong>torsion-profile agreement</strong> — how well AFFDO-fitted MM energy profiles reproduce quantum-mechanical reference scans. RBFE improvements are reported as complementary downstream validation where available.</p>
 <p><strong>Note</strong>: The code is continuously being improved. Please make sure to use the latest AFFDO version.</p>
@@ -104,7 +110,7 @@
 </section>
 <section id="manuscript-benchmark-torsion-scaling-factor-optimization">
 <h2>Manuscript Benchmark (Torsion + Scaling Factor Optimization)<a class="headerlink" href="#manuscript-benchmark-torsion-scaling-factor-optimization" title="Link to this heading"></a></h2>
-<p>In our manuscript [3], we benchmarked <strong>AFFDO-25.11</strong> against a wider range of drug-like molecules with complex torsions. In this study, both dihedral barrier heights <strong>and</strong> 1-4 scaling factors (scee/scnb) were optimized simultaneously — note that this differs from current default settings, which optimize torsion parameters only (see <a class="reference internal" href="#extended-benchmark-default-affdo-settings">Extended Benchmark: Default AFFDO Settings</a> below).</p>
+<p>In our manuscript [3], we benchmarked <strong>AFFDO-25.11</strong> against a wider range of drug-like molecules with complex torsions using DFT reference profiles and AM1-BCC charges. In this study, both dihedral barrier heights <strong>and</strong> 1-4 scaling factors (scee/scnb) were optimized simultaneously — note that this differs from current default settings, which optimize torsion parameters only (see <a class="reference internal" href="#default-affdo-benchmark-full-wang-dataset-dft-bcc-barrier-heights-only">Default AFFDO Benchmark: Full Wang Dataset (DFT + BCC, barrier heights only)</a> below).</p>
 <p>Key findings:</p>
 <ul class="simple">
 <li><p><strong>Torsion-scan accuracy:</strong> For the TYK2 series, customized GAFF2 reduces MAE/RMSE from 1.56/1.92 kcal/mol to 0.20/0.24 kcal/mol relative to DFT scans; for the MCL1 series, errors drop from 0.81/1.08 to 0.51/0.69 kcal/mol, with Pearson and Spearman correlations ≥0.94 across both sets.</p></li>
@@ -114,13 +120,104 @@
 </ul>
 <p>Full torsional profiles, benchmarking workflows, and extended RBFE analyses are presented in the manuscript and its supporting information [3].</p>
 </section>
-<section id="extended-benchmark-default-affdo-settings">
-<h2>Extended Benchmark: Default AFFDO Settings<a class="headerlink" href="#extended-benchmark-default-affdo-settings" title="Link to this heading"></a></h2>
-<p>In addition to the manuscript results above, we have benchmarked the current default AFFDO configuration on an extended subset of the Wang et al. [1] dataset. In this benchmark, only dihedral barrier heights are optimized (without scaling factor adjustments). This represents the out-of-the-box AFFDO experience for users running with default settings.</p>
-<p>The benchmark covers 58 systems from two protein families: <strong>TYK2</strong> (16 systems, neutral ligands) and <strong>MCL1</strong> (42 systems, charged ligands q = −1). Each system was evaluated at three reference levels to assess the impact of reference quality on fitting accuracy.</p>
-<section id="aggregate-metrics">
-<h3>Aggregate Metrics<a class="headerlink" href="#aggregate-metrics" title="Link to this heading"></a></h3>
-<p>The table below summarizes the overall GAFF2 vs AFFDO performance across 58 systems (305 torsions) from the Wang et al. [1] dataset, using DFT constrained-optimization (PBE0-D3BJ/6-31G*, with 6-31+G* for anionic species) as the reference level. Metrics quantify agreement with QC torsional potential energy surfaces obtained from constrained dihedral scans evaluated on a 20° angular grid (i.e., scan-point energies) and should not be interpreted as RBFE predictive accuracy.</p>
+<section id="default-affdo-benchmark-full-wang-dataset-dft-bcc-barrier-heights-only">
+<h2>Default AFFDO Benchmark: Full Wang Dataset (DFT + BCC, barrier heights only)<a class="headerlink" href="#default-affdo-benchmark-full-wang-dataset-dft-bcc-barrier-heights-only" title="Link to this heading"></a></h2>
+<p>This is the canonical accuracy benchmark for AFFDO’s current default configuration: <strong>DFT constrained-optimization</strong> as the reference profile, <strong>AM1-BCC</strong> as the charge model, JAX-SciPy hybrid optimizer with atom-type torsion coupling, and <strong>no 1-4 scaling-factor optimization</strong>. It covers <strong>175 systems and 789 torsions</strong> across the seven Wang FEP+ protein families included in this study.</p>
+<p>For historical comparison, the manuscript [3] benchmark (previous section) used the same DFT + AM1-BCC combination but <em>also</em> optimized 1-4 scaling factors (scee/scnb) simultaneously with torsion barrier heights. The current defaults (v25.11) fit <strong>only barrier heights</strong> because subsequent testing showed that scaling-factor tuning gives marginal accuracy gains at substantial cost in optimizer complexity and reproducibility. The tables below are the reference numbers to cite when evaluating AFFDO out-of-the-box.</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Scope</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%"/>
+<col style="width: 70.0%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspect</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Systems</p></td>
+<td><p>175 total (bace 36, cdk2 16, jnk1 21, mcl1 42, p38 34, thrombin 10, tyk2 16)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Torsions</p></td>
+<td><p>789 total across all fitted fragments</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference level</p></td>
+<td><p>DFT constrained-optimization (PBE0-D3BJ/6-31G*; 6-31+G* for anionic species)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Charge model</p></td>
+<td><p>AM1-BCC (default; per-family gains from ABCG2/RESP are documented in the <a class="reference internal" href="#charge-model-comparison">Charge Model Comparison</a> study below)</p></td>
+</tr>
+<tr class="row-even"><td><p>Fitting scope</p></td>
+<td><p><strong>Torsion barrier heights only</strong> — 1-4 scaling factors held at GAFF2 defaults</p></td>
+</tr>
+<tr class="row-odd"><td><p>Torsion coupling</p></td>
+<td><p>atom-type mode</p></td>
+</tr>
+<tr class="row-even"><td><p>Optimizer</p></td>
+<td><p>JAX-SciPy hybrid (JAX Pass 1-2 + SciPy L-BFGS-B Pass 3)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Excluded</p></td>
+<td><p>PTP1B (20/23 ligands contain Br at net charge = −1, blocked by QUICK’s ECP-free basis inventory)</p></td>
+</tr>
+</tbody>
+</table>
+<section id="aggregate-metrics-175-systems-789-torsions">
+<h3>Aggregate Metrics (175 systems, 789 torsions)<a class="headerlink" href="#aggregate-metrics-175-systems-789-torsions" title="Link to this heading"></a></h3>
+<table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
+<thead>
+<tr style="border-bottom: 2px solid #333;">
+<th style="text-align: left; padding: 8px;"><b>Metric</b></th>
+<th style="padding: 8px;"><b>GAFF2</b></th>
+<th style="padding: 8px;"><b>AFFDO</b></th>
+<th style="padding: 8px;"><b>Change</b></th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left; padding: 6px;">RMSE (kcal/mol)</td><td>1.82 ± 0.06</td><td>0.39 ± 0.01</td><td>−78.8%</td></tr>
+<tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.40 ± 0.04</td><td>0.28 ± 0.01</td><td>−79.7%</td></tr>
+<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.79</td><td>0.96</td><td>+22%</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">Uncertainties are ±SEM across per-torsion values.</td></tr>
+</tfoot>
+</table><p>Across the full 789-torsion slate, AFFDO reduces RMSE by <strong>78.8%</strong> (1.82 → 0.39 kcal/mol) and MAE by <strong>79.7%</strong> (1.40 → 0.28 kcal/mol). The Pearson correlation to the DFT reference rises from 0.79 (GAFF2) to 0.96 (AFFDO) overall, indicating substantial profile-shape recovery in addition to the amplitude fit.</p>
+</section>
+<section id="per-family-results">
+<h3>Per-Family Results<a class="headerlink" href="#per-family-results" title="Link to this heading"></a></h3>
+<table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
+<thead>
+<tr style="border-bottom: 2px solid #333;">
+<th style="text-align: left; padding: 8px;"><b>Family</b></th>
+<th style="padding: 8px;"><b>Systems</b></th>
+<th style="padding: 8px;"><b>Torsions</b></th>
+<th style="padding: 8px;"><b>GAFF2 RMSE</b></th>
+<th style="padding: 8px;"><b>AFFDO RMSE</b></th>
+<th style="padding: 8px;"><b>GAFF2 MAE</b></th>
+<th style="padding: 8px;"><b>AFFDO MAE</b></th>
+<th style="padding: 8px;"><b>Pearson (GAFF2 → AFFDO)</b></th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left; padding: 6px;">bace</td><td>36</td><td>90</td><td>0.59 ± 0.05</td><td><b>0.17 ± 0.01</b></td><td>0.45 ± 0.04</td><td>0.14 ± 0.01</td><td>0.81 → 0.98</td></tr>
+<tr><td style="text-align: left; padding: 6px;">cdk2</td><td>16</td><td>68</td><td>1.86 ± 0.11</td><td><b>0.28 ± 0.02</b></td><td>1.32 ± 0.07</td><td>0.20 ± 0.01</td><td>0.88 → 0.99</td></tr>
+<tr><td style="text-align: left; padding: 6px;">jnk1</td><td>21</td><td>105</td><td>2.81 ± 0.10</td><td><b>0.55 ± 0.04</b></td><td>2.18 ± 0.09</td><td>0.39 ± 0.03</td><td>0.60 → 0.95</td></tr>
+<tr><td style="text-align: left; padding: 6px;">mcl1</td><td>42</td><td>215</td><td>1.12 ± 0.06</td><td><b>0.42 ± 0.02</b></td><td>0.89 ± 0.05</td><td>0.30 ± 0.01</td><td>0.90 → 0.97</td></tr>
+<tr><td style="text-align: left; padding: 6px;">p38</td><td>34</td><td>145</td><td>2.02 ± 0.13</td><td><b>0.44 ± 0.03</b></td><td>1.48 ± 0.10</td><td>0.34 ± 0.02</td><td>0.68 → 0.89</td></tr>
+<tr><td style="text-align: left; padding: 6px;">thrombin</td><td>10</td><td>76</td><td>3.26 ± 0.35</td><td><b>0.30 ± 0.04</b></td><td>2.49 ± 0.25</td><td>0.22 ± 0.03</td><td>0.78 → 0.96</td></tr>
+<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">tyk2</td><td>16</td><td>90</td><td>2.04 ± 0.14</td><td><b>0.41 ± 0.06</b></td><td>1.66 ± 0.12</td><td>0.29 ± 0.04</td><td>0.81 → 0.99</td></tr>
+</tbody>
+</table><p><strong>Consistency across families.</strong> RMSE reduction ranges from 63% (mcl1, where the GAFF2 baseline was already the lowest at 1.12 kcal/mol) to 91% (thrombin, where GAFF2 started at 3.26 kcal/mol). Absolute AFFDO RMSE settles in a tight 0.17–0.55 kcal/mol range across all seven families, indicating that the default configuration delivers converged results regardless of protein family or the initial GAFF2 baseline quality. Pearson correlations reach ≥0.95 in six of seven families — profile shape is recovered as well as amplitude.</p>
+<p>For focused methodology comparisons (reference level, charge model, geometry regularization, RESP geometry source), see the deep-dive studies in the next section.</p>
+</section>
+</section>
+<section id="deep-dive-studies-mcl1-tyk2-methodology-explorations">
+<span id="deep-dive-studies"></span><h2>Deep-Dive Studies (MCL1 + TYK2 methodology explorations)<a class="headerlink" href="#deep-dive-studies-mcl1-tyk2-methodology-explorations" title="Link to this heading"></a></h2>
+<p>The following studies use the two manuscript families — <strong>MCL1</strong> (42 systems, q = −1) and <strong>TYK2</strong> (16 systems, neutral) — as representative anionic and neutral tests for exploring specific aspects of the AFFDO workflow. Each study addresses one methodology question that shapes the current defaults documented in <a class="reference internal" href="#default-affdo-benchmark-full-wang-dataset-dft-bcc-barrier-heights-only">Default AFFDO Benchmark: Full Wang Dataset (DFT + BCC, barrier heights only)</a> above. All studies retain the barrier-heights-only fitting scope (no scaling-factor optimization).</p>
+<p>The metrics reported in these studies are self-referential (each reference level fits its own energy surface). For a direct comparison of reference levels against DFT ground truth, see the <a class="reference internal" href="#cross-reference-analysis">Cross-Reference Analysis</a> subsection.</p>
+<section id="aggregate-metrics-58-systems-dft-reference">
+<h3>Aggregate Metrics (58 systems, DFT reference)<a class="headerlink" href="#aggregate-metrics-58-systems-dft-reference" title="Link to this heading"></a></h3>
+<p>The table below summarizes the overall GAFF2 vs AFFDO performance across the 58-system MCL1 + TYK2 methodology test set (305 torsions) at the DFT constrained-optimization reference level (PBE0-D3BJ/6-31G*, with 6-31+G* for anionic species) — the same reference used in the headline benchmark (Section 3). Metrics quantify agreement with QC torsional potential energy surfaces obtained from constrained dihedral scans evaluated on a 20° angular grid (i.e., scan-point energies) and should not be interpreted as RBFE predictive accuracy.</p>
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
 <thead>
 <tr style="border-bottom: 2px solid #333;">
@@ -258,8 +355,8 @@
 <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">All RMSE values in kcal/mol. 305 torsions from 58 Wang et al. systems.</td></tr>
 </tfoot>
 </table><p>DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol) but requires the longest computation time. DFT-SP is a cost-effective alternative, achieving 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB provides rapid turnaround but its reference surface is further from DFT ground truth, which limits the final parameter quality regardless of fitting accuracy.</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Reference Level Summary</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Reference Level Summary</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 20.0%"/>
 <col style="width: 15.0%"/>
@@ -348,8 +445,8 @@ direct head-to-head on the absolute AFFDO RMSE — i.e., the per-torsion RMSE
 after fitting, ignoring the starting point — on the 226 torsions fitted by all
 three charge models. The table also includes per-system wins on the full
 58-system set (mean improvement delta &gt; 1%).</p>
-<table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Head-to-Head: per-torsion (226 common) and per-system (58 total)</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Head-to-Head: per-torsion (226 common) and per-system (58 total)</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 22.0%"/>
 <col style="width: 26.0%"/>
@@ -384,8 +481,8 @@ three charge models. The table also includes per-system wins on the full
 <p>To translate these RMSE values into something more interpretable, the
 distribution table below shows the fraction of fitted torsions that fall
 below common quality thresholds:</p>
-<table class="docutils align-default" id="id4">
-<caption><span class="caption-text">AFFDO RMSE Quality Distribution</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">AFFDO RMSE Quality Distribution</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 25.0%"/>
 <col style="width: 18.0%"/>
@@ -464,8 +561,8 @@ geometry optimization is therefore not a strict prerequisite for a RESP
 charge fit; an ensemble of reasonable XTB-optimized structures is
 sufficient when XTB minima are close to DFT minima, which holds across
 the benchmark including the cation arm.</p>
-<table class="docutils align-default" id="id5">
-<caption><span class="caption-text">RESP geometry source comparison (mean AFFDO RMSE, kcal/mol)</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text">RESP geometry source comparison (mean AFFDO RMSE, kcal/mol)</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Family</p></th>
 <th class="head"><p>Fitted torsions (dft / xtb)</p></th>
@@ -528,7 +625,7 @@ field. Journal of the American Chemical Society, 137(7), 2695-2703.</p>
 Drug Discovery Boost Tools: Automated Workflow for Production Free-Energy Simulation Setup and Analysis (ProFESSA).
 Journal of Chemical Information and Modeling, 62(23), 6069-6083.</p>
 <p>[3] Blanco-Gonzalez, A.; Betancourt, W.; Snyder, R. M.; Zhang, S.; Giese, T. J.; Piskulich, Z. A.; Götz, A. W.; Merz, K. M., Jr.; York, D. M.; Aktulga, H. M.; Manathunga, M. Automated Force Field Developer and Optimizer Platform: Torsion Reparameterization. J. Chem. Inf. Model. 2026, 66 (6), 3206–3219. DOI: 10.1021/acs.jcim.6c00528</p>
-<p><em>Last updated on</em> <em>05/05/2026</em>.</p>
+<p><em>Last updated on</em> <em>07/29/2026</em>.</p>
 </section>
 </section>
 </section>
