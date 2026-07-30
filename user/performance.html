@@ -321,11 +321,10 @@
 <tbody>
 <tr><td style="text-align: left; padding: 6px;">Mean energy RMSD (kcal/mol)</td><td><b>0.129</b></td><td>0.132</td><td>0.140</td><td>0.151</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Mean geom RMSD (Å)</td><td>0.418</td><td>0.375</td><td>0.370</td><td><b>0.363</b></td></tr>
-<tr><td style="text-align: left; padding: 6px;">Mean Max RMSD (Å)</td><td>1.021</td><td><b>1.012</b></td><td>1.016</td><td>1.042</td></tr>
 <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Mean norm_RMSE</td><td><b>0.045</b></td><td>0.046</td><td>0.048</td><td>0.052</td></tr>
 </tbody>
 </table><p>With no regularization (<span class="math notranslate nohighlight">\(\lambda = 0\)</span>), the optimizer achieves the lowest energy RMSD but mean geometry RMSD rises to 0.418 Å. The default (<span class="math notranslate nohighlight">\(\lambda = 0.5\)</span>) brings it to 0.375 Å at negligible energy cost.</p>
-<p>Raising λ further gives diminishing returns: <span class="math notranslate nohighlight">\(\lambda = 2.0\)</span> buys only 0.012 Å more while energy RMSD degrades 14%, and Mean Max RMSD is lowest at the default. λ weights the <em>mean</em> geometric deviation during outer-cycle selection, so it has little leverage on worst-case values — 0.5 is the sweet spot.</p>
+<p>Raising λ further gives diminishing returns: <span class="math notranslate nohighlight">\(\lambda = 2.0\)</span> buys only 0.012 Å more while energy RMSD degrades 14%. It also does not help the worst case — mean Max RMSD is flat from the default to <span class="math notranslate nohighlight">\(\lambda = 1.0\)</span> (1.012 → 1.016 Å) and degrades at <span class="math notranslate nohighlight">\(\lambda = 2.0\)</span> (1.042 Å). λ weights the <em>mean</em> geometric deviation during outer-cycle selection, so it has little leverage on worst-case values — 0.5 is the sweet spot.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Two geometry RMSD metrics appear in the AFFDO results:</p>
@@ -351,7 +350,7 @@
 <tr><td style="text-align: left; padding: 6px;">MAE (kcal/mol)</td><td>1.14 ± 0.08</td><td>0.74 ± 0.10</td></tr>
 <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.84</td><td>0.85</td></tr>
 </tbody>
-</table><p>DFT-SP profiles are 30% closer to DFT ground truth than XTB profiles (RMSE 0.97 vs 1.39 kcal/mol). This gap propagates through fitting: even though XTB fitting achieves a lower self-referential RMSE (0.21 vs 0.39), the XTB reference surface itself is further from DFT, so the final fitted parameters end up less accurate.</p>
+</table><p>DFT-SP profiles are 30% closer to DFT ground truth than XTB profiles (RMSE 0.97 vs 1.39 kcal/mol). This gap propagates through fitting: even though XTB fitting achieves a lower self-referential RMSE (0.34 vs 0.45), the XTB reference surface itself is further from DFT, so the final fitted parameters end up less accurate.</p>
 <p>The table below combines fitting quality, reference quality, and net accuracy to show the full picture:</p>
 <table style="border-collapse: collapse; text-align: center; margin: 20px 0;">
 <thead>
@@ -363,14 +362,14 @@
 </tr>
 </thead>
 <tbody>
-<tr><td style="text-align: left; padding: 6px;">XTB</td><td>0.21</td><td>1.39</td><td>1.40</td></tr>
-<tr><td style="text-align: left; padding: 6px;">DFT-SP</td><td>0.39</td><td>0.97</td><td>1.07</td></tr>
-<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">DFT</td><td>0.55</td><td>0.00</td><td>0.41</td></tr>
+<tr><td style="text-align: left; padding: 6px;">XTB</td><td>0.34</td><td>1.39</td><td>1.40</td></tr>
+<tr><td style="text-align: left; padding: 6px;">DFT-SP</td><td>0.45</td><td>0.98</td><td>1.08</td></tr>
+<tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">DFT</td><td>0.41</td><td>0.00</td><td>0.42</td></tr>
 </tbody>
 <tfoot>
-<tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">All RMSE values in kcal/mol. 305 torsions from 58 Wang et al. systems.</td></tr>
+<tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;">All RMSE values in kcal/mol, pooled over TYK2 + MCL1. Fitting quality is the production-behavior self-referential RMSE (GAFF2 retained for unfitted torsions); reference and net accuracy are per-torsion profile comparisons over 308 torsions from 58 Wang et al. systems.</td></tr>
 </tfoot>
-</table><p>DFT constrained-optimization yields the highest accuracy (net RMSE 0.41 kcal/mol) but requires the longest computation time. DFT-SP is a cost-effective alternative, achieving 24% lower net error than XTB (1.07 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB provides rapid turnaround but its reference surface is further from DFT ground truth, which limits the final parameter quality regardless of fitting accuracy.</p>
+</table><p>DFT constrained-optimization yields the highest accuracy (net RMSE 0.42 kcal/mol) but requires the longest computation time. Because DFT is its own reference, its fitting quality and net accuracy coincide — there is no reference error to propagate. DFT-SP is a cost-effective alternative, achieving 23% lower net error than XTB (1.08 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB fits its own surface most tightly (0.34) but that surface sits furthest from DFT, so its fitted parameters end up least accurate against ground truth — fitting quality alone is not a guide to parameter quality.</p>
 <table class="docutils align-default" id="id3">
 <caption><span class="caption-text">Reference Level Summary</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
 <colgroup>
@@ -389,12 +388,12 @@
 <tbody>
 <tr class="row-even"><td><p><strong>DFT</strong></p></td>
 <td><p>Slow</p></td>
-<td><p>0.41</p></td>
+<td><p>0.42</p></td>
 <td><p>Highest accuracy; longest computation time</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>DFT-SP</strong></p></td>
 <td><p>Medium</p></td>
-<td><p>1.07</p></td>
+<td><p>1.08</p></td>
 <td><p>Good alternative; best improvement rate (83–98%)</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>XTB</strong></p></td>
