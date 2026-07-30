@@ -99,7 +99,7 @@ Aggregate Metrics (175 systems, 789 torsions)
 
 Across the full 789-torsion slate, AFFDO reduces RMSE by **78.8%** (1.82 → 0.39 kcal/mol) and MAE by **79.7%** (1.40 → 0.28 kcal/mol). Rank correlation to the DFT reference rises from 0.79 → 0.96 (Pearson) and 0.76 → 0.94 (Spearman), indicating substantial profile-shape recovery in addition to the amplitude fit.
 
-Geometric fidelity is essentially maintained: the worst-case per-torsion Max RMSD moves from 0.81 to 0.89 Å (+9%). Because this is a maximum-over-scan-points statistic, the aggregate is set by a small minority of torsions — the *median* torsion shifts by only about 0.03 Å, and roughly 40% of torsions actually improve. The `Geometry Fidelity`_ section unpacks this distribution and explains the regularization that bounds it.
+Worst-case geometry shifts modestly: Max RMSD moves from 0.81 to 0.89 Å (+9%). See `Geometry Fidelity`_ for what this metric measures and the regularization that bounds it.
 
 Per-Family Results
 ^^^^^^^^^^^^^^^^^^
@@ -243,16 +243,9 @@ Geometry Fidelity
 
 AFFDO uses a two-level optimization strategy to balance energy accuracy with geometric fidelity. In the inner loop, torsion parameters are refined using single-point (SP) energy evaluations on fixed geometries — this is fast and allows efficient gradient-based exploration of parameter space. Periodically, outer geometry-refresh cycles re-minimize MM geometries with the updated parameters and recompute energy profiles, ensuring that the torsion parameters remain consistent with relaxed molecular structures.
 
-This is a deliberate cost/accuracy trade. The manuscript-era workflow ran a constrained optimization after *every* inner iteration, which held geometry essentially fixed to the reference but was far more expensive. Today's default evaluates energies only in the inner loop and reserves true constrained optimization for the outer cycles, cutting the cost dramatically in exchange for a small, bounded geometric relaxation.
+This is a deliberate cost/accuracy trade. The manuscript-era workflow ran a constrained optimization after *every* inner iteration, holding geometry close to the reference at much higher cost. Today's default reserves constrained optimization for the outer cycles, which is dramatically cheaper and shifts worst-case geometry slightly: Max RMSD moves from 0.68 to 0.76 Å (+13%) at the DFT reference, while energy RMSE drops ~71%.
 
-The size of that trade is modest and — importantly — concentrated. Taking the DFT-reference results as the reference case (Max RMSD 0.68 → 0.76 Å in aggregate, +13%):
-
-* the **median torsion shifts by only ~0.03 Å**, well inside crystallographic coordinate precision and roughly an order of magnitude below the thermal motion a ligand samples during routine MD;
-* **~40% of torsions actually improve**, so this is not a systematic degradation;
-* **~46% change by less than 0.1 Å**, while a tail of roughly 19% accounts for nearly all of the aggregate shift;
-* on those same torsions, **energy RMSE falls by ~76%**.
-
-Note also that Max RMSD is the most pessimistic geometric statistic available in the AFFDO reports: it is the *maximum* deviation over every scan point of a torsion, so a single stiff scan point sets the value for the whole torsion. The mean deviation across scan points — the quantity the optimizer actually regularizes, discussed next — sits near 0.375 Å under default settings.
+Max RMSD is the most pessimistic statistic in the reports — the *maximum* deviation over a torsion's scan points, so one stiff point sets the value. The median torsion shifts by ~0.03 Å and about 40% improve; the mean deviation the optimizer actually regularizes sits near 0.375 Å.
 
 To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:
 
@@ -284,9 +277,9 @@ A λ sweep on the 16 TYK2 ligands (73 torsions) at the XTB reference level estab
    </tbody>
    </table>
 
-With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD but mean geometry RMSD rises to 0.418 Å. The default (:math:`\lambda = 0.5`) brings it down to 0.375 Å — a 10% improvement — at negligible energy cost, capturing roughly 78% of the total geometric gain available across the whole sweep.
+With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD but mean geometry RMSD rises to 0.418 Å. The default (:math:`\lambda = 0.5`) brings it to 0.375 Å at negligible energy cost.
 
-Pushing further has sharply diminishing returns. Going from :math:`\lambda = 0.5` to :math:`\lambda = 2.0` buys only another 0.012 Å of mean geometry RMSD while energy RMSD degrades by 14% (0.132 → 0.151 kcal/mol). Crucially, **stricter regularization does not improve the worst-case metric at all**: Mean Max RMSD is *lowest* at the default (1.012 Å) and actually worsens at :math:`\lambda = 2.0` (1.042 Å). This is expected — λ governs which outer-cycle candidate is *selected*, and the composite score weighs the *mean* geometric deviation, so it has little leverage over the worst single scan point. :math:`\lambda = 0.5` is therefore the sweet spot, and tightening it is not a useful lever against the Max RMSD tail described above.
+Raising λ further gives diminishing returns: :math:`\lambda = 2.0` buys only 0.012 Å more while energy RMSD degrades 14%, and Mean Max RMSD is lowest at the default. λ weights the *mean* geometric deviation during outer-cycle selection, so it has little leverage on worst-case values — 0.5 is the sweet spot.
 
 .. note::
 
