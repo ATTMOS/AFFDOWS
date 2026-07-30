@@ -165,18 +165,18 @@ The table below summarizes the overall GAFF2 vs AFFDO performance across the 58-
    </tr>
    </thead>
    <tbody>
-   <tr><td style="text-align: left; padding: 6px;">MAE<sup>a</sup> (kcal/mol)</td><td>1.12 ± 0.04</td><td>0.29 ± 0.02</td><td>&minus;74%</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.05</td><td>0.41 ± 0.02</td><td>&minus;71%</td></tr>
-   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.98</td><td>+13%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">MAE<sup>a</sup> (kcal/mol)</td><td>1.12 ± 0.09</td><td>0.30 ± 0.03</td><td>&minus;73%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">RMSE<sup>a</sup> (kcal/mol)</td><td>1.39 ± 0.11</td><td>0.41 ± 0.04</td><td>&minus;70%</td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Pearson (<i>r</i>)</td><td>0.87</td><td>0.98</td><td>+12%</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Spearman (<i>ρ</i>)</td><td>0.85</td><td>0.96</td><td>+13%</td></tr>
-   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Max RMSD<sup>b</sup> (&#8491;)</td><td>0.68 ± 0.04</td><td>0.76 ± 0.04</td><td>+13%</td></tr>
+   <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Max RMSD<sup>b</sup> (&#8491;)</td><td>0.68 ± 0.06</td><td>0.76 ± 0.07</td><td>+13%</td></tr>
    </tbody>
    <tfoot>
-   <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are &plusmn;SEM across per-torsion values.<br><sup>b</sup> <b>Worst-case metric</b> &mdash; the <i>maximum</i> RMSD between reference (DFT) and MM-optimized geometries across scan points per torsion, not the typical deviation. See <a href="#geometry-fidelity">Geometry Fidelity</a> for the distribution and the regularization that bounds it.</td></tr>
+   <tr><td colspan="4" style="text-align: left; padding: 6px; font-size: 0.9em;"><sup>a</sup> Uncertainties are 95% confidence intervals.<br><sup>b</sup> <b>Worst-case metric</b> &mdash; the <i>maximum</i> RMSD between reference (DFT) and MM-optimized geometries across scan points per torsion, not the typical deviation. See <a href="#geometry-fidelity">Geometry Fidelity</a> for the distribution and the regularization that bounds it.</td></tr>
    </tfoot>
    </table>
 
-Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 71% (from 1.39 to 0.41 kcal/mol) and the MAE by 74% (from 1.12 to 0.29 kcal/mol), while improving the Pearson correlation from 0.87 to 0.98. The worst-case per-torsion Max RMSD rises modestly (0.68 → 0.76 Å, +13%) — a bounded, deliberate trade-off discussed in `Geometry Fidelity`_ below. These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.
+Across 58 systems and 305 torsions, AFFDO reduces the overall RMSE by 70% (from 1.39 to 0.41 kcal/mol) and the MAE by 73% (from 1.12 to 0.30 kcal/mol), while improving the Pearson correlation from 0.87 to 0.98. The worst-case per-torsion Max RMSD rises modestly (0.68 → 0.76 Å, +13%) — a bounded, deliberate trade-off discussed in `Geometry Fidelity`_ below. These improvements are consistent across both the MCL1 (42 systems, charged) and TYK2 (16 systems, neutral) protein families.
 
 Fitting Accuracy by Reference Level
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -223,18 +223,18 @@ All energies are in kcal/mol. Uncertainties are 95% confidence intervals. When A
    <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.82 ± 0.11</td><td style="padding: 8px 12px;">0.93 ± 0.12</td><td style="padding: 8px 10px;">+13%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.79 ± 0.08</td><td style="padding: 8px 12px;">0.84 ± 0.07</td><td style="padding: 8px 10px;">+6%</td></tr>
 
    <tr style="background: #f0f0f0;"><td colspan="7" style="text-align: left; padding: 8px 14px;"><b>DFT reference</b></td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.12</td><td style="padding: 8px 12px;">0.29 ± 0.04</td><td style="padding: 8px 10px;">&minus;83%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.05</td><td style="padding: 8px 12px;">0.30 ± 0.01</td><td style="padding: 8px 10px;">&minus;66%</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.14</td><td style="padding: 8px 12px;">0.41 ± 0.06</td><td style="padding: 8px 10px;">&minus;80%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.06</td><td style="padding: 8px 12px;">0.42 ± 0.02</td><td style="padding: 8px 10px;">&minus;63%</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">MAE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.66 ± 0.24</td><td style="padding: 8px 12px;">0.29 ± 0.08</td><td style="padding: 8px 10px;">&minus;82%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.10</td><td style="padding: 8px 12px;">0.30 ± 0.02</td><td style="padding: 8px 10px;">&minus;66%</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">RMSE (kcal/mol)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">2.04 ± 0.27</td><td style="padding: 8px 12px;">0.41 ± 0.12</td><td style="padding: 8px 10px;">&minus;80%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">1.12 ± 0.12</td><td style="padding: 8px 12px;">0.42 ± 0.04</td><td style="padding: 8px 10px;">&minus;63%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Pearson (<i>r</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.81</td><td style="padding: 8px 12px;">0.99</td><td style="padding: 8px 10px;">+22%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.90</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 10px;">+8%</td></tr>
    <tr><td style="text-align: left; padding: 8px 14px;">Spearman (<i>ρ</i>)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.75</td><td style="padding: 8px 12px;">0.97</td><td style="padding: 8px 10px;">+29%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89</td><td style="padding: 8px 12px;">0.95</td><td style="padding: 8px 10px;">+7%</td></tr>
-   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD<sup>&#42;</sup> (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.06</td><td style="padding: 8px 12px;">0.99 ± 0.06</td><td style="padding: 8px 10px;">+11%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58 ± 0.03</td><td style="padding: 8px 12px;">0.67 ± 0.04</td><td style="padding: 8px 10px;">+16%</td></tr>
+   <tr><td style="text-align: left; padding: 8px 14px;">Max RMSD<sup>&#42;</sup> (&#8491;)</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.89 ± 0.12</td><td style="padding: 8px 12px;">0.99 ± 0.12</td><td style="padding: 8px 10px;">+11%</td><td style="padding: 8px 12px; border-left: 2px solid #ccc;">0.58 ± 0.06</td><td style="padding: 8px 12px;">0.67 ± 0.08</td><td style="padding: 8px 10px;">+14%</td></tr>
    </tbody>
    <tfoot>
    <tr><td colspan="7" style="text-align: left; padding: 6px 14px; font-size: 0.9em;"><sup>&#42;</sup> Max RMSD is a worst-case statistic (maximum across scan points per torsion). See <a href="#geometry-fidelity">Geometry Fidelity</a>.</td></tr>
    </tfoot>
    </table>
 
-All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 63–90% and Pearson correlations reaching 0.95–0.99. Worst-case geometry stays bounded across all three: Max RMSD shifts by roughly ±0.1 Å relative to the GAFF2 baseline post-fit — see `Geometry Fidelity`_ for why this aggregate is set by a small tail rather than a broad shift. In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 81% of TYK2 and 79% of MCL1 torsions.
+All three reference levels produce significant improvements over standard GAFF2, with RMSE reductions of 63–90% and AFFDO Pearson correlations of 0.97–0.99. Worst-case geometry stays bounded across all three: Max RMSD shifts by roughly ±0.1 Å relative to the GAFF2 baseline post-fit — see `Geometry Fidelity`_ for what this metric measures. In terms of torsion improvement rates, XTB improves 82% of TYK2 and 95% of MCL1 torsions; DFT-SP achieves the highest rates at 83% (TYK2) and 98% (MCL1); DFT constrained-optimization improves 82% of TYK2 and 81% of MCL1 torsions.
 
 DFT-SP combines DFT-quality energies with XTB geometries at single-point cost, producing smooth energy profiles that the optimizer fits reliably. XTB is competitive for both neutral and charged molecules, achieving the lowest absolute RMSE values. DFT constrained-optimization produces the most physically accurate profiles but is the hardest to fit — full geometry relaxation introduces complex energy landscape features that single-barrier fitting cannot fully capture.
 
@@ -243,9 +243,9 @@ Geometry Fidelity
 
 AFFDO uses a two-level optimization strategy to balance energy accuracy with geometric fidelity. In the inner loop, torsion parameters are refined using single-point (SP) energy evaluations on fixed geometries — this is fast and allows efficient gradient-based exploration of parameter space. Periodically, outer geometry-refresh cycles re-minimize MM geometries with the updated parameters and recompute energy profiles, ensuring that the torsion parameters remain consistent with relaxed molecular structures.
 
-This is a deliberate cost/accuracy trade. The manuscript-era workflow ran a constrained optimization after *every* inner iteration, holding geometry close to the reference at much higher cost. Today's default reserves constrained optimization for the outer cycles, which is dramatically cheaper and shifts worst-case geometry slightly: Max RMSD moves from 0.68 to 0.76 Å (+13%) at the DFT reference, while energy RMSE drops ~71%.
+This is a deliberate cost/accuracy trade. The manuscript-era workflow ran a constrained optimization after *every* inner iteration, holding geometry close to the reference at much higher cost. Today's default reserves constrained optimization for the outer cycles, which is dramatically cheaper and shifts worst-case geometry slightly: Max RMSD moves from 0.68 to 0.76 Å (+13%) at the DFT reference, while energy RMSE drops 70%.
 
-Max RMSD is the most pessimistic statistic in the reports — the *maximum* deviation over a torsion's scan points, so one stiff point sets the value. The mean deviation across the same scan points is less than half that (0.33 → 0.39 Å). Among torsions AFFDO actually refits, the median shifts ~0.04 Å and roughly a third improve.
+Max RMSD is the most pessimistic statistic in the reports — the *maximum* deviation over a torsion's scan points, so one stiff point sets the value for the whole torsion. Averaged over scan points instead, the same fits sit at 0.33 → 0.39 Å. Among torsions AFFDO actually refits, the median Max RMSD shifts by ~0.04 Å and roughly a third improve.
 
 To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:
 
