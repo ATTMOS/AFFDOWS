@@ -272,13 +272,14 @@ A λ sweep on the 16 TYK2 ligands (73 torsions) at the XTB reference level estab
    <tbody>
    <tr><td style="text-align: left; padding: 6px;">Mean energy RMSD (kcal/mol)</td><td><b>0.129</b></td><td>0.132</td><td>0.140</td><td>0.151</td></tr>
    <tr><td style="text-align: left; padding: 6px;">Mean geom RMSD (&#8491;)</td><td>0.418</td><td>0.375</td><td>0.370</td><td><b>0.363</b></td></tr>
+   <tr><td style="text-align: left; padding: 6px;">Mean Max RMSD (&#8491;)</td><td>1.042</td><td><b>1.012</b></td><td>1.016</td><td>1.042</td></tr>
    <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Mean norm_RMSE</td><td><b>0.045</b></td><td>0.046</td><td>0.048</td><td>0.052</td></tr>
    </tbody>
    </table>
 
 With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD but mean geometry RMSD rises to 0.418 Å. The default (:math:`\lambda = 0.5`) brings it to 0.375 Å at negligible energy cost.
 
-Raising λ further gives diminishing returns: :math:`\lambda = 2.0` buys only 0.012 Å more while energy RMSD degrades 14%. It also does not help the worst case — mean Max RMSD is flat from the default to :math:`\lambda = 1.0` (1.012 → 1.016 Å) and degrades at :math:`\lambda = 2.0` (1.042 Å). λ weights the *mean* geometric deviation during outer-cycle selection, so it has little leverage on worst-case values — 0.5 is the sweet spot.
+Raising λ further gives diminishing returns: :math:`\lambda = 2.0` buys only 0.012 Å more mean geometry while energy RMSD degrades 14%. It also does not help the worst case — mean Max RMSD is *minimised at the default* (1.012 Å) and rises in both directions, to 1.042 Å at :math:`\lambda = 0` and equally at :math:`\lambda = 2.0`. λ weights the *mean* geometric deviation during outer-cycle selection, so it has limited leverage on worst-case values; 0.5 sits at the bottom of that curve and is the sweet spot.
 
 .. note::
 

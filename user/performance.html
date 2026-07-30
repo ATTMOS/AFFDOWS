@@ -321,10 +321,11 @@
 <tbody>
 <tr><td style="text-align: left; padding: 6px;">Mean energy RMSD (kcal/mol)</td><td><b>0.129</b></td><td>0.132</td><td>0.140</td><td>0.151</td></tr>
 <tr><td style="text-align: left; padding: 6px;">Mean geom RMSD (Å)</td><td>0.418</td><td>0.375</td><td>0.370</td><td><b>0.363</b></td></tr>
+<tr><td style="text-align: left; padding: 6px;">Mean Max RMSD (Å)</td><td>1.042</td><td><b>1.012</b></td><td>1.016</td><td>1.042</td></tr>
 <tr style="border-bottom: 2px solid #333;"><td style="text-align: left; padding: 6px;">Mean norm_RMSE</td><td><b>0.045</b></td><td>0.046</td><td>0.048</td><td>0.052</td></tr>
 </tbody>
 </table><p>With no regularization (<span class="math notranslate nohighlight">\(\lambda = 0\)</span>), the optimizer achieves the lowest energy RMSD but mean geometry RMSD rises to 0.418 Å. The default (<span class="math notranslate nohighlight">\(\lambda = 0.5\)</span>) brings it to 0.375 Å at negligible energy cost.</p>
-<p>Raising λ further gives diminishing returns: <span class="math notranslate nohighlight">\(\lambda = 2.0\)</span> buys only 0.012 Å more while energy RMSD degrades 14%. It also does not help the worst case — mean Max RMSD is flat from the default to <span class="math notranslate nohighlight">\(\lambda = 1.0\)</span> (1.012 → 1.016 Å) and degrades at <span class="math notranslate nohighlight">\(\lambda = 2.0\)</span> (1.042 Å). λ weights the <em>mean</em> geometric deviation during outer-cycle selection, so it has little leverage on worst-case values — 0.5 is the sweet spot.</p>
+<p>Raising λ further gives diminishing returns: <span class="math notranslate nohighlight">\(\lambda = 2.0\)</span> buys only 0.012 Å more mean geometry while energy RMSD degrades 14%. It also does not help the worst case — mean Max RMSD is <em>minimised at the default</em> (1.012 Å) and rises in both directions, to 1.042 Å at <span class="math notranslate nohighlight">\(\lambda = 0\)</span> and equally at <span class="math notranslate nohighlight">\(\lambda = 2.0\)</span>. λ weights the <em>mean</em> geometric deviation during outer-cycle selection, so it has limited leverage on worst-case values; 0.5 sits at the bottom of that curve and is the sweet spot.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Two geometry RMSD metrics appear in the AFFDO results:</p>
