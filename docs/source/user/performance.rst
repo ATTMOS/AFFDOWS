@@ -5,10 +5,10 @@ Accuracy and Performance
 
 This page presents four benchmark phases, each building on the last:
 
-1. **Validation Overview** — How torsion fitting works and its downstream effect on RBFE, using representative Wang et al. [1] examples.
-2. **Manuscript Benchmark** *(historical)* — Published with the AFFDO manuscript. Optimized barrier heights **and** 1-4 scaling factors together.
-3. **Default Benchmark** — The numbers to cite. 175 systems across 7 protein families at current defaults: DFT reference, AM1-BCC charges, barrier heights only.
-4. **Deep-Dive Studies** — Methodology comparisons on MCL1 + TYK2: reference level, charge model, geometry fidelity, and RESP geometry source.
+1. **Validation Overview** — The principle of torsion fitting and its downstream effect on RBFE, illustrated with representative examples from Wang et al. [1].
+2. **Published Benchmark** — The validation reported in Blanco-Gonzalez et al. [3], in which barrier heights **and** 1-4 scaling factors were optimized together.
+3. **Default Benchmark** — The reference results for the current release: 175 systems across seven protein families using DFT reference profiles, AM1-BCC charges, and barrier-height fitting only.
+4. **Methodology Studies** — Controlled comparisons on MCL1 and TYK2 addressing reference level, charge model, geometry fidelity, and RESP geometry source.
 
 The primary metric throughout is **torsion-profile agreement** — how well AFFDO-fitted MM energy profiles reproduce QM reference scans. RBFE improvements are reported as complementary downstream validation where available.
 
@@ -17,7 +17,7 @@ The primary metric throughout is **torsion-profile agreement** — how well AFFD
 Validation Overview
 -------------------
 
-AFFDO improves molecular mechanics force fields by fitting torsion parameters to reproduce quantum-mechanical (QM) reference energy profiles. The examples below, drawn from the Wang et al. [1] protein-ligand dataset, illustrate the core approach and its impact.
+AFFDO improves molecular mechanics force fields by fitting torsion parameters to reproduce quantum-mechanical (QM) reference energy profiles. The examples below, taken from the Wang et al. [1] protein-ligand dataset, illustrate the approach and its effect.
 
 In **Figure 1**, torsional scan energy profiles are shown for representative torsions of TYK2 ejm42 (**A**) and jmc27 (**B**). The standard GAFF2 profile of the former mostly differs from the reference by barrier height, while the latter differs in both barrier height and phase. Using AFFDO, both the phase and barrier height are fitted, resulting in much tighter agreement with the QM reference profiles (Fitted GAFF). Reparameterization times range from 3 to 48 hours depending on system size, atom types, and hardware.
 
@@ -27,10 +27,10 @@ These torsion-profile improvements also translate to better downstream predictio
 .. image:: images/validation_figure.png
     :alt: This project was supported by NIH SBIR Seed fund.
 
-Manuscript Benchmark
----------------------
+Published Benchmark
+-------------------
 
-In our manuscript [3], we benchmarked |BOLD_AFFDO_VERSION| against a wider range of drug-like molecules with complex torsions using DFT reference profiles and AM1-BCC charges. In this study, both dihedral barrier heights **and** 1-4 scaling factors (scee/scnb) were optimized simultaneously — note that this differs from current default settings, which optimize torsion parameters only (see `Default Benchmark: Full Wang Dataset`_ below).
+Blanco-Gonzalez et al. [3] benchmarked |BOLD_AFFDO_VERSION| against a broad range of drug-like molecules with complex torsions, using DFT reference profiles and AM1-BCC charges. In that study, dihedral barrier heights **and** 1-4 scaling factors (scee/scnb) were optimized simultaneously. This differs from the current default configuration, which optimizes torsion parameters only (see `Default Benchmark: Full Wang Dataset`_ below).
 
 Key findings:
 
@@ -39,14 +39,14 @@ Key findings:
 * **Sampling robustness:** Reparameterized torsions reduce RBFE uncertainty and improve sampling consistency, leading to more stable MD ensembles and more reliable alchemical free-energy calculations.
 * **Workflow throughput:** Representative fragments (e.g., TYK2 jmc28_F1, MCL1 L35_F1) complete in roughly 1–7 hours on a 36-core/4×GPU cloud node, with QC centroid optimizations and torsional scans dominating wall time.
 
-Full torsional profiles, benchmarking workflows, and extended RBFE analyses are presented in the manuscript and its supporting information [3].
+Complete torsional profiles, benchmarking workflows, and extended RBFE analyses are presented in ref [3] and its Supporting Information.
 
 Default Benchmark: Full Wang Dataset
 -------------------------------------
 
 This is the canonical accuracy benchmark for AFFDO's current default configuration: **DFT constrained-optimization** as the reference profile, **AM1-BCC** as the charge model, JAX-SciPy hybrid optimizer with atom-type torsion coupling, and **no 1-4 scaling-factor optimization**. It covers **175 systems and 789 torsions** across the seven Wang FEP+ protein families included in this study.
 
-For historical comparison, the manuscript [3] benchmark (previous section) used the same DFT + AM1-BCC combination but *also* optimized 1-4 scaling factors (scee/scnb) simultaneously with torsion barrier heights. The current defaults (v25.11) fit **only barrier heights** because subsequent testing showed that scaling-factor tuning gives marginal accuracy gains at substantial cost in optimizer complexity and reproducibility. The tables below are the reference numbers to cite when evaluating AFFDO out-of-the-box.
+The published benchmark [3] described in the previous section used the same DFT and AM1-BCC combination but additionally optimized the 1-4 scaling factors (scee/scnb) together with the torsion barrier heights. The current defaults (v25.11) fit **barrier heights only**, as subsequent testing showed that scaling-factor optimization yields marginal accuracy gains at a substantial cost in optimizer complexity and reproducibility. The tables below therefore provide the appropriate reference values for evaluating AFFDO in its default configuration.
 
 .. list-table:: Scope
    :header-rows: 1
@@ -136,16 +136,16 @@ Each cell reads **GAFF2 → AFFDO**. Energies in kcal/mol, Max RMSD in Å.
 
 **Consistency across families.** RMSE reduction ranges from 63% (mcl1, where the GAFF2 baseline was already the lowest at 1.12 kcal/mol) to 91% (thrombin, where GAFF2 started at 3.26 kcal/mol). Absolute AFFDO RMSE settles in a tight 0.17–0.55 kcal/mol range across all seven families, indicating that the default configuration delivers converged results regardless of protein family or the initial GAFF2 baseline quality. Pearson correlations reach ≥0.95 in six of seven families — profile shape is recovered as well as amplitude.
 
-For focused methodology comparisons (reference level, charge model, geometry regularization, RESP geometry source), see the deep-dive studies in the next section.
+Controlled comparisons of reference level, charge model, geometry regularization, and RESP geometry source are presented in the following section.
 
-.. _deep-dive-studies:
+.. _methodology-studies:
 
-Deep-Dive Studies
-------------------
+Methodology Studies
+-------------------
 
-The following studies use the two manuscript families — **MCL1** (42 systems, q = −1) and **TYK2** (16 systems, neutral) — as representative anionic and neutral tests for exploring specific aspects of the AFFDO workflow. Each study addresses one methodology question that shapes the current defaults documented in `Default Benchmark: Full Wang Dataset`_ above. All studies retain the barrier-heights-only fitting scope (no scaling-factor optimization).
+The studies below use the two protein families characterized in ref [3] — **MCL1** (42 systems, q = −1) and **TYK2** (16 systems, neutral) — as representative anionic and neutral test sets for examining individual aspects of the AFFDO workflow. Each study addresses a single methodological question underlying the current defaults reported in `Default Benchmark: Full Wang Dataset`_ above. All studies retain the barrier-height-only fitting scope, without scaling-factor optimization.
 
-The metrics reported in these studies are self-referential (each reference level fits its own energy surface). For a direct comparison of reference levels against DFT ground truth, see the `Cross-Reference Analysis`_ subsection.
+The metrics reported in these studies are self-referential, as each reference level is fitted to its own energy surface. A direct comparison of reference levels against the DFT ground truth is given in the `Cross-Reference Analysis`_ subsection.
 
 Baseline Accuracy (58-System Subset)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -242,9 +242,9 @@ Geometry Fidelity
 
 AFFDO uses a two-level optimization strategy to balance energy accuracy with geometric fidelity. In the inner loop, torsion parameters are refined using single-point (SP) energy evaluations on fixed geometries — this is fast and allows efficient gradient-based exploration of parameter space. Periodically, outer geometry-refresh cycles re-minimize MM geometries with the updated parameters and recompute energy profiles, ensuring that the torsion parameters remain consistent with relaxed molecular structures.
 
-This is a deliberate cost/accuracy trade. The manuscript-era workflow ran a constrained optimization after *every* inner iteration, holding geometry close to the reference at much higher cost. Today's default reserves constrained optimization for the outer cycles, which is dramatically cheaper and shifts worst-case geometry slightly: Max RMSD moves from 0.68 to 0.76 Å (+13%) at the DFT reference, while energy RMSE drops 70%.
+This represents a deliberate trade-off between computational cost and geometric accuracy. The protocol reported in ref [3] performed a constrained optimization after every inner iteration, which held the geometry close to the reference at considerably greater expense. The current default restricts constrained optimization to the outer cycles, substantially reducing cost while producing a small shift in worst-case geometry: at the DFT reference level, Max RMSD increases from 0.68 to 0.76 Å (+13%), while the energy RMSE decreases by 70%.
 
-Max RMSD is the most pessimistic statistic in the reports — the *maximum* deviation over a torsion's scan points, so one stiff point sets the value for the whole torsion. Averaged over scan points instead, the same fits sit at 0.33 → 0.39 Å. Among torsions AFFDO actually refits, the median Max RMSD shifts by ~0.04 Å and roughly a third improve.
+Max RMSD is the most conservative metric reported, since it records the *maximum* deviation across a torsion's scan points; a single high-deviation point therefore determines the value for the entire torsion. Averaged over all scan points, the same fits give 0.33 → 0.39 Å. Among the torsions that AFFDO refits, the median Max RMSD shifts by approximately 0.04 Å, and roughly one third improve.
 
 To further control this trade-off, AFFDO employs a composite scoring function during outer-cycle selection:
 
@@ -278,7 +278,7 @@ A λ sweep on the 16 TYK2 ligands (73 torsions) at the XTB reference level estab
 
 With no regularization (:math:`\lambda = 0`), the optimizer achieves the lowest energy RMSD but mean geometry RMSD rises to 0.418 Å. The default (:math:`\lambda = 0.5`) brings it to 0.375 Å at negligible energy cost.
 
-Raising λ further gives diminishing returns: :math:`\lambda = 2.0` buys only 0.012 Å more mean geometry while energy RMSD degrades 14%. It also does not help the worst case — mean Max RMSD is *minimised at the default* (1.012 Å) and rises in both directions, to 1.042 Å at :math:`\lambda = 0` and equally at :math:`\lambda = 2.0`. λ weights the *mean* geometric deviation during outer-cycle selection, so it has limited leverage on worst-case values; 0.5 sits at the bottom of that curve and is the sweet spot.
+Increasing λ beyond this point yields diminishing returns: :math:`\lambda = 2.0` improves the mean geometry by only 0.012 Å while degrading the energy RMSD by 14%. It also provides no benefit in the worst case — the mean Max RMSD is *minimized at the default value* (1.012 Å) and increases in both directions, reaching 1.042 Å at :math:`\lambda = 0` and the same value at :math:`\lambda = 2.0`. Because λ weights the *mean* geometric deviation during outer-cycle selection, it exerts limited influence on worst-case values. A value of 0.5 lies at the minimum of this curve and is therefore adopted as the default.
 
 .. note::
 
@@ -292,7 +292,7 @@ Raising λ further gives diminishing returns: :math:`\lambda = 2.0` buys only 0.
 Cross-Reference Analysis
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The fitting accuracy table above shows how well AFFDO reproduces each reference level's own energy surface — but it does not tell us how close the resulting parameters are to DFT ground truth. To answer that question, we evaluated XTB and DFT-SP torsion profiles directly against DFT constrained-optimization profiles for the same 305 torsions.
+The fitting accuracy table above reports how closely AFFDO reproduces the energy surface of each reference level, but it does not establish how close the resulting parameters are to the DFT ground truth. To address this, XTB and DFT-SP torsion profiles were evaluated directly against DFT constrained-optimization profiles for the same 305 torsions.
 
 .. raw:: html
 
@@ -313,7 +313,7 @@ The fitting accuracy table above shows how well AFFDO reproduces each reference 
 
 DFT-SP profiles are 30% closer to DFT ground truth than XTB profiles (RMSE 0.97 vs 1.39 kcal/mol). This gap propagates through fitting: even though XTB fitting achieves a lower self-referential RMSE (0.34 vs 0.45), the XTB reference surface itself is further from DFT, so the final fitted parameters end up less accurate.
 
-The table below combines fitting quality, reference quality, and net accuracy to show the full picture:
+The table below combines fitting quality, reference quality, and net accuracy:
 
 .. raw:: html
 
@@ -336,7 +336,7 @@ The table below combines fitting quality, reference quality, and net accuracy to
    </tfoot>
    </table>
 
-DFT constrained-optimization yields the highest accuracy (net RMSE 0.42 kcal/mol) but requires the longest computation time. Because DFT is its own reference, its fitting quality and net accuracy coincide — there is no reference error to propagate. DFT-SP is a cost-effective alternative, achieving 23% lower net error than XTB (1.08 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB fits its own surface most tightly (0.34) but that surface sits furthest from DFT, so its fitted parameters end up least accurate against ground truth — fitting quality alone is not a guide to parameter quality.
+DFT constrained-optimization yields the highest accuracy (net RMSE 0.42 kcal/mol) but requires the longest computation time. Because DFT is its own reference, its fitting quality and net accuracy coincide — there is no reference error to propagate. DFT-SP is a cost-effective alternative, achieving 23% lower net error than XTB (1.08 vs 1.40 kcal/mol) at a fraction of the cost of full DFT. XTB reproduces its own surface most closely (0.34), but that surface deviates furthest from DFT, so its fitted parameters are the least accurate with respect to the ground truth. Fitting quality alone is therefore not a reliable indicator of parameter quality.
 
 .. list-table:: Reference Level Summary
    :header-rows: 1
@@ -422,11 +422,12 @@ post-fit RMSE 0.383 kcal/mol; ABCG2 fits 263/305 (86%) with 0.354; RESP fits
 292/305 (96%) with **0.313**. The RMSE reduction over GAFF2 is 76%, 78%, and
 **81%** respectively.
 
-To make the comparison robust to the choice of GAFF2 baseline, we also report a
-direct head-to-head on the absolute AFFDO RMSE — i.e., the per-torsion RMSE
-after fitting, ignoring the starting point — on the 232 torsions fitted by all
-three charge models. The table also includes per-system wins on the full
-58-system set (mean improvement delta > 1%).
+To make the comparison independent of the GAFF2 baseline, a direct pairwise
+comparison of the absolute AFFDO RMSE — that is, the per-torsion RMSE after
+fitting, irrespective of the starting point — is also reported for the 232
+torsions fitted by all three charge models. The table additionally reports the
+number of systems favoring each model across the full 58-system set (mean
+improvement difference > 1%).
 
 .. list-table:: Head-to-Head: per-torsion (232 common) and per-system (58 total)
    :header-rows: 1
@@ -486,21 +487,23 @@ making the GAFF2 baseline appear acceptable when it is not.
 
 **Key findings:**
 
-- **RESP is the best charge model for torsion fitting, by a modest margin**: lowest post-fit RMSE
-  (0.313 kcal/mol vs 0.354 ABCG2 and 0.383 AM1-BCC), highest fit rate (96%), and largest RMSE
-  reduction (81%). RESP wins 38/58 systems head-to-head against AM1-BCC. The per-torsion margins are
-  narrow — RESP and ABCG2 are effectively tied (41% vs 40%, with 19% of torsions within 1% of each
-  other), and all three models land in the same 0.31–0.38 kcal/mol band once fitted.
+- **RESP gives the best overall performance for torsion fitting, by a modest margin**: it achieves
+  the lowest post-fit RMSE (0.313 kcal/mol, compared with 0.354 for ABCG2 and 0.383 for AM1-BCC),
+  the highest fit rate (96%), and the largest RMSE reduction (81%). RESP outperforms AM1-BCC in 38
+  of 58 systems. The per-torsion margins are nevertheless narrow: RESP and ABCG2 are effectively
+  equivalent (41% vs 40%, with 19% of torsions within 1% of each other), and all three models fall
+  within the same 0.31–0.38 kcal/mol range after fitting.
 
-- **ABCG2 excels for neutral molecules**: For TYK2 (neutral), ABCG2 achieves the lowest AFFDO RMSE
-  (0.21 kcal/mol vs 0.24 RESP and 0.25 AM1-BCC). Both ABCG2 and RESP reach a 100% fit rate vs 82%
-  for AM1-BCC.
+- **ABCG2 performs best for neutral molecules**: for TYK2 (neutral), ABCG2 achieves the lowest AFFDO RMSE
+  (0.21 kcal/mol, compared with 0.24 for RESP and 0.25 for AM1-BCC). Both ABCG2 and RESP reach a
+  100% fit rate, compared with 82% for AM1-BCC.
 
-- **RESP's advantage is concentrated in charged systems**: For MCL1 (q = -1), RESP fits 94% of
-  torsions vs 80-81% for BCC/ABCG2, and reaches a lower post-fit RMSE (0.35 vs 0.43-0.44). Both
+- **The advantage of RESP is concentrated in charged systems**: for MCL1 (q = −1), RESP fits 94% of
+  torsions compared with 80–81% for AM1-BCC and ABCG2, and reaches a lower post-fit RMSE (0.35 vs
+  0.43–0.44). Both
   AM1-BCC and ABCG2 were parameterized primarily on neutral organic molecules, while RESP fits
-  charges directly to the QM electrostatic potential of the actual (anionic) state. On neutral TYK2
-  the three models are close; the separation appears on the anionic set.
+  charges directly to the QM electrostatic potential of the anionic state itself. The three models
+  perform comparably on the neutral TYK2 set; the separation emerges on the anionic set.
 
 - **GAFF2 baseline inversion**: RESP shows the highest GAFF2 baseline RMSE because its more accurate
   charges expose larger discrepancies with generic torsion parameters. After bespoke fitting, RESP
@@ -578,8 +581,8 @@ making it the recommended default for production use. Opt into the
 DFT-opt pipeline via ``--resp-geometry-source dft`` on the CLI, or pick
 "DFT (advanced — slowest)" in the AFFDOWS RESP geometry source
 selector, when the most accurate possible fit is needed (e.g.
-publishable manuscript benchmarks, or ligands where the XTB→DFT
-geometry drift is known to be non-trivial).
+publication-quality benchmarks, or ligands for which the XTB→DFT
+geometry drift is known to be significant).
 
 **References**
 
